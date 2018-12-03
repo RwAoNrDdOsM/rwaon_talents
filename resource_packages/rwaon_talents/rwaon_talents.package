@@ -1,0 +1,11 @@
+mod = [
+    "rwaon_talents"
+]
+
+package = [
+    "resource_packages/rwaon_talents/rwaon_talents"
+]
+
+lua = [
+    "scripts/mods/rwaon_talents/*"
+]

@@ -1,4 +1,4 @@
-# RwAoNrDdOsM's Talent Rework
+# Vermintide 2 Reworks
 
 This mod provides a basis for replacing talents with custom ones.
 

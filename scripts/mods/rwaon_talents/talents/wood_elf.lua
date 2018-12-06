@@ -31,3 +31,5 @@ mod:add_buff_function("rwaon_kerillian_maidenguard_start_ability_cooldown", func
 		career_extension:start_activated_ability_cooldown()
 	end
 end)
+
+------------------------------------------------------------------------------

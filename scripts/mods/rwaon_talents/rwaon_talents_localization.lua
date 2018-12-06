@@ -1,5 +1,5 @@
 return {
-    mod_description = {
+    mod_name = {
         en = "Reworks Mod",
     },
     mod_description = {
@@ -19,38 +19,28 @@ return {
 ------------------------------------------------------------------------------
 
     -- Pyromancer 1.1
-    rwaon_sienna_scholar_double_dot_duration = {
-        en = "Boiling Blood",
-    },
-    rwaon_sienna_scholar_double_dot_duration_desc = {
-        en = "All burning dots have double the duration.",
-    },
+    --[[ NO CHANGES ]]--
 
     -- Pyromancer 1.2
-    rwaon_sienna_scholar_martial_studies = {
-        en = "Martial Studies",
-    },
-    rwaon_sienna_scholar_martial_studies_desc = {
-        en = "Increase headshot damage by %g%%.",
-    },
+    --[[ NO CHANGES ]]--
 
     -- Pyromancer 1.3
     --[[ NO CHANGES ]]--
 
     -- Pyromancer 2.3
-    rwaon_sienna_scholar_cascading_firecloak = {
-        en = "Cascading Fire-cloak",
+    rwaon_sienna_scholar_double_dot_duration = {
+        en = "Boiling Blood",
     },
-    rwaon_sienna_scholar_cascading_firecloak_desc = {
-        en = "When your health goes below %g%%, a shield of flame appears around you, scorching nearby foes. You also gain fire immunity for %i seconds.",
+    rwaon_sienna_scholar_double_dot_duration_desc = {
+        en = "All burning dots duration will be increased. (see Mod Notes for",
     },
 
     -- Pyromancer 3.1
-    rwaon_sienna_scholar_passive_reduced_block_cost_from_overcharge = {
-        en = "Aqshy's Aegis",
+    rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge = {
+        en = "Martial Studies",
     },
-    rwaon_sienna_scholar_passive_reduced_block_cost_from_overcharge_desc = {
-        en = "Critical Mass now provides fire resistance to Sienna and everyone surrounding her by X per Y overcharge and stacks up to Z times.",
+    rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge_desc = {
+        en = "Critical Mass also increases headshot damage by 4% per 6 overcharge and stacks up to 5 times.",
     },
 
     -- Pyromancer 4.2
@@ -62,10 +52,27 @@ return {
     },
 
     -- Pyromancer 5.2
-    rwaon_sienna_scholar_activated_ability_heal = {
+    rwaon_sienna_scholar_embodiment_of_aqshy = {
         en = "Embodiment of Aqshy",
     },
-    rwaon_sienna_scholar_activated_ability_heal_desc = {
-        en = "Once The Burning Head is used, you are transmogrified into a Embodiment of Aqshy for X seconds. Attacks you make reduce your overcharge and your attack speed is increased.",
+    rwaon_sienna_scholar_embodiment_of_aqshy_desc = {
+        en = "Once The Burning Head is used, you are transmogrified into a Embodiment of Aqshy for 10 seconds. Attacks you make reduce your overcharge and your attack speed is increased.",
+    },
+
+    -- Pyromancer 5.3
+    rwaon_sienna_scholar_cascading_firecloak = {
+        en = "Cascading Fire-cloak",
+    },
+    rwaon_sienna_scholar_cascading_firecloak_desc = {
+        en = "When your health goes below %g%%, a shield of flame appears around you, scorching nearby foes. You also gain fire immunity for %i seconds.",
+    },
+
+------------------------------------------------------------------------------
+
+    --Barrage Trait
+    new_description_traits_ranged_consecutive_hits_increase_power = {
+        en = "Consecutive attacks against an enemy boosts attack power by 5%, stacking 5 times for 2 seconds."
     },
 }
+
+    

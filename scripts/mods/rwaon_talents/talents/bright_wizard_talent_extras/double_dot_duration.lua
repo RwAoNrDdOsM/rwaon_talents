@@ -9,7 +9,8 @@ DoubleBurnDotLookup = {
 	burning_1W_dot = "burning_1W_dot_double",
 	burning_flamethrower_dot = "burning_flamethrower_dot_double",
 	burning_3W_dot = "burning_3W_dot_double",
-	beam_burning_dot = "beam_burning_dot_double"
+    beam_burning_dot = "beam_burning_dot_double",
+    burning_geiser_dot = "burning_geiser_dot_double"
 }
 
 mod:add_buff("burning_dot_double", {
@@ -25,8 +26,21 @@ mod:add_buff("burning_dot_double", {
     damage_profile = "burning_dot",
     update_func = "apply_dot_damage"
 })
+mod:add_buff("burning_geiser_dot_double", {
+    duration = 10,
+    name = "burning dot",
+    end_flow_event = "smoke",
+    start_flow_event = "burn",
+    death_flow_event = "burn_death",
+    remove_buff_func = "remove_dot_damage",
+    apply_buff_func = "start_dot_damage",
+    time_between_dot_damages = 1,
+    damage_type = "burninating",
+    damage_profile = "burning_geiser_dot",
+    update_func = "apply_dot_damage"
+})
 mod:add_buff("beam_burning_dot_double", {
-    duration = 6,
+    duration = 4.5,
     name = "burning dot",
     end_flow_event = "smoke",
     start_flow_event = "burn",
@@ -91,6 +105,7 @@ mod:add_buff("burning_3W_dot_double", {
     damage_profile = "burning_dot",
     update_func = "apply_dot_damage"
 })
+
 
 ------------------------------------------------------------------------------
 

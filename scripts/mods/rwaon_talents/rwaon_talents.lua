@@ -82,6 +82,7 @@ mod:dofile("scripts/mods/rwaon_talents/ults/wood_elf")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/1h_axes")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_blast_beam")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_spark_spear")
+mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_fireball")
 mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_geiser")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_flamethrower")
 
@@ -123,6 +124,51 @@ end)
 mod:hook(Achievement, "unlock", function(func, ...)
     return
 end)
+
+-- weapons new actions
+
+for item_template_name, item_template in pairs(Weapons) do
+	item_template.name = item_template_name
+	item_template.crosshair_style = item_template.crosshair_style or "dot"
+	local attack_meta_data = item_template.attack_meta_data
+	local tap_attack_meta_data = attack_meta_data and attack_meta_data.tap_attack
+	local hold_attack_meta_data = attack_meta_data and attack_meta_data.hold_attack
+	local set_default_tap_attack_range = tap_attack_meta_data and tap_attack_meta_data.max_range == nil
+	local set_default_hold_attack_range = hold_attack_meta_data and hold_attack_meta_data.max_range == nil
+	local actions = item_template.actions
+
+	for action_name, sub_actions in pairs(actions) do
+		for sub_action_name, sub_action_data in pairs(sub_actions) do
+			local lookup_data = {
+				item_template_name = item_template_name,
+				action_name = action_name,
+				sub_action_name = sub_action_name
+			}
+			sub_action_data.lookup_data = lookup_data
+			local action_kind = sub_action_data.kind
+			local action_assert_func = ActionAssertFuncs[action_kind]
+
+			if action_assert_func then
+				action_assert_func(item_template_name, action_name, sub_action_name, sub_action_data)
+			end
+
+			if action_name == "action_one" then
+				local range_mod = sub_action_data.range_mod or 1
+
+				if set_default_tap_attack_range and string.find(sub_action_name, "light_attack") then
+					local current_attack_range = tap_attack_meta_data.max_range or math.huge
+					local tap_attack_range = TAP_ATTACK_BASE_RANGE_OFFSET + WEAPON_DAMAGE_UNIT_LENGTH_EXTENT * range_mod
+					tap_attack_meta_data.max_range = math.min(current_attack_range, tap_attack_range)
+				elseif set_default_hold_attack_range and string.find(sub_action_name, "heavy_attack") then
+					local current_attack_range = hold_attack_meta_data.max_range or math.huge
+					local hold_attack_range = HOLD_ATTACK_BASE_RANGE_OFFSET + WEAPON_DAMAGE_UNIT_LENGTH_EXTENT * range_mod
+					hold_attack_meta_data.max_range = math.min(current_attack_range, hold_attack_range)
+				end
+			end
+		end
+	end
+end
+
 --[[
 mod.explode = function()
     local player_unit = Managers.player:local_player().player_unit

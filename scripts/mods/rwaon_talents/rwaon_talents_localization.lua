@@ -5,6 +5,12 @@ return {
     mod_description = {
         en = "Reworks some talents and ultimates. And. Stuff!?",
     },
+    flamestorm_weapon_switch_option_name = {
+        en = "Flamestorm Weapon button switch",
+    },
+    flamestorm_weapon_switch_option_tooltip = {
+        en = "Requires full game restart",
+    },
 
 ------------------------------------------------------------------------------
 

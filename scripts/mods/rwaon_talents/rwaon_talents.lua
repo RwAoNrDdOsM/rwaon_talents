@@ -83,6 +83,7 @@ mod:dofile("scripts/mods/rwaon_talents/ults/wood_elf")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_blast_beam")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_spark_spear")
 mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_geiser")
+--mod:dofile("scripts/mods/rwaon_talents/weapons/staff_flamethrower")
 
 
 -- Traits

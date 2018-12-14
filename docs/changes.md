@@ -25,6 +25,11 @@ Boiling Blood (new Tier 2, Slot 3 talent):
 [*] Increases the duration of all burning dots.
 [/list]
 
+Martial Studies:
+[list]
+[*]"Critical Mass also increases headshot damage by 4% per 6 overcharge and stacks up to 5 times.
+[/list]
+
 One With The Flame:
 [list]
 [*]Increased to 3% attack speed per overcharge (from 2%)

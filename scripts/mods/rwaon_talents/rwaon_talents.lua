@@ -73,7 +73,7 @@ mod:dofile("scripts/mods/rwaon_talents/talents/wood_elf")
 --mod:dofile("scripts/mods/rwaon_talents/talents/dwarf_ranger")
 
 -- Ultimates
---mod:dofile("scripts/mods/rwaon_talents/ults/bright_wizard")
+mod:dofile("scripts/mods/rwaon_talents/ults/bright_wizard")
 mod:dofile("scripts/mods/rwaon_talents/ults/wood_elf")
 --mod:dofile("scripts/mods/rwaon_talents/ults/empire_soldier")
 --mod:dofile("scripts/mods/rwaon_talents/ults/witch_hunter")
@@ -118,7 +118,6 @@ end)
 -- Unlock all careers.
 mod:hook(Development, "parameter", function(func, key, ...)
     if key == "unlock_all_careers" then return true end
-    if key == "unlimited_ammo" then return true end
     return func(key, ...)
 end)
 

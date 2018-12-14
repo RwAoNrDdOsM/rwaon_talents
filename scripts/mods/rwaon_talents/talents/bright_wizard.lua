@@ -12,25 +12,20 @@ mod:dofile("scripts/mods/rwaon_talents/talents/bright_wizard_talent_extras/doubl
 ------------------------------------------------------------------------------
 
 mod:add_talent("bw_scholar", 3, 1, "rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge", {
-    --icon = "sienna_scholar_passive_increased_attack_speed_from_overcharge",
     description_values = {
-        { value = 0.04, value_type = "percent", }, -- Multiplier (MODIFIED!)
+        { value = 0.04, value_type = "percent", }, -- Multiplier
         { value = 6 }, -- Chunk size
         { value = 5 }, -- Max stacks
     },
-    buffs = {
-        "rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge",
-    },
+	buffs = {
+		"rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge"
+	},
 })
 
 mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge", {
     chunk_size = 6,
-    buffs = {
-        {
-            buff_to_add = "rwaon_sienna_scholar_passive_increased_headshot_damage",
-            update_func = "activate_buff_stacks_based_on_overcharge_chunks"
-        }
-    },
+    buff_to_add = "rwaon_sienna_scholar_passive_increased_headshot_damage",
+    update_func = "activate_buff_stacks_based_on_overcharge_chunks"
 })
 
 mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_passive_increased_headshot_damage", {
@@ -51,6 +46,7 @@ mod:add_talent("bw_scholar", 3, 3, "sienna_scholar_passive_increased_attack_spee
         "sienna_scholar_passive_increased_attack_speed_from_overcharge",
     },
 })
+
 mod:add_talent_buff("bright_wizard", "sienna_scholar_passive_increased_attack_speed", {
     max_stacks = 5,
     multiplier = 0.03,  -- Multiplier (MODIFIED!)
@@ -102,7 +98,7 @@ mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_sear_wounds", {
 
 ------------------------------------------------------------------------------
 
-
+--[[
 mod:add_talent("bw_scholar", 5, 2, "rwaon_sienna_scholar_embodiment_of_aqshy", {
     description_values = {},
     --buff_after_delay = true,
@@ -143,7 +139,7 @@ mod:add_buff("rwaon_sienna_scholar_embodiment_of_aqshy", {
 	}
 })
 
---[[
+
 mod:add_talent("bw_scholar", 5, 3, "rwaon_sienna_scholar_cascading_firecloak", {
     description_values = {
         { value = 0.3, value_type = "percent" },

@@ -5,9 +5,7 @@ local mod = get_mod("rwaon_talents")
 
 --Radius Change
 
-local function add_weapon_data(action_no, action_from, value, new_data)
-    action_no[action_from][value] = new_data
-end
+
     
 for _, staff_fireball_geiser in ipairs{
     "staff_fireball_geiser_template_1",
@@ -15,7 +13,7 @@ for _, staff_fireball_geiser in ipairs{
     local weapon_template = Weapons[staff_fireball_geiser]
     local action_one = weapon_template.actions.action_one
     local action_two = weapon_template.actions.action_two
-    add_weapon_data(action_two, "default", "max_radius", 4.2) --3.5
+    add_weapon_value(action_two, "default", "max_radius", 4.2) --3.5
     --add_weapon_data(action_two, "default", "max_radius", 4.2) --3.5
 end
 
@@ -56,12 +54,12 @@ DamageProfileTemplates.burning_geiser_dot.no_stagger = true
 DamageProfileTemplates.burning_geiser_dot.default_target.damage_type = "burninating"
 DamageProfileTemplates.burning_geiser_dot.default_target.armor_modifier = {
 	attack = {
-		1, --1
-		0.75, --0.75
-		3, --3
-		1, --1
-		1, --1
-		0 --0
+		1,
+		0.75,
+		3,
+		1,
+		1,
+		0
 	},
 	impact = {
 		1,
@@ -84,7 +82,7 @@ InfiniteBurnDotLookup = {
 	burning_flamethrower_dot = "burning_flamethrower_dot_infinite",
 	burning_3W_dot = "burning_3W_dot_infinite",
 	beam_burning_dot = "beam_burning_dot_infinite",
-	burning_geiser_dot = "burning_geiser_dot_infinte"
+	burning_geiser_dot = "burning_geiser_dot_infinite"
 }
 
 DotTypeLookup = {

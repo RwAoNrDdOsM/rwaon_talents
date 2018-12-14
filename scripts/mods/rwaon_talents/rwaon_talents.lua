@@ -53,7 +53,9 @@ function mod:add_buff_function(name, func)
     BuffFunctionTemplates.functions[name] = func
 end
 
-
+function add_weapon_value(action_no, action_from, value, new_data)
+    action_no[action_from][value] = new_data
+end
 
 -- Replace Localize
 local vmf = get_mod("VMF")
@@ -82,7 +84,7 @@ mod:dofile("scripts/mods/rwaon_talents/ults/wood_elf")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/1h_axes")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_blast_beam")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_spark_spear")
-mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_fireball")
+--mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_fireball")
 mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_geiser")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_flamethrower")
 
@@ -125,63 +127,50 @@ mod:hook(Achievement, "unlock", function(func, ...)
     return
 end)
 
--- weapons new actions
+ExplosionTemplates.cascading_firecloak = {
+    explosion = {
+        radius = 3,
+        dot_template_name = "burning_3W_dot",
+        max_damage_radius = 3,
+        alert_enemies = false,
+        damage_type_glance = "fire_grenade_glance",
+        alert_enemies_radius = 10,
+        attack_template = "fire_grenade_explosion",
+        sound_event_name = "fireball_big_hit",
+        always_hurt_players = false,
+        damage_type = "fire_grenade",
+        damage_profile = "explosive_barrel",
+        effect_name = "fx/wpnfx_fire_grenade_impact",
+        power_level_glance = 250,
+        power_level = 500,
+    },
+    aoe = {
+        dot_template_name = "burning_1W_dot",
+        radius = 6,
+        nav_tag_volume_layer = "fire_grenade",
+        create_nav_tag_volume = true,
+        attack_template = "fire_grenade_dot",
+        sound_event_name = "player_combat_weapon_fire_grenade_explosion",
+        damage_interval = 1,
+        duration = 5,
+        area_damage_template = "explosion_template_aoe",
+        nav_mesh_effect = {
+            particle_radius = 2,
+            particle_name = "fx/wpnfx_fire_grenade_impact_remains",
+            particle_spacing = 0.9
+        }
+    }
+}
 
-for item_template_name, item_template in pairs(Weapons) do
-	item_template.name = item_template_name
-	item_template.crosshair_style = item_template.crosshair_style or "dot"
-	local attack_meta_data = item_template.attack_meta_data
-	local tap_attack_meta_data = attack_meta_data and attack_meta_data.tap_attack
-	local hold_attack_meta_data = attack_meta_data and attack_meta_data.hold_attack
-	local set_default_tap_attack_range = tap_attack_meta_data and tap_attack_meta_data.max_range == nil
-	local set_default_hold_attack_range = hold_attack_meta_data and hold_attack_meta_data.max_range == nil
-	local actions = item_template.actions
-
-	for action_name, sub_actions in pairs(actions) do
-		for sub_action_name, sub_action_data in pairs(sub_actions) do
-			local lookup_data = {
-				item_template_name = item_template_name,
-				action_name = action_name,
-				sub_action_name = sub_action_name
-			}
-			sub_action_data.lookup_data = lookup_data
-			local action_kind = sub_action_data.kind
-			local action_assert_func = ActionAssertFuncs[action_kind]
-
-			if action_assert_func then
-				action_assert_func(item_template_name, action_name, sub_action_name, sub_action_data)
-			end
-
-			if action_name == "action_one" then
-				local range_mod = sub_action_data.range_mod or 1
-
-				if set_default_tap_attack_range and string.find(sub_action_name, "light_attack") then
-					local current_attack_range = tap_attack_meta_data.max_range or math.huge
-					local tap_attack_range = TAP_ATTACK_BASE_RANGE_OFFSET + WEAPON_DAMAGE_UNIT_LENGTH_EXTENT * range_mod
-					tap_attack_meta_data.max_range = math.min(current_attack_range, tap_attack_range)
-				elseif set_default_hold_attack_range and string.find(sub_action_name, "heavy_attack") then
-					local current_attack_range = hold_attack_meta_data.max_range or math.huge
-					local hold_attack_range = HOLD_ATTACK_BASE_RANGE_OFFSET + WEAPON_DAMAGE_UNIT_LENGTH_EXTENT * range_mod
-					hold_attack_meta_data.max_range = math.min(current_attack_range, hold_attack_range)
-				end
-			end
-		end
-	end
-end
-
---[[
 mod.explode = function()
-    local player_unit = Managers.player:local_player().player_unit
-    local position = Unit.local_position(player_unit, 0)
-    local rotation = Quaternion.identity() or Unit.local_rotation(player_unit, 0)
-    local explosion_template = "lamp_oil"
+    local owner_unit = Managers.player:local_player().player_unit
+    local position = Unit.local_position(owner_unit, 0)
+    local rotation = Unit.local_rotation(owner_unit, 0)
+    local explosion_template = ExplosionTemplates.cascading_firecloak
     local scale = 1
-    local damage_source = "career_ability"
-    local attacker_power_level = explosion_template.attacker_power_level or 0
     local area_damage_system = Managers.state.entity:system("area_damage_system")
-    mod:echo(position)
- 
-    area_damage_system:create_explosion(player_unit, position, rotation, explosion_template, scale, damage_source, attacker_power_level, false)
+    
+	area_damage_system:create_explosion(owner_unit, position, rotation, explosion_template, scale, "career_ability", false, false)
 end
 
-mod:command("explode", mod:localize("explode_desc"), function() mod.explode() end)]]
+mod:command("explode", mod:localize("explode_desc"), function() mod.explode() end)

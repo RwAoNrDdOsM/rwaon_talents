@@ -38,7 +38,7 @@ return {
         en = "Boiling Blood",
     },
     rwaon_sienna_scholar_double_dot_duration_desc = {
-        en = "All burning dots duration will be increased. (see Mod Notes for",
+        en = "All burning dots duration will be increased. (see Mod Notes for information)",
     },
 
     -- Pyromancer 3.1
@@ -46,7 +46,7 @@ return {
         en = "Martial Studies",
     },
     rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge_desc = {
-        en = "Critical Mass also increases headshot damage by 4% per 6 overcharge and stacks up to 5 times.",
+        en = "Critical Mass also increases headshot damage by %g%% per %i overcharge and stacks up to 5 times.",
     },
 
     -- Pyromancer 4.2

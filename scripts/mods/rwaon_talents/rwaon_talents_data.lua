@@ -7,14 +7,14 @@ return {
     is_mutator = false, 
     mutator_settings = {},
     options = {
-		widgets = {
-			{
+		  widgets = {
+			  {
                 setting_id = "flamestorm_weapon_switch",
                 type = "checkbox",
                 title = mod:localize("flamestorm_weapon_switch_option_name"),
                 tooltip = mod:localize("flamestorm_weapon_switch_option_tooltip"),
                 default_value = false,
-			},
-		},
-	}, 
+			  },
+		  },
+	  }, 
 }

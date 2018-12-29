@@ -137,69 +137,72 @@ mod:add_buff("rwaon_sienna_scholar_embodiment_of_aqshy", {
             stat_buff = StatBuffIndex.REDUCED_OVERCHARGE
         }
 	}
-})
+})]]
 
-
-mod:add_talent("bw_scholar", 5, 3, "rwaon_sienna_scholar_cascading_firecloak", {
+--[[mod:add_talent("bw_scholar", 5, 3, "rwaon_sienna_scholar_cascading_firecloak", {
     description_values = {
         { value = 0.3, value_type = "percent" },
         { value = 5 },
     },
     buffer = "server",
-    --buff_after_delay = true,
-    --max_stacks = 1,
-    --refresh_durations = true,
-    --is_dormant = false,
-    --is_cooldown = true,
-    icon = "icons_placeholder",
-	--duration = 120,
-    --delayed_buff_name = "rwaon_sienna_scholar_cascading_firecloak"
     buffs = {
-        "rwaon_sienna_scholar_cascading_firecloak",
+        "rwaon_sienna_scholar_cascading_firecloak_cooldown",
     },
 })
-mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_cascading_firecloak", {
+
+mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_cascading_firecloak_on_damage_taken", {
+    max_stacks = 1,
+    icon = "icons_placeholder",
+    priority_buff = true,
+    stat_buff = StatBuffIndex.DAMAGE_TAKEN,
+    duration = 5,
+    multiplier = -1,
+})
+
+mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_cascading_firecloak_cooldown", {
+    remove_buff = "rwaon_sienna_scholar_gain_cascading_firecloak",
+    buff_after_delay = true,
+    max_stacks = 1,
+    refresh_durations = true,
+    is_cooldown = true,
+    duration = 5,
+    icon = "icons_placeholder",
+    delayed_buff_name = "rwaon_sienna_scholar_gain_cascading_firecloak",
+})
+
+mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_gain_cascading_firecloak", {
+    remove_on_proc = true,
+    max_stacks = 1,
+    event_buff = true,
+    event = "on_hit",
+    icon = "icons_placeholder",
     buff_func = function(player, buff, params)
-        local player_unit = Managers.player:local_player().player_unit
-        local position = Unit.world_position(player_unit, 0) + Vector3(0, 0, 0)
-        local rotation = Unit.local_rotation(player_unit, 0) + Vector3(0, 0, 0)
-        local explosion_template = "lamp_oil"
-        local scale = 1
-        local damage_source = "explosion_bw_unchained_ability"
-        local attacker_power_level = explosion_template.attacker_power_level or 0
-        mod:echo(player_unit)
-        mod:echo(position)
-        mod:echo(rotation)
-        mod:echo(explosion_template)
-        mod:echo(scale)
-        mod:echo(damage_source)
-        mod:echo(attacker_power_level)
-
-        Managers.state.entity:system("area_damage_system"):create_explosion(player_unit, position, rotation, explosion_template, scale, damage_source, attacker_power_level, false)
-        
-        if Managers.state.network.is_server then
-			local first_person_extension = ScriptUnit.has_extension(unit, "first_person_system")
-			local go_id = Managers.state.unit_storage:go_id(unit)
-			local network_manager = Managers.state.network
-			local game = network_manager:game()
-
-			if not go_id then
-				return
-			end
-
-			local aim_direction = GameSession.game_object_field(game, go_id, "aim_direction")
-			local start_pos = POSITION_LOOKUP[unit]
-			local nav_world = Managers.state.entity:system("ai_system"):nav_world()
-			local projected_start_pos = LocomotionUtils.pos_on_mesh(nav_world, start_pos, 2, 30)
-
-			if projected_start_pos then
-				local liquid_template_name = "lamp_oil_fire"
-				local liquid_template_id = NetworkLookup.liquid_area_damage_templates[liquid_template_name]
-				local network_manager = Managers.state.network
-				local invalid_game_object_id = NetworkConstants.invalid_game_object_id
-
-				network_manager.network_transmit:send_rpc_server("rpc_create_liquid_damage_area", invalid_game_object_id, projected_start_pos, aim_direction, liquid_template_id)
-			end
-		end
-    end
+        local player_unit = player.player_unit
+        local status_extension = ScriptUnit.extension(player_unit, "status_system")
+    
+        if Unit.alive(player_unit) and not status_extension:is_knocked_down() then
+            local health_extension = ScriptUnit.extension(player_unit, "health_system")
+            local health_min = 0.3
+            local current_health = health_extension:current_health()
+            local below_threshold = current_health <= health_min
+    
+            --if below_threshold then
+                local buff_extension = ScriptUnit.extension(player_unit, "buff_system")
+    
+                buff_extension:add_buff("rwaon_sienna_scholar_cascading_firecloak_cooldown")
+                buff_extension:add_buff("rwaon_sienna_scholar_cascading_firecloak_on_damage_taken")
+    
+                local owner_unit = Managers.player:local_player().player_unit
+                local position = Unit.local_position(owner_unit, 0)
+                local rotation = Unit.local_rotation(owner_unit, 0)
+                local explosion_template = "cascading_firecloak"
+                local scale = 1
+                local area_damage_system = Managers.state.entity:system("area_damage_system")
+    
+                area_damage_system:create_explosion(owner_unit, position, rotation, explosion_template, scale, "career_ability", false, false)
+    
+                --return true
+            --end
+        end       
+    end,
 })]]

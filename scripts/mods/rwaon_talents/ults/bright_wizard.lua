@@ -100,9 +100,11 @@ mod:hook(CareerAbilityBWAdept, "_run_ability", function(func, self)
 
 			if buff_extension and buff_extension:has_buff_type("sienna_adept_ability_trail_double") then
 				career_extension:start_activated_ability_cooldown()
+				
+				local sienna_ability_buff = buff_extension:get_non_stacking_buff("sienna_adept_ability_trail_double")
 
 				if buff_extension:has_buff_type("sienna_adept_ability_trail_double") then
-					buff_extension:remove_buff("sienna_adept_ability_trail_double")
+					buff_extension:remove_buff(sienna_ability_buff.id)
 				end
 
 			elseif buff_extension then

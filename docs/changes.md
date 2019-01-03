@@ -48,5 +48,6 @@ Time Between Dot Damages decreased to 1 second
 Kerillian
 
 -Hagbane
-Double duration of dot
-Double damage between dot damages
+Dot duration increased to 6 seconds (doubled)
+Time Between Dot Damages increased to 1.2 seconds (doubled)
+

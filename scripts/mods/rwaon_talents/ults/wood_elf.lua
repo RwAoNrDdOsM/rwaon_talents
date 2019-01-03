@@ -12,7 +12,7 @@ ActivatedAbilitySettings.rwaon_we_2 = {
 
 CareerSettings.we_maidenguard.activated_ability = ActivatedAbilitySettings.rwaon_we_2
 
-mod:hook(CareerAbilityWEMaidenGuard, "_run_ability", function(func, self)
+mod:hook_origin(CareerAbilityWEMaidenGuard, "_run_ability", function(self)
     self:_stop_priming()
 
 	local owner_unit = self._owner_unit
@@ -112,5 +112,4 @@ mod:hook(CareerAbilityWEMaidenGuard, "_run_ability", function(func, self)
 	end
 
 	self:_play_vo()
-	return
 end)

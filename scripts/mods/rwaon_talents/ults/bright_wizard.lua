@@ -32,7 +32,7 @@ local function dprint(...)
 	end
 end
 
-mod:hook(CareerAbilityBWAdept, "_run_ability", function(func, self)
+mod:hook_origin(CareerAbilityBWAdept, "_run_ability", function(func, self)
 	dprint("_run_ability")
 	self:_stop_priming()
 
@@ -114,7 +114,6 @@ mod:hook(CareerAbilityBWAdept, "_run_ability", function(func, self)
 	end
 
 	self:_play_vo()
-	return
 end)
 
 ------------------------------------------------------------------------------

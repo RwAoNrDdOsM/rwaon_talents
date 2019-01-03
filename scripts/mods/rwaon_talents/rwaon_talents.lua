@@ -96,7 +96,7 @@ mod:dofile("scripts/mods/rwaon_talents/ults/dwarf_ranger")
 mod:dofile("scripts/mods/rwaon_talents/weapons/shortbows_hagbane")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_blast_beam")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_spark_spear")
---mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_fireball")
+mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_fireball")
 mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_geiser")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_flamethrower")
 

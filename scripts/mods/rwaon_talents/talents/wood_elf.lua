@@ -32,4 +32,25 @@ mod:add_buff_function("rwaon_kerillian_maidenguard_start_ability_cooldown", func
 	end
 end)
 
+-- Make this into a mod:modify_talent
+
+-- Modify Bladedancer's Description
+table.remove(Talents.wood_elf, 30)
+table.insert(Talents.wood_elf, 30, {
+	description = "rwaon_kerillian_maidenguard_activated_ability_damage_desc",
+	name = "kerillian_maidenguard_activated_ability_damage",
+	num_ranks = 1,
+	buffer = "both",
+	icon = "kerillian_maidenguard_activated_ability_damage",
+	description_values = {
+		{
+			value_type = "percent",
+			value = 2.5,
+		}
+	},
+	requirements = {},
+	buffs = {},
+	buff_data = {}
+})
+
 ------------------------------------------------------------------------------

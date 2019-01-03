@@ -1,5 +1,13 @@
 local mod = get_mod("rwaon_talents")
 
+local version = "Vermintide Mod Reworks - Alpha 03/01/19"
+
+function mod:version(self)
+	mod:echo(version)
+end
+
+mod:command("version", mod:localize("version_command_description"), function() mod.version() end)
+
 local function merge(dst, src)
     for k, v in pairs(src) do
         dst[k] = v
@@ -31,6 +39,8 @@ function mod:add_talent(career_name, tier, index, new_talent_name, new_talent_da
 end
 
 function mod:add_talent_buff(hero_name, buff_name, buff_data)
+    --local new_buff_index = #NetworkLookup.buff_templates[buff_name] + 1
+    
     local talent_buff = {
         buffs = {
             merge({ name = buff_name }, buff_data),
@@ -38,6 +48,7 @@ function mod:add_talent_buff(hero_name, buff_name, buff_data)
     }
     TalentBuffTemplates[hero_name][buff_name] = talent_buff
     BuffTemplates[buff_name] = talent_buff
+    --NetworkLookup.buff_templates[buff_name] = new_buff_index
 end
 
 function mod:add_buff(buff_name, buff_data)
@@ -77,11 +88,12 @@ mod:dofile("scripts/mods/rwaon_talents/ults/bright_wizard")
 mod:dofile("scripts/mods/rwaon_talents/ults/wood_elf")
 --mod:dofile("scripts/mods/rwaon_talents/ults/empire_soldier")
 --mod:dofile("scripts/mods/rwaon_talents/ults/witch_hunter")
---mod:dofile("scripts/mods/rwaon_talents/ults/dwarf_ranger")
+mod:dofile("scripts/mods/rwaon_talents/ults/dwarf_ranger")
 
 -- Weapons
 --mod:dofile("scripts/mods/rwaon_talents/weapons/1h_falchions")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/1h_axes")
+mod:dofile("scripts/mods/rwaon_talents/weapons/shortbows_hagbane")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_blast_beam")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_spark_spear")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_fireball")
@@ -91,19 +103,6 @@ mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_geiser")
 
 -- Traits
 --mod:dofile("scripts/mods/rwaon_talents/traits/barrage")
-
--- Hook into the heal function.
---mod:hook_origin(ProcFunctions, "heal", nil)
---local orig = BuffTemplates.bloodlust.buffs[1].buff_func
---BuffTemplates.bloodlust.buffs[1].buff_func = function(player, buff, params)
---    local mod = get_mod("rwaon_talents")
---    if mod then
---        return mod.bloodlust(player, buff, params)
---    else
---        return orig(player, buff, params)
---    end
---end
-
 
 --[[ DEBUG DEBUG DEBUG ]]--
 
@@ -126,91 +125,9 @@ mod:hook(Achievement, "unlock", function(func, ...)
     return
 end)
 
-ExplosionTemplates.cascading_firecloak = {
-    explosion = {
-        radius = 6,
-        dot_template_name = "burning_3W_dot",
-        max_damage_radius = 6,
-        alert_enemies = false,
-        damage_type_glance = "fire_grenade_glance",
-        alert_enemies_radius = 10,
-        attack_template = "fire_grenade_explosion",
-        sound_event_name = "fireball_big_hit",
-        always_hurt_players = false,
-        damage_type = "fire_grenade",
-        damage_profile = "explosive_barrel",
-        effect_name = "fx/wpnfx_fire_grenade_impact",
-        power_level_glance = 250,
-        power_level = 500,
-    },
-    aoe = {
-        dot_template_name = "burning_1W_dot",
-        radius = 6,
-        nav_tag_volume_layer = "fire_grenade",
-        create_nav_tag_volume = true,
-        attack_template = "fire_grenade_dot",
-        sound_event_name = "player_combat_weapon_fire_grenade_explosion",
-        damage_interval = 1,
-        duration = 5,
-        area_damage_template = "explosion_template_aoe",
-        nav_mesh_effect = {
-            particle_radius = 2,
-            particle_name = "fx/wpnfx_fire_grenade_impact_remains",
-            particle_spacing = 0.9
-        }
-    }
-}
-
-NetworkLookup.explosion_templates.cascading_firecloak = { 
-    explosion = {
-        radius = 3,
-        dot_template_name = "burning_3W_dot",
-        max_damage_radius = 3,
-        alert_enemies = false,
-        damage_type_glance = "fire_grenade_glance",
-        alert_enemies_radius = 10,
-        attack_template = "fire_grenade_explosion",
-        sound_event_name = "fireball_big_hit",
-        always_hurt_players = false,
-        damage_type = "fire_grenade",
-        damage_profile = "explosive_barrel",
-        effect_name = "fx/wpnfx_fire_grenade_impact",
-        power_level_glance = 250,
-        power_level = 500,
-    },
-    aoe = {
-        dot_template_name = "burning_1W_dot",
-        radius = 6,
-        nav_tag_volume_layer = "fire_grenade",
-        create_nav_tag_volume = true,
-        attack_template = "fire_grenade_dot",
-        sound_event_name = "player_combat_weapon_fire_grenade_explosion",
-        damage_interval = 1,
-        duration = 5,
-        area_damage_template = "explosion_template_aoe",
-        nav_mesh_effect = {
-            particle_radius = 2,
-            particle_name = "fx/wpnfx_fire_grenade_impact_remains",
-            particle_spacing = 0.9
-        }
-    }
-}
-
-mod.explode = function()
-    local owner_unit = Managers.player:local_player().player_unit
-    local position = Unit.local_position(owner_unit, 0)
-    local rotation = Unit.local_rotation(owner_unit, 0)
-    local explosion_template = "cascading_firecloak"
-    local scale = 1
-    local area_damage_system = Managers.state.entity:system("area_damage_system")
-    
-	area_damage_system:create_explosion(owner_unit, position, rotation, explosion_template, scale, "career_ability", false, false)
-end
-
-mod:command("explode", mod:localize("explode_desc"), function() UPDATE_POSITION_LOOKUP() mod.explode()  end)
-
-
+--[[
 local unit_alive = Unit.alive
+
 mod:hook_origin(AreaDamageSystem, "_damage_unit", function(self, aoe_damage_data)
 	local hit_unit = aoe_damage_data.hit_unit
 	local attacker_unit = aoe_damage_data.attacker_unit
@@ -341,3 +258,241 @@ mod:hook_origin(AreaDamageSystem, "_damage_unit", function(self, aoe_damage_data
 		end
 	end
 end)
+
+mod:hook_origin(BuffExtension, "add_buff", function (self, template_name, params)
+	if FROZEN[self._unit] then
+		return
+	end
+
+	local buff_template = BuffTemplates[template_name]
+	local buffs = buff_template.buffs
+	local start_time = Managers.time:time("game")
+	local id = self.id
+	local world = self.world
+
+	if #self._buffs == 0 then
+		Managers.state.entity:system("buff_system"):set_buff_ext_active(self._unit, true)
+	end
+
+	for i, sub_buff_template in ipairs(buffs) do
+		repeat
+			local duration = sub_buff_template.duration
+			local max_stacks = sub_buff_template.max_stacks
+			local end_time = duration and start_time + duration
+
+			if max_stacks then
+				local has_max_stacks = false
+				local stacks = 0
+
+				for j = 1, #self._buffs, 1 do
+					local existing_buff = self._buffs[j]
+
+					if existing_buff.buff_type == sub_buff_template.name then
+						if existing_buff.area_buff_unit and sub_buff_template.refresh_buff_area_position then
+							local buff_area_extension = ScriptUnit.has_extension(existing_buff.area_buff_unit, "buff_area_system")
+
+							if buff_area_extension then
+								buff_area_extension:set_unit_position(POSITION_LOOKUP[self._unit])
+							end
+						end
+
+						if duration and sub_buff_template.refresh_durations then
+							existing_buff.start_time = start_time
+							existing_buff.duration = duration
+							existing_buff.end_time = end_time
+							existing_buff.attacker_unit = (params and params.attacker_unit) or nil
+							local reapply_buff_func = sub_buff_template.reapply_buff_func
+
+							if reapply_buff_func then
+								buff_extension_function_params.bonus = existing_buff.bonus
+								buff_extension_function_params.multiplier = existing_buff.multiplier
+								buff_extension_function_params.t = start_time
+								buff_extension_function_params.end_time = end_time
+								buff_extension_function_params.attacker_unit = existing_buff.attacker_unit
+
+								BuffFunctionTemplates.functions[reapply_buff_func](self._unit, existing_buff, buff_extension_function_params, world)
+							end
+						end
+
+						stacks = stacks + 1
+
+						if stacks == max_stacks then
+							has_max_stacks = true
+
+							break
+						end
+					end
+				end
+
+				if has_max_stacks then
+					break
+				elseif stacks == max_stacks - 1 then
+					local on_max_stacks_func = sub_buff_template.on_max_stacks_func
+
+					if on_max_stacks_func then
+						local player = Managers.player:owner(self._unit)
+
+						if player then
+							on_max_stacks_func(player, sub_buff_template)
+						end
+					end
+
+					if sub_buff_template.reset_on_max_stacks then
+						local num_buffs = #self._buffs
+						local j = 1
+
+						while num_buffs >= j do
+							local buff = self._buffs[j]
+
+							if buff.buff_type == sub_buff_template.name then
+								buff_extension_function_params.bonus = buff.bonus
+								buff_extension_function_params.multiplier = buff.multiplier
+								buff_extension_function_params.t = start_time
+								buff_extension_function_params.end_time = buff.duration and buff.start_time + buff.duration
+								buff_extension_function_params.attacker_unit = buff.attacker_unit
+
+								self:_remove_sub_buff(buff, j, buff_extension_function_params)
+
+								num_buffs = num_buffs - 1
+							else
+								j = j + 1
+							end
+						end
+
+						break
+					end
+				end
+			end
+
+			local buff = {
+				id = id,
+				parent_id = params and params.parent_id,
+				start_time = start_time,
+				template = sub_buff_template,
+				buff_type = sub_buff_template.name
+			}
+
+			if sub_buff_template.buff_area then
+				local unit_spawner = Managers.state.unit_spawner
+				local extension_init_data = {
+					buff_area_system = {
+						removal_proc_function_name = sub_buff_template.remove_buff_func,
+						radius = sub_buff_template.area_radius,
+						owner_player = Managers.player:owner(self._unit)
+					}
+				}
+				local buff_unit, buff_unit_go_id = unit_spawner:spawn_network_unit(sub_buff_template.area_unit_name, "buff_aoe_unit", extension_init_data, POSITION_LOOKUP[self._unit], Quaternion.identity(), nil)
+				buff.area_buff_unit = buff_unit
+			end
+
+			buff.attacker_unit = (params and params.attacker_unit) or nil
+			local bonus = sub_buff_template.bonus
+			local multiplier = sub_buff_template.multiplier
+			local proc_chance = sub_buff_template.proc_chance
+			local range = sub_buff_template.range
+			local damage_source, power_level = nil
+
+			if params then
+				local variable_value = params.variable_value
+
+				if variable_value then
+					local variable_bonus_table = sub_buff_template.variable_bonus
+
+					if variable_bonus_table then
+						local bonus_index = (variable_value == 1 and #variable_bonus_table) or 1 + math.floor(variable_value / (1 / #variable_bonus_table))
+						bonus = variable_bonus_table[bonus_index]
+					end
+
+					local variable_multiplier_table = sub_buff_template.variable_multiplier
+
+					if variable_multiplier_table then
+						local min_multiplier = variable_multiplier_table[1]
+						local max_multiplier = variable_multiplier_table[2]
+						multiplier = math.lerp(min_multiplier, max_multiplier, variable_value)
+					end
+				end
+
+				bonus = params.external_optional_bonus or bonus
+				multiplier = params.external_optional_multiplier or multiplier
+				proc_chance = params.external_optional_proc_chance or proc_chance
+				duration = params.external_optional_duration or duration
+				range = params.external_optional_range or range
+				damage_source = params.damage_source
+				power_level = params.power_level
+			end
+
+			buff.bonus = bonus
+			buff.multiplier = multiplier
+			buff.proc_chance = proc_chance
+			buff.duration = duration
+			buff.range = range
+			buff.damage_source = damage_source
+			buff.power_level = power_level
+			buff_extension_function_params.bonus = bonus
+			buff_extension_function_params.multiplier = multiplier
+			buff_extension_function_params.t = start_time
+			buff_extension_function_params.end_time = end_time
+			buff_extension_function_params.attacker_unit = buff.attacker_unit
+			local apply_buff_func = sub_buff_template.apply_buff_func
+
+			if apply_buff_func then
+				BuffFunctionTemplates.functions[apply_buff_func](self._unit, buff, buff_extension_function_params, world)
+			end
+
+			if sub_buff_template.stat_buff then
+				local index = self:_add_stat_buff(sub_buff_template, buff)
+				buff.stat_buff_index = index
+			end
+
+			if sub_buff_template.event_buff then
+				local buff_func = sub_buff_template.buff_func
+				local event = sub_buff_template.event
+				buff.buff_func = buff_func
+				local event_buffs = self._event_buffs[event]
+				local index = self._event_buffs_index
+				buff.event_buff_index = index
+				event_buffs[index] = buff
+				self._event_buffs_index = index + 1
+			end
+
+			if sub_buff_template.buff_after_delay then
+				local delayed_buff_name = sub_buff_template.delayed_buff_name
+				buff.delayed_buff_name = delayed_buff_name
+			end
+
+			if sub_buff_template.continuous_effect then
+				self._continuous_screen_effects[id] = self:_play_screen_effect(sub_buff_template.continuous_effect)
+			end
+
+			self._buffs[#self._buffs + 1] = buff
+		until true
+	end
+
+	local activation_sound = buff_template.activation_sound
+
+	if activation_sound then
+		self:_play_buff_sound(activation_sound)
+	end
+
+	local activation_effect = buff_template.activation_effect
+
+	if activation_effect then
+		self:_play_screen_effect(activation_effect)
+	end
+
+	local deactivation_effect = buff_template.deactivation_effect
+
+	if deactivation_effect then
+		self._deactivation_screen_effects[id] = deactivation_effect
+	end
+
+	local deactivation_sound = buff_template.deactivation_sound
+
+	if deactivation_sound then
+		self._deactivation_sounds[id] = deactivation_sound
+	end
+
+	self.id = id + 1
+
+	return id
+end)]]

@@ -5,6 +5,9 @@ return {
     mod_description = {
         en = "Reworks some talents and ultimates. And. Stuff!?",
     },
+    version_command_description ={
+        en = "Display's V2R version in chat"
+    },
     flamestorm_weapon_switch_option_name = {
         en = "Flamestorm Weapon button switch",
     },
@@ -14,18 +17,42 @@ return {
 
 ------------------------------------------------------------------------------
 
+    --Ironbreaker 5.1
+    rwaon_bardin_ironbreaker_uninterruptible_attacks = {
+        en = "OI! WAZZOK!",
+    },
+    rwaon_bardin_ironbreaker_uninterruptible_attacks_desc = {
+        en = "Gain uninterruptible attacks while Impenetrable is active.",
+    },
+------------------------------------------------------------------------------
+    --Handmaiden Ultimate
+    rwaon_career_active_desc_we_2 = {
+        en = "Kerillian dashes forward through enemies.",
+    },
+
+
     --Handmaiden 5.1
     rwaon_kerillian_double_dash = {
-        en = "Double Dash"
+        en = "Double Dash",
     },
     rwaon_kerillian_double_dash_desc = {
         en = "You can use dash twice in 5 seconds.",
+    },
+    
+    --Handmaiden 5.2
+    rwaon_kerillian_maidenguard_activated_ability_damage_desc = {
+        en = "Dashing through enemies now causes them to bleed."
     },
 
 ------------------------------------------------------------------------------
 
     -- Pyromancer 1.1
-    --[[ NO CHANGES ]]--
+    rwaon_sienna_scholar_reduced_spread = {
+        en = "Focusing Lens",
+    },
+    rwaon_sienna_scholar_reduced_spread_desc = {
+        en = "Reduced ranged attack spread by %g%%.",
+    },
 
     -- Pyromancer 1.2
     --[[ NO CHANGES ]]--

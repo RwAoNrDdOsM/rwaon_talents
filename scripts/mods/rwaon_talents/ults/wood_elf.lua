@@ -1,6 +1,16 @@
 local mod = get_mod("rwaon_talents")
 
+
 ------------------------------------------------------------------------------
+ActivatedAbilitySettings.rwaon_we_2 = {
+	description = "rwaon_career_active_desc_we_2",
+	display_name = "career_active_name_we_2",
+	cooldown = 40,
+	icon = "kerillian_maidenguard_activated_ability",
+	ability_class = CareerAbilityWEMaidenGuard
+}
+
+CareerSettings.we_maidenguard.activated_ability = ActivatedAbilitySettings.rwaon_we_2
 
 mod:hook(CareerAbilityWEMaidenGuard, "_run_ability", function(func, self)
     self:_stop_priming()
@@ -51,7 +61,7 @@ mod:hook(CareerAbilityWEMaidenGuard, "_run_ability", function(func, self)
 		network_transmit:send_rpc_server("rpc_status_change_bool", NetworkLookup.statuses.dodging, true, unit_id, 0)
 	end
 
-	--local has_impact_damage_buff = talent_extension:has_talent("kerillian_maidenguard_activated_ability_damage", "wood_elf", true)
+	local has_impact_damage_buff = talent_extension:has_talent("kerillian_maidenguard_activated_ability_damage", "wood_elf", true)
 	status_extension.do_lunge = {
 		animation_end_event = "maiden_guard_active_ability_charge_hit",
 		allow_rotation = true,
@@ -75,7 +85,7 @@ mod:hook(CareerAbilityWEMaidenGuard, "_run_ability", function(func, self)
 			damage_profile = "maidenguard_dash_ability",
 			width = 1.5,
 			allow_backstab = true,
-			power_level_multiplier = 0.01,
+			power_level_multiplier = (has_impact_damage_buff and 2.5) or 0,
 			stagger_angles = {
 				max = 90,
 				min = 90
@@ -91,7 +101,7 @@ mod:hook(CareerAbilityWEMaidenGuard, "_run_ability", function(func, self)
 				career_extension:start_activated_ability_cooldown()
 
 				if buff_extension:has_buff_type("rwaon_kerillian_maidenguard_ability_double_dash") then
-					buff_extension:remove_buff("rwaon_kerillian_maidenguard_ability_double_dash")
+					buff_extension:remove_buff(self._double_ability_buff_id)
 				end
 			else
 				self._double_ability_buff_id = buff_extension:add_buff("rwaon_kerillian_maidenguard_ability_double_dash", {attacker_unit = owner_unit})

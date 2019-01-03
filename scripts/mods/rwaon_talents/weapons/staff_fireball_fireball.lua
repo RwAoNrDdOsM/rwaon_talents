@@ -1,8 +1,9 @@
---local mod = get_mod("rwaon_talents")
-local mod = get_mod("staff_fireball_fireball")
+local mod = get_mod("rwaon_talents")
+
 -- Fireball Staff
+
 ------------------------------------------------------------------------------
---Charged Shot Changes
+-- Charged Shot Changes
 
 DamageProfileTemplates.staff_fireball_charged = {
 	charge_value = "projectile",

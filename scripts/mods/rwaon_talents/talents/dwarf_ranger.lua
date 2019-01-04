@@ -1,7 +1,7 @@
 local mod = get_mod("rwaon_talents")
 
 ------------------------------------------------------------------------------
---[[
+
 mod:add_talent("dr_ironbreaker", 2, 3, "rwaon_bardin_ironbreaker_movespeed_on_charged_attacks", {
     num_ranks = 1,
     description_values = {
@@ -28,73 +28,53 @@ mod:add_talent_buff("dwarf_ranger", "rwaon_bardin_ironbreaker_movespeed_on_charg
 	max_stacks = 1,
 	refresh_durations = true,
 	is_cooldown = true,
-	icon = "icons_placeholder",
-	delayed_buff_name = "rwaon_bardin_ironbreaker_movespeed_on_charged_attacks",  
+	icon = "victor_zealot_passive_invulnerability",
+	delayed_buff_name = "rwaon_bardin_ironbreaker_gain_movespeed_on_charged_attacks"
 })
 
-ProcFunctions.rwaon_bardin_ironbreaker_movespeed_on_charged_attacks = function (player, buff, params)
-	local player_unit = player.player_unit
-	local status_extension = ScriptUnit.extension(player_unit, "status_system")
-
-	if Unit.alive(player_unit) and not status_extension:is_knocked_down() then
-		local health_extension = ScriptUnit.extension(player_unit, "health_system")
-		--local damage = params[2]
-		local current_health = health_extension:current_health()
-		--local killing_blow = current_health <= damage
-
-		--if killing_blow then
-			local buff_extension = ScriptUnit.extension(player_unit, "buff_system")
-
-			buff_extension:add_buff("rwaon_bardin_ironbreaker_movespeed_on_charged_attacks_buff")
-
-			if Managers.state.network.is_server then
-				local heal_amount = current_health * -1 + 1
-
-				DamageUtils.heal_network(player_unit, player_unit, heal_amount, "heal_from_proc")
-			end
-
-			--return true
-		--end
-	end
-end
-
-BuffFunctionTemplates.functions.rwaon_bardin_ironbreaker_movespeed_on_charged_attacks = function (unit, buff, params)
-	local player_unit = unit
-	local buff_extension = ScriptUnit.extension(player_unit, "buff_system")
-
-	if Unit.alive(player_unit) then
-		buff_extension:add_buff("rwaon_bardin_ironbreaker_movespeed_on_charged_attacks")
-	end
-end
-
-mod:add_talent_buff("dwarf_ranger", "rwaon_bardin_ironbreaker_movespeed_on_charged_attacks", {
-	remove_on_proc = true,
+mod:add_talent_buff("dwarf_ranger", "rwaon_bardin_ironbreaker_gain_movespeed_on_charged_attacks", {
 	max_stacks = 1,
 	event_buff = true,
-	event = "on_damage_taken",
-	icon = "icons_placeholder",
-	buff_func = ProcFunctions.rwaon_bardin_ironbreaker_movespeed_on_charged_attacks,
+	event = "on_hit",
+	icon = "victor_zealot_passive_invulnerability",
+	buff_func = function (player, buff, params)
+		local player_unit = player.player_unit
+		local hit_unit = params[1]
+		local attack_type = params[2]
+		local buff_extension = ScriptUnit.extension(player_unit, "buff_system")
+
+		if attack_type ~= "heavy_attack" then
+			return
+		end
+
+		if Unit.alive(player_unit) then
+			buff_extension:add_buff("rwaon_bardin_ironbreaker_movespeed_on_charged_attacks", buff_params)
+		end
+		
+		if Unit.alive(player_unit) then
+			local buff_1 = buff_extension:add_buff("rwaon_bardin_ironbreaker_gain_movespeed_on_charged_attacks", {attacker_unit = player_unit})
+
+			if buff_extension:has_buff_type("rwaon_bardin_ironbreaker_gain_movespeed_on_charged_attacks") then
+				buff_extension:remove_buff(buff_1)
+			end
+		end
+	end,			
 })
 
-BuffFunctionTemplates.functions.add_rwaon_bardin_ironbreaker_movespeed_on_charged_attacks_cooldown = function (unit, buff, params)
-	local player_unit = unit
-	local buff_extension = ScriptUnit.extension(player_unit, "buff_system")
-
-	if Unit.alive(player_unit) then
-		buff_extension:add_buff("rwaon_bardin_ironbreaker_movespeed_on_charged_attacks_cooldown")
-	end
-end
-
-mod:add_talent_buff("dwarf_ranger", "rwaon_bardin_ironbreaker_movespeed_on_charged_attacks_buff", {
-	duration = 5,
-	multiplier = -1,
-	remove_buff_func = "add_rwaon_bardin_ironbreaker_movespeed_on_charged_attacks_cooldown",
+mod:add_talent_buff("dwarf_ranger", "rwaon_bardin_ironbreaker_movespeed_on_charged_attacks", {
 	max_stacks = 1,
-	icon = "icons_placeholder",
-	priority_buff = true,
-	stat_buff = StatBuffIndex.DAMAGE_TAKEN,
-})]]
-
+	icon = "victor_zealot_passive_invulnerability",
+	apply_buff_func = "apply_movement_buff",
+    multiplier = 1.25, -- 1.5
+    refresh_durations = false,
+    remove_buff_func = "remove_movement_buff",
+    duration = 5,
+    path_to_movement_setting_to_modify = {
+        "move_speed"
+	},
+	buff_after_delay = true,
+	delayed_buff_name = "rwaon_bardin_ironbreaker_movespeed_on_charged_attacks_cooldown",
+})
 ------------------------------------------------------------------------------
 
 mod:add_talent("dr_ironbreaker", 5, 3, "rwaon_bardin_ironbreaker_uninterruptible_attacks", {

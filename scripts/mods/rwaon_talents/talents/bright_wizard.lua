@@ -180,7 +180,12 @@ mod:add_talent_buff("bright_wizard", "sienna_scholar_passive_increased_attack_sp
 ------------------------------------------------------------------------------
 
 
---[[mod:add_talent("bw_scholar", 5, 1, "rwaon_sienna_scholar_embodiment_of_aqshy", {})
+mod:add_talent("bw_scholar", 5, 1, "rwaon_sienna_scholar_embodiment_of_aqshy", {
+    description_values = {
+        { value = 0.25, value_type = "percent", }, -- Multiplier (MODIFIED!)
+        { value = 2 }, -- Overcharge reduction
+    },
+})
 
 mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_embodiment_of_aqshy_overcharge", {
     duration = 10,
@@ -189,29 +194,47 @@ mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_embodiment_of_aqshy_o
     event_buff = true,
     event = "on_hit",
     icon = "icons_placeholder",
-    buff_func = function(player, buff, params)
-        
-    end,
+    --dormant = true,
+    bonus = 2,
+    buff_func = ProcFunctions.remove_overcharge,
+    --[[
+        if damage_source == "sienna_scholar_career_skill_weapon" then
+            return
+        end
+        ]]
 })
 
-mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_embodiment_of_aqshy_buff", {
-    max_stacks = 1,
-    activation_effect = "fx/screenspace_overheat_critical",
+local embodiment_of_aqshy_buff = {
+    activation_effect = "fx/screenspace_potion_03",
     deactivation_sound = "hud_gameplay_stance_deactivate",
     activation_sound = "hud_gameplay_stance_tank_activate",
-    icon = "icons_placeholder",
-    duration = 10,
-	{
-        apply_buff_func = "apply_movement_buff",
-        multiplier = 1.5,
-        max_stacks = 1,
-        path_to_movement_setting_to_modify = {
-            "move_speed"
-        }			
-	},
-	{
-        multiplier = 1.5,
-        max_stacks = 1,
-        stat_buff = StatBuffIndex.ATTACK_SPEED			
-    },
-})]]
+    buffs = {
+        {
+            apply_buff_func = "apply_movement_buff",
+            multiplier = 1.25, -- 1.5
+            --name = "movement",
+            icon = "icons_placeholder",
+            refresh_durations = true,
+            remove_buff_func = "remove_movement_buff",
+            --max_stacks = 1,
+            duration = 10,
+            dormant = false,
+            path_to_movement_setting_to_modify = {
+                "move_speed"
+            }
+        },
+        {
+            multiplier = 0.25, -- 0.5
+            --name = "attack speed buff",
+            refresh_durations = true,
+            --max_stacks = 1,
+            duration = 10,
+            stat_buff = StatBuffIndex.ATTACK_SPEED
+        },
+    }
+}
+
+TalentBuffTemplates.bright_wizard.rwaon_sienna_scholar_embodiment_of_aqshy_buff = embodiment_of_aqshy_buff
+BuffTemplates.rwaon_sienna_scholar_embodiment_of_aqshy_buff = embodiment_of_aqshy_buff
+
+--mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_embodiment_of_aqshy_buff", )

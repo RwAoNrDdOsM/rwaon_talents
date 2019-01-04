@@ -4,8 +4,6 @@ local mod = get_mod("rwaon_talents")
 ------------------------------------------------------------------------------
 
 --Radius Change
-
-
     
 for _, staff_fireball_geiser in ipairs{
     "staff_fireball_geiser_template_1",
@@ -16,6 +14,26 @@ for _, staff_fireball_geiser in ipairs{
     add_weapon_value(action_two, "default", "max_radius", 4.2) --3.5
     --add_weapon_data(action_two, "default", "max_radius", 4.2) --3.5
 end
+
+--[[ Firepatch
+ExplosionTemplates.conflag = {
+	aoe = {
+		dot_template_name = "burning_geiser_dot", -- burning_1W_dot
+		radius = 4.8, -- 4
+		nav_tag_volume_layer = "fire_grenade",
+		create_nav_tag_volume = true,
+		attack_template = "wizard_staff_geiser",
+		sound_event_name = "player_combat_weapon_fire_grenade_explosion",
+		damage_interval = 1,
+		duration = 2,
+		area_damage_template = "explosion_template_aoe",
+		nav_mesh_effect = {
+			particle_radius = 2.4, -- 2
+			particle_name = "fx/wpnfx_fire_grenade_impact_remains",
+			particle_spacing = 1.1 -- 0.9
+		}
+	}
+}]]
 
 ------------------------------------------------------------------------------
 

@@ -27,6 +27,8 @@ Increases the duration of all burning dots.
 Critical Mass also increases headshot damage by 4% per 6 overcharge and stacks up to 5 times.
 -One With The Flame (Tier 3, Slot 2)
 Increased to 3% attack speed per overcharge (from 2%)
+-Embodiment of Aqshy (Tier 5, Slot 1)
+The Burning Head now grants 10 seconds of 2.5% increase movement/attack speed and a overcharge reduction of 2 for every hit.
 
 
 Ironbreaker

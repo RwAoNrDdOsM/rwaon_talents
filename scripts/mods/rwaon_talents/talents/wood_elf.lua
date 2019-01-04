@@ -2,6 +2,27 @@ local mod = get_mod("rwaon_talents")
 
 ------------------------------------------------------------------------------
 
+mod:add_talent("we_maidenguard", 2, 3, "kerillian_maidenguard_increased_attack_speed", {
+	description_values = {
+		{
+			value_type = "percent",
+			value = 0.05,
+		}
+	},
+	requirements = {},
+	buffs = {
+			"kerillian_maidenguard_increased_attack_speed",
+	},
+	buff_data = {},
+})
+
+mod:add_talent_buff("wood_elf", "kerillian_maidenguard_increased_attack_speed", {
+	multiplier = 0.05,
+	stat_buff = StatBuffIndex.ATTACK_SPEED,
+})
+
+------------------------------------------------------------------------------
+
 mod:add_talent("we_maidenguard", 5, 1, "rwaon_kerillian_double_dash", {
 	description_values = {
 		{value = 5},
@@ -31,26 +52,5 @@ mod:add_buff_function("rwaon_kerillian_maidenguard_start_ability_cooldown", func
 		career_extension:start_activated_ability_cooldown()
 	end
 end)
-
--- Make this into a mod:modify_talent
-
--- Modify Bladedancer's Description
-table.remove(Talents.wood_elf, 30)
-table.insert(Talents.wood_elf, 30, {
-	description = "rwaon_kerillian_maidenguard_activated_ability_damage_desc",
-	name = "kerillian_maidenguard_activated_ability_damage",
-	num_ranks = 1,
-	buffer = "both",
-	icon = "kerillian_maidenguard_activated_ability_damage",
-	description_values = {
-		{
-			value_type = "percent",
-			value = 2.5,
-		}
-	},
-	requirements = {},
-	buffs = {},
-	buff_data = {}
-})
 
 ------------------------------------------------------------------------------

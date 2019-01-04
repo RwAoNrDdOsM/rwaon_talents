@@ -6,7 +6,7 @@ return {
         en = "Reworks some talents and ultimates. And. Stuff!?",
     },
     version_command_description ={
-        en = "Display's V2R version in chat"
+        en = "Display's V2R version in chat."
     },
     flamestorm_weapon_switch_option_name = {
         en = "Flamestorm Weapon button switch",
@@ -16,6 +16,14 @@ return {
     },
 
 ------------------------------------------------------------------------------
+    --Ironbreaker 2.3
+    rwaon_bardin_ironbreaker_movespeed_on_charged_attacks = {
+        en = "Miner’s Rhythm"
+    },
+    rwaon_bardin_ironbreaker_movespeed_on_charged_attacks_desc = {
+        en = "After landing a charged attack, Bardin receives 10% increased move speed for 5 seconds, with a cooldown of 15 seconds."
+    },
+
 
     --Ironbreaker 5.1
     rwaon_bardin_ironbreaker_uninterruptible_attacks = {
@@ -30,6 +38,13 @@ return {
         en = "Kerillian dashes forward through enemies.",
     },
 
+    kerillian_maidenguard_increased_attack_speed = {
+        en = "Blade Runner",
+    },
+    kerillian_maidenguard_increased_attack_speed_desc = {
+        en = "Increases attack speed by %g%%.",
+    },
+
 
     --Handmaiden 5.1
     rwaon_kerillian_double_dash = {
@@ -40,7 +55,7 @@ return {
     },
     
     --Handmaiden 5.2
-    rwaon_kerillian_maidenguard_activated_ability_damage_desc = {
+    kerillian_maidenguard_activated_ability_damage_desc = { 
         en = "Dashing through enemies now causes them to bleed."
     },
 
@@ -76,28 +91,12 @@ return {
         en = "Critical Mass also increases headshot damage by %g%% per %i overcharge and stacks up to 5 times.",
     },
 
-    -- Pyromancer 4.2
-    rwaon_sienna_scholar_sear_wounds = {
-        en = "Sear Wounds",
-    },
-    rwaon_sienna_scholar_sear_wounds_desc = {
-        en = "When using The Burning Head, gain %i temp health for every kill, or half its reamining health (whichever is lowest).",
-    },
-
-    -- Pyromancer 5.2
+    -- Pyromancer 5.1
     rwaon_sienna_scholar_embodiment_of_aqshy = {
         en = "Embodiment of Aqshy",
     },
     rwaon_sienna_scholar_embodiment_of_aqshy_desc = {
-        en = "Once The Burning Head is used, you are transmogrified into a Embodiment of Aqshy for 10 seconds. Attacks you make reduce your overcharge and your attack speed is increased.",
-    },
-
-    -- Pyromancer 5.3
-    rwaon_sienna_scholar_cascading_firecloak = {
-        en = "Cascading Fire-cloak",
-    },
-    rwaon_sienna_scholar_cascading_firecloak_desc = {
-        en = "When your health goes below %g%%, a shield of flame appears around you, scorching nearby foes. You also gain fire immunity for %i seconds.",
+        en = "The Burning Head now grants 10 seconds of %g%% increase movement/attack speed and a overcharge reduction of 2 for every hit.",
     },
 
 ------------------------------------------------------------------------------

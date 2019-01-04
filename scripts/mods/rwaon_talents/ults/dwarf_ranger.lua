@@ -75,7 +75,7 @@ mod.ActionCareerDRIronbreakerTargeting = function(self)
     return target
 end
 
---[[mod:hook_origin(TargetOverrideExtension, "taunt", function (self, radius, duration, stagger, taunt_bosses, taunt_specials, taunt_elites, taunt_infantry)
+--[[mod:hook_origin(TargetOverrideExtension, "taunt", function (self, radius, duration, stagger, taunt_bosses)
 	local self_unit = self._unit
 	local t = Managers.time:time("game")
 	local taunt_end_time = t + duration
@@ -103,11 +103,61 @@ end
 			if stagger then
 				local stagger_direction = POSITION_LOOKUP[ai_unit] - position
 
-				AiUtils.stagger_target(self_unit, ai_unit, 1, self._stagger_impact, stagger_direction, t)
+				local stagger_impact = {
+					0.5, -- 1
+					0.5, -- 0.5
+					0.5, -- 3
+					0.5, -- 0
+					0.5 -- 1
+				}
+
+				AiUtils.stagger_target(self_unit, ai_unit, 1, stagger_impact, stagger_direction, t)
 			end
 		end
 	end
 end)]]
+
+--[[mod:add_buff("rwaon_bardin_ironbreaker_taunt_1", {
+	duration = 5,
+	delay_buff = true,
+	delay_buff_name = "rwaon_bardin_ironbreaker_taunt_buff_1"
+})
+
+mod:add_buff("rwaon_bardin_ironbreaker_taunt_buff_1", {
+	buff_func = funciton (unit)
+		local targets = FrameTable.alloc_table()
+		targets[1] = owner_unit
+		local owner_unit_id = network_manager:unit_game_object_id(owner_unit)
+		local range = 10
+		local duration = 10
+
+		if talent_extension:has_talent("bardin_ironbreaker_activated_ability_duration", "dwarf_ranger", true) then
+			duration = 15
+		end
+
+		if talent_extension:has_talent("bardin_ironbreaker_activated_ability_taunt_range", "dwarf_ranger", true) then
+			range = 15
+		end
+
+		local stagger = true
+		local taunt_bosses = talent_extension:has_talent("bardin_ironbreaker_activated_ability_taunt_bosses", "dwarf_ranger", true)
+		--local taunt_specials = talent_extension:has_talent("bardin_ironbreaker_activated_ability_taunt_bosses", "dwarf_ranger", true)
+		--local taunt_elites = talent_extension:has_talent("bardin_ironbreaker_activated_ability_taunt_bosses", "dwarf_ranger", true)
+		--local taunt_infantry = talent_extension:has_talent("bardin_ironbreaker_activated_ability_taunt_bosses", "dwarf_ranger", true)
+
+		if is_server then
+			local target_override_extension = ScriptUnit.extension(owner_unit, "target_override_system")
+			--local target = mod.ActionCareerDRIronbreakerTargeting()
+			--mod:echo(target)
+
+			target_override_extension:taunt(range, duration, stagger, taunt_bosses)
+		else
+			network_transmit:send_rpc_server("rpc_taunt", owner_unit_id, range, duration, stagger, taunt_bosses)
+		end
+	end
+	delay_buff = true,
+	delay_buff_name = "rwaon_bardin_ironbreaker_taunt_2"
+})]]
 
 mod:hook_origin(CareerAbilityDRIronbreaker, "_run_ability", function (self)
 	self:_stop_priming()

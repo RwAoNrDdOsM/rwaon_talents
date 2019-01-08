@@ -8,7 +8,7 @@ This is the Change Notes for the first Private Beta.
 
 ## Talents
 
-##### Pyromancer
+#### Pyromancer
 + Focusing Lens (Tier 1, Slot 1) - 
   Reduced range spread by 40%
   
@@ -52,7 +52,7 @@ This is the Change Notes for the first Private Beta.
 
 ## Weapons:
 
-##### Conflagoration Staff:
+#### Conflagoration Staff:
 + AOE range increased by 20% 
 + Initial damage decreased by 50% 
 + Dot duration increased to 5 seconds 
@@ -60,7 +60,7 @@ This is the Change Notes for the first Private Beta.
   
   *Reasoning*
 
-##### Fireball Staff Charged Shot:
+#### Fireball Staff Charged Shot:
 + Increase min radius by 10%
 + Increase max radius by 20%
 + Increase overall damage by ~17%

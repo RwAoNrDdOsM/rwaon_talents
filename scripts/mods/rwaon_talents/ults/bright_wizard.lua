@@ -154,5 +154,13 @@ mod:hook_origin(ActionCareerBWScholar, "client_owner_start_action", function (se
 		network_transmit:send_rpc_server("rpc_request_heal", unit_id, 50, heal_type_id)
 	end
 
+	if talent_extension:has_talent("rwaon_sienna_scholar_activated_ability_damage", "bright_wizard", true) then
+		local player = Managers.player:owner(owner_unit)
+
+		if player.local_player or (self.is_server and player.bot_player) then
+			buff_extension:add_buff("rwaon_sienna_scholar_activated_ability_damage", {attacker_unit = owner_unit})
+		end
+	end	
+
 	self:_play_vo()
 end)

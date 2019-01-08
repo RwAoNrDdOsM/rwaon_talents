@@ -24,7 +24,6 @@ return {
         en = "After landing a charged attack, Bardin receives 10% increased move speed for 5 seconds, with a cooldown of 15 seconds."
     },
 
-
     --Ironbreaker 5.1
     rwaon_bardin_ironbreaker_uninterruptible_attacks = {
         en = "OI! WAZZOK!",
@@ -38,6 +37,7 @@ return {
         en = "Kerillian dashes forward through enemies.",
     },
 
+    --Handmaiden 5.1
     kerillian_maidenguard_increased_attack_speed = {
         en = "Blade Runner",
     },
@@ -70,17 +70,28 @@ return {
     },
 
     -- Pyromancer 1.2
-    --[[ NO CHANGES ]]--
+    rwaon_sienna_scholar_on_elite_special_killed = {
+        en = "Scarlet Infusion",
+    },
 
-    -- Pyromancer 1.3
-    --[[ NO CHANGES ]]--
+    rwaon_sienna_scholar_on_elite_special_killed_desc = {
+        en = "When you kill a elite or special with your ranged weapon, you gain %g%% increased weapon power, for 10 seconds, up to 5 stacks.",
+    },
+
+    -- Pyromancer 2.1
+    rwaon_sienna_scholar_armour_dot = {
+        en = "Ashen Form",
+    },
+    rwaon_sienna_scholar_armour_dot_desc = {
+        en = "All burning dots now apply to armoured enemies",
+    },
 
     -- Pyromancer 2.3
     rwaon_sienna_scholar_double_dot_duration = {
         en = "Boiling Blood",
     },
     rwaon_sienna_scholar_double_dot_duration_desc = {
-        en = "All burning dots duration will be increased. (see Mod Notes for information)",
+        en = "All burning dots duration are be increased. (see Mod Notes for information)",
     },
 
     -- Pyromancer 3.1
@@ -99,6 +110,10 @@ return {
         en = "The Burning Head now grants 10 seconds of %g%% increase movement/attack speed and a overcharge reduction of 2 for every hit.",
     },
 
+    -- Pyromancer 5.3
+    rwaon_sienna_scholar_activated_ability_damage_desc = {
+        en = "The Burning Head now grants 10 seconds of %g%% increased power.",
+    },
 ------------------------------------------------------------------------------
 
     --Barrage Trait

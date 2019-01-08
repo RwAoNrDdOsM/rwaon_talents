@@ -67,6 +67,20 @@ mod:add_buff("burning_geiser_dot_infinite", {
 	update_func = "apply_dot_damage"
 })
 
+mod:add_buff("burning_geiser_dot", {
+    duration = 5,
+    name = "burning dot",
+    end_flow_event = "smoke",
+    start_flow_event = "burn",
+    death_flow_event = "burn_death",
+    remove_buff_func = "remove_dot_damage",
+    apply_buff_func = "start_dot_damage",
+    time_between_dot_damages = 1,
+    damage_type = "burninating",
+    damage_profile = "burning_geiser_dot",
+    update_func = "apply_dot_damage"
+})
+
 DamageProfileTemplates.burning_geiser_dot = table.clone(DamageProfileTemplates.default)
 DamageProfileTemplates.burning_geiser_dot.no_stagger = true
 DamageProfileTemplates.burning_geiser_dot.default_target.damage_type = "burninating"

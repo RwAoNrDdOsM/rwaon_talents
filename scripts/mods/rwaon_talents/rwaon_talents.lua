@@ -1,7 +1,6 @@
 local mod = get_mod("rwaon_talents")
 
 local version = "Vermintide Mod Reworks - Alpha 03/01/19"
-
 function mod:version(self)
 	mod:echo(version)
 end
@@ -78,27 +77,32 @@ end)
 
 -- Talents
 mod:dofile("scripts/mods/rwaon_talents/talents/bright_wizard")
-mod:dofile("scripts/mods/rwaon_talents/talents/wood_elf")
+--mod:dofile("scripts/mods/rwaon_talents/talents/wood_elf")
 --mod:dofile("scripts/mods/rwaon_talents/talents/empire_soldier")
 --mod:dofile("scripts/mods/rwaon_talents/talents/witch_hunter")
-mod:dofile("scripts/mods/rwaon_talents/talents/dwarf_ranger")
+--mod:dofile("scripts/mods/rwaon_talents/talents/dwarf_ranger")
 
 -- Ultimates
 mod:dofile("scripts/mods/rwaon_talents/ults/bright_wizard")
-mod:dofile("scripts/mods/rwaon_talents/ults/wood_elf")
+--mod:dofile("scripts/mods/rwaon_talents/ults/wood_elf")
 --mod:dofile("scripts/mods/rwaon_talents/ults/empire_soldier")
 --mod:dofile("scripts/mods/rwaon_talents/ults/witch_hunter")
-mod:dofile("scripts/mods/rwaon_talents/ults/dwarf_ranger")
+--mod:dofile("scripts/mods/rwaon_talents/ults/dwarf_ranger")
 
 -- Weapons
 --mod:dofile("scripts/mods/rwaon_talents/weapons/1h_falchions")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/1h_axes")
-mod:dofile("scripts/mods/rwaon_talents/weapons/shortbows_hagbane")
+--mod:dofile("scripts/mods/rwaon_talents/weapons/shortbows_hagbane")
+mod:dofile("scripts/mods/rwaon_talents/weapons/sienna_scholar_career_skill")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_blast_beam")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_spark_spear")
 mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_fireball")
 mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_geiser")
 --mod:dofile("scripts/mods/rwaon_talents/weapons/staff_flamethrower")
+
+--Misc
+mod:dofile("scripts/mods/rwaon_talents/misc/buff_type_fix")
+mod:dofile("scripts/mods/rwaon_talents/misc/regrowth_fix")
 
 
 -- Traits

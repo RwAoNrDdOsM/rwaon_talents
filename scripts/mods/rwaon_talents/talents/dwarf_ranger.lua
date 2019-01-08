@@ -18,7 +18,8 @@ mod:add_talent("dr_ironbreaker", 2, 3, "rwaon_bardin_ironbreaker_movespeed_on_ch
     },
     requirements = {},
     buffs = {
-        "rwaon_bardin_ironbreaker_movespeed_on_charged_attacks_cooldown",
+		"rwaon_bardin_ironbreaker_movespeed_on_charged_attacks_cooldown",
+		"rwaon_sienna_scholar_embodiment_of_aqshy_overcharge",
     },
 })
 

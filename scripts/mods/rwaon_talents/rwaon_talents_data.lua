@@ -6,7 +6,7 @@ return {
     is_togglable = false,
     is_mutator = false, 
     mutator_settings = {},
-    options = {
+    --[[options = {
 		  widgets = {
 			  {
                 setting_id = "flamestorm_weapon_switch",
@@ -16,5 +16,5 @@ return {
                 default_value = false,
 			  },
 		  },
-	  }, 
+	  }, ]]
 }

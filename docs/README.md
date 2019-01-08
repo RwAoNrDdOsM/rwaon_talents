@@ -39,6 +39,11 @@ This is the Change Notes for the first Private Beta.
   
   *Reasoning*
 
++ Spirit-Binding (Tier 4, Slot 2) - 
+  Melee critical strikes and headshots restore 2 temporary health. Critical headshots restore twice as much.
+  
+  *Reasoning*
+
 + Embodiment of Aqshy (Tier 5, Slot 1) - 
   The Burning Head now grants 10 seconds of 15% increase movement/attack speed and a overcharge reduction of 1 for every hit.
   

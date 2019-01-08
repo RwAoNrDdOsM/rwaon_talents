@@ -1,13 +1,13 @@
 # Vermintide 2 Reworks
 
-This mod provides a basis for replacing talents with custom ones.
+This mod's purpose is to rework Warhammer: Vermintide 2 to enhance it's gameplay.
 
 
 
 ## Authors
 
-+ [ManuelBlanc](https://github.com/ManuelBlanc)
 + [RwAoNrDdOsM](https://github.com/RwAoNrDdOsM)
++ [ManuelBlanc](https://github.com/ManuelBlanc)
 
 ## License
 

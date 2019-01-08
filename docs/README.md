@@ -2,9 +2,13 @@
 
 This mod's purpose is to rework Warhammer: Vermintide 2 to enhance it's gameplay.
 
+This is the Change Notes for the first Private Beta.
+
+# Change Notes
+
 ## Talents
 
-### Pyromancer
+##### Pyromancer
 + Focusing Lens (Tier 1, Slot 1) - 
   Reduced range spread by 40%
   
@@ -15,7 +19,7 @@ This mod's purpose is to rework Warhammer: Vermintide 2 to enhance it's gameplay
   
   *Reasoning*
 
-+ Ashen Form (Tier 2, Slot 1):
++ Ashen Form (Tier 2, Slot 1) - 
   All burning dots now apply to armoured enemies.
   
   *Reasoning*
@@ -25,22 +29,22 @@ This mod's purpose is to rework Warhammer: Vermintide 2 to enhance it's gameplay
   
   *Reasoning*
 
-+ Martial Studies (Tier 3, Slot 1):
++ Martial Studies (Tier 3, Slot 1) - 
   Critical Mass also increases headshot damage by 4% per 6 overcharge and stacks up to 5 times.
   
   *Reasoning*
 
-+ One With The Flame (Tier 3, Slot 2):
++ One With The Flame (Tier 3, Slot 2) - 
   Critical Mass also increases attack speed by 3% per 6 overcharge and stacks up to 5 times.
   
   *Reasoning*
 
-+ Embodiment of Aqshy (Tier 5, Slot 1):
++ Embodiment of Aqshy (Tier 5, Slot 1) - 
   The Burning Head now grants 10 seconds of 15% increase movement/attack speed and a overcharge reduction of 1 for every hit.
   
   *Reasoning*
 
-+ Fiery Heart (Tier 5, Slot 3):
++ Fiery Heart (Tier 5, Slot 3) - 
   The Burning Head now grants 10 seconds of 20% increased power.
   
   *Reasoning*
@@ -48,7 +52,7 @@ This mod's purpose is to rework Warhammer: Vermintide 2 to enhance it's gameplay
 
 ## Weapons:
 
-### Conflagoration Staff:
+##### Conflagoration Staff:
 + AOE range increased by 20% 
 + Initial damage decreased by 50% 
 + Dot duration increased to 5 seconds 
@@ -56,7 +60,7 @@ This mod's purpose is to rework Warhammer: Vermintide 2 to enhance it's gameplay
   
   *Reasoning*
 
-### Fireball Staff Charged Shot:
+##### Fireball Staff Charged Shot:
 + Increase min radius by 10%
 + Increase max radius by 20%
 + Increase overall damage by ~17%

@@ -25,6 +25,7 @@ This is the Change Notes for the first Private Beta.
   Increases the duration of all burning dots.
   
    + *Quickening removed and replaced due to not interacting well with temporary HP, and charge speed that falling into Battle Wizard’s niche.*
+   + *All burning dots durations are increased by 100% (2 times as long), except beam which is 50% (1.5 times as long)*
 
 + Martial Studies (Tier 3, Slot 1) - 
   Critical Mass also increases headshot damage by 4% per 6 overcharge and stacks up to 5 times.

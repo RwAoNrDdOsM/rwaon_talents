@@ -91,7 +91,7 @@ return {
         en = "Boiling Blood",
     },
     rwaon_sienna_scholar_double_dot_duration_desc = {
-        en = "All burning dots duration are be increased. (see Mod Notes for information)",
+        en = "All burning dots duration are be increased. (see Change Notes for information)",
     },
 
     -- Pyromancer 3.1
@@ -107,7 +107,7 @@ return {
         en = "Embodiment of Aqshy",
     },
     rwaon_sienna_scholar_embodiment_of_aqshy_desc = {
-        en = "The Burning Head now grants 10 seconds of %g%% increase movement/attack speed and a overcharge reduction of 2 for every hit.",
+        en = "The Burning Head now grants 10 seconds of %g%% increase movement/attack speed and a overcharge reduction of 1 for every hit.",
     },
 
     -- Pyromancer 5.3

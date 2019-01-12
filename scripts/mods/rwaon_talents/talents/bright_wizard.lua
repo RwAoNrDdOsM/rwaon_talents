@@ -17,7 +17,7 @@ mod:add_talent("bw_scholar", 1, 1, "rwaon_sienna_scholar_reduced_spread", {
     },
 })
 mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_reduced_spread", {
-    multiplier = -0.4,
+    multiplier = -0.4, -- MODIFIED
     stat_buff = StatBuffIndex.REDUCED_SPREAD,
 })
 

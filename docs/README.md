@@ -51,7 +51,7 @@ This is the Change Notes for the first Private Beta.
 
 ## Weapons:
 
-#### Conflagoration Staff:
+#### Conflagoration Staff AOE Attack:
 + AOE range increased by 20% 
 + Initial damage decreased by 50% 
 + Dot duration increased to 5 seconds 

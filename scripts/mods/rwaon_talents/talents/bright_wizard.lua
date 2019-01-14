@@ -279,34 +279,65 @@ mod:dofile("scripts/mods/rwaon_talents/talents/bright_wizard_talent_extras/burni
 
 ------------------------------------------------------------------------------
 
-mod:add_talent("bw_scholar", 3, 1, "rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge", {
+mod:add_talent("bw_scholar", 3, 1, "rwaon_sienna_scholar_passive_increased_crit_damage_from_overcharge", {
     icon = "sienna_scholar_increased_ranged_charge_speed_on_low_health",
     description_values = {
-        { value = 0.04, value_type = "percent", }, -- Multiplier
+        { value = 0.1, value_type = "percent", }, -- Multiplier
         { value = 6 }, -- Chunk size
         { value = 5 }, -- Max stacks
     },
 	buffs = {
-        "rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge",
-        "rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge_icon",
+        "rwaon_sienna_scholar_passive_increased_crit_damage_from_overcharge",
+        "rwaon_sienna_scholar_passive_increased_crit_damage_from_overcharge_icon",
 	},
 })
 
-mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge", {
+local function is_local(unit)
+	local player = Managers.player:owner(unit)
+
+	return player and not player.remote
+end
+
+BuffFunctionTemplates.functions.update_multiplier_based_on_overcharge_chunks = function (unit, buff, params)
+    if is_local(unit) then
+        local overcharge_extension = ScriptUnit.extension(unit, "overcharge_system")
+        local overcharge, threshold, max_overcharge = overcharge_extension:current_overcharge_status()
+        local template = buff.template
+        local min_multiplier = template.min_multiplier
+        local max_multiplier = template.max_multiplier
+        local chunk_size = template.chunk_size
+        local stat_buff_index = template.stat_buff
+        local previous_multiplier = buff.previous_multiplier or 0
+        local num_chunks = math.floor(overcharge / chunk_size)
+        local multiplier = math.clamp(num_chunks * min_multiplier, 0, max_multiplier)
+        buff.multiplier = multiplier
+        
+        if stat_buff_index and previous_multiplier ~= multiplier then
+            local buff_extension = ScriptUnit.extension(unit, "buff_system")
+            local difference = multiplier - previous_multiplier
+
+            buff_extension:update_stat_buff(stat_buff_index, difference)
+        end
+
+        buff.previous_multiplier = multiplier
+    end
+end
+
+mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_passive_increased_crit_damage_from_overcharge", {
     chunk_size = 6,
-    min_multiplier = 0.04,
-    max_multiplier = 0.2,
+    min_multiplier = 0.1,
+    max_multiplier = 0.5,
     stat_buff = StatBuffIndex.HEADSHOT_MULTIPLIER,
     update_func = "update_multiplier_based_on_overcharge_chunks"
 })
 
-mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge_icon", {
+mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_passive_increased_crit_damage_from_overcharge_icon", {
     chunk_size = 6,
-    buff_to_add = "rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge_icon_dummy",
+    buff_to_add = "rwaon_sienna_scholar_passive_increased_crit_damage_from_overcharge_icon_dummy",
 	update_func = "activate_buff_stacks_based_on_overcharge_chunks"
 })
 
-mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_passive_increased_headshot_damage_from_overcharge_icon_dummy", {
+mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_passive_increased_crit_damage_from_overcharge_icon_dummy", {
     max_stacks = 5,
     icon = "sienna_scholar_increased_ranged_charge_speed_on_low_health",
 })
@@ -363,19 +394,13 @@ mod:add_talent_buff("bright_wizard", "sienna_scholar_regrowth", {
 
 mod:add_talent("bw_scholar", 5, 1, "rwaon_sienna_scholar_embodiment_of_aqshy", {
     description_values = {
-        { value = 0.25, value_type = "percent", }, -- Multiplier
-        { value = 2 }, -- Overcharge reduction
+        { value = 0.15, value_type = "percent", }, -- Multiplier
+        { value = 1 }, -- Overcharge reduction
     },
     icon = "sienna_scholar_activated_ability_dump_overcharge",
     buffs = {
     },
 })
-
-local function is_local(unit)
-	local player = Managers.player:owner(unit)
-
-	return player and not player.remote
-end
 
 mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_embodiment_of_aqshy_overcharge", {
     duration = 10,
@@ -447,8 +472,6 @@ local embodiment_of_aqshy_buff = {
 
 TalentBuffTemplates.bright_wizard.rwaon_sienna_scholar_embodiment_of_aqshy_buff = embodiment_of_aqshy_buff
 BuffTemplates.rwaon_sienna_scholar_embodiment_of_aqshy_buff = embodiment_of_aqshy_buff
-
---mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_embodiment_of_aqshy_buff", )
 
 mod:add_talent("bw_scholar", 5, 3, "rwaon_sienna_scholar_activated_ability_damage", {
     name = "sienna_scholar_activated_ability_cooldown",

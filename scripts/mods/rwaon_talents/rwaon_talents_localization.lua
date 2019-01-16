@@ -21,7 +21,7 @@ return {
         en = "Miner’s Rhythm"
     },
     rwaon_bardin_ironbreaker_movespeed_on_charged_attacks_desc = {
-        en = "After landing a charged attack, Bardin receives 10% increased move speed for 5 seconds, with a cooldown of 15 seconds."
+        en = "After landing a charged attack, Bardin receives %g%% increased move speed for 5 seconds, with a cooldown of 15 seconds."
     },
 
     --Ironbreaker 5.1
@@ -33,30 +33,50 @@ return {
     },
 ------------------------------------------------------------------------------
     --Handmaiden Ultimate
-    rwaon_career_active_desc_we_2 = {
+    career_active_desc_we_2 = {
         en = "Kerillian dashes forward through enemies.",
     },
 
-    --Handmaiden 5.1
-    kerillian_maidenguard_increased_attack_speed = {
-        en = "Blade Runner",
+    --Handmaiden Passive
+   career_passive_desc_we_2b_2 = {
+        en = "Aura that increases stamina regeneration speed by 50%",
     },
-    kerillian_maidenguard_increased_attack_speed_desc = {
+
+    --Handmaiden 1.3
+    rwaon_kerillian_maidenguard_defence = {
+        en = "Defiance",
+    },
+    rwaon_kerillian_maidenguard_defence_desc = {
+        en = "Reduce damage taken by %g%%",
+    },
+
+    --Handmaiden 2.3
+    rwaon_kerillian_maidenguard_increased_attack_speed = {
+        en = "Vaul’s Blessing",
+    },
+    rwaon_kerillian_maidenguard_increased_attack_speed_desc = {
         en = "Increases attack speed by %g%%.",
     },
 
-
     --Handmaiden 5.1
-    rwaon_kerillian_double_dash = {
-        en = "Double Dash",
+    rwaon_kerillian_maidenguard_ability_double_dash = {
+        en = "Handmainden’s Grace",
     },
-    rwaon_kerillian_double_dash_desc = {
-        en = "You can use dash twice in 5 seconds.",
+    rwaon_kerillian_maidenguard_ability_double_dash_desc = {
+        en = "You can now Dash a second time within 5 seconds but cooldown of Dash is increased by %g%%.",
     },
     
     --Handmaiden 5.2
     kerillian_maidenguard_activated_ability_damage_desc = { 
         en = "Dashing through enemies now causes them to bleed."
+    },
+
+    --Handmaiden 5.3
+    rwaon_kerillian_maidenguard_ability_stagger = {
+        en = "Hukon's Wrath",
+    },
+    rwaon_kerillian_maidenguard_ability_stagger_desc = {
+        en = "Dash now has a stagger effect but cooldown of Dash is increased by %g%%.",
     },
 
 ------------------------------------------------------------------------------
@@ -91,7 +111,7 @@ return {
         en = "Boiling Blood",
     },
     rwaon_sienna_scholar_double_dot_duration_desc = {
-        en = "All burning dots duration are be increased.",
+        en = "All burning dots duration are increased.",
     },
 
     -- Pyromancer 3.1

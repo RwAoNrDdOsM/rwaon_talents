@@ -44,6 +44,10 @@ This is the Change Notes for the first Private Beta.
   
     + *Exhaust: Removed and replaced. This acts as the reverse of the Bonded Flame, encouraging you to get to high overheat and then use your ultimate, rather than the reverse.*
 
++ Bonded Flame (Tier 5, Slot 2) - The Burning Head grants 40 temporary health when used, but cooldown of The Burning Head is increased by 50%
+
+    + *Nerf. Bonded Flame seemed like always the best option in T5, as it was a medkit with the added bonus of The Burning Head. These changes try to alievate the problems with this talent without completely reworking it.*
+
 + Fiery Heart (Tier 5, Slot 3) - The Burning Head now grants 10 seconds of 20% increased power.
   
     + *Reworked. Cooldown reduction talents, in general, feel like a binary choice of mandatory or never taken. This talent was reworked instead to give the Pyromancer a choice in this row to give her significant on-demand power boost, that works both for melee and ranged combat.*
@@ -60,9 +64,14 @@ This is the Change Notes for the first Private Beta.
   + *This staff was redesigned so as to be an area-control and damage over time weapon, as fits its theme, as opposed to direct damage.*
 
 #### Fireball Staff Charged Shot:
-+ Increase min radius by 10%
++ Decreased min radius by 10% from first build (Now the same as live)
 + Increase max radius by 20%
 + Increase overall damage by ~17%
 + Increase overcharge cost from 7 to 9
++ Modified Base Overcharge (~4.5 overcharge max to ~5.6 max from quick charges)
++ Increased Explosion Damage by 20%
   
   + *This was changed to reduce the “spamminess” that the staff currently experiences, without decreasing its overall damage output.*
+
+## Bug Fixes:
++ Fixed Killfeed

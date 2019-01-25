@@ -27,78 +27,13 @@ mod:add_talent("bw_scholar", 1, 2, "rwaon_sienna_scholar_on_elite_special_killed
     description_values = {
         {
             value_type = "percent",
-            value = 0.05
+            value = 0.03
         }
     },
     buffs = {
         "rwaon_sienna_scholar_on_elite_special_killed"
     },
 })
-
-mod.unit_category = function(unit)
-    local breed_categories = {}
-
-    breed_categories["skaven_clan_rat"] = "normal"
-    breed_categories["skaven_clan_rat_with_shield"] = "normal"
-    breed_categories["skaven_dummy_clan_rat"] = "normal"
-    breed_categories["skaven_slave"] = "normal"
-    breed_categories["skaven_dummy_slave"] = "normal"
-    breed_categories["chaos_marauder"] = "normal"
-    breed_categories["chaos_marauder_with_shield"] = "normal"
-    breed_categories["chaos_fanatic"] = "normal"
-    breed_categories["critter_rat"] = "normal"
-    breed_categories["critter_pig"] = "normal"
-
-    breed_categories["skaven_gutter_runner"] = "special"
-    breed_categories["skaven_pack_master"] = "special"
-    breed_categories["skaven_ratling_gunner"] = "special"
-    breed_categories["skaven_poison_wind_globadier"] = "special"
-    breed_categories["chaos_vortex_sorcerer"] = "special"
-    breed_categories["chaos_corruptor_sorcerer"] = "special"
-    breed_categories["skaven_warpfire_thrower"] = "special"
-    breed_categories["skaven_loot_rat"] = "special"
-    breed_categories["chaos_tentacle"] = "special"
-    breed_categories["chaos_tentacle_sorcerer"] = "special"
-    breed_categories["chaos_plague_sorcerer"] = "special"
-    breed_categories["chaos_plague_wave_spawner"] = "special"
-    breed_categories["chaos_vortex"] = "special"
-    breed_categories["chaos_dummy_sorcerer"] = "special"
-
-    breed_categories["skaven_storm_vermin"] = "elite"
-    breed_categories["skaven_storm_vermin_commander"] = "elite"
-    breed_categories["skaven_storm_vermin_with_shield"] = "elite"
-    breed_categories["skaven_plague_monk"] = "elite"
-    breed_categories["chaos_berzerker"] = "elite"
-    breed_categories["chaos_raider"] = "elite"
-    breed_categories["chaos_warrior"] = "elite"
-    
-    breed_categories["skaven_rat_ogre"] = "boss"
-    breed_categories["skaven_stormfiend"] = "boss"
-    breed_categories["skaven_storm_vermin_warlord"] = "boss"
-    breed_categories["skaven_stormfiend_boss"] = "boss"
-    breed_categories["skaven_grey_seer"] = "boss"
-    breed_categories["chaos_troll"] = "boss"
-    breed_categories["chaos_dummy_troll"] = "boss"
-    breed_categories["chaos_spawn"] = "boss"
-    breed_categories["chaos_exalted_champion"] = "boss"
-    breed_categories["chaos_exalted_champion_warcamp"] = "boss"
-    breed_categories["chaos_exalted_sorcerer"] = "boss"
-
-    local breed_data = Unit.get_data(unit, "breed")
-    breed_name = breed_data.name
-    if breed_categories[breed_name] then
-        return breed_categories[breed_name]
-    else
-        -- Handle unknown breeds: everything below 300 HP is normal, above is a boss
-        local health_extension = ScriptUnit.extension(unit, "health_system")
-        local hp = health_extension:get_max_health()
-        if hp > 300 then
-            return "boss"
-        else
-            return "normal"
-        end
-    end
-end
 
 local Unit_get_data = Unit.get_data
 mod:hook_safe(StatisticsUtil, "register_kill", function (victim_unit, damage_data, statistics_db, is_server)
@@ -111,18 +46,11 @@ mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_on_elite_special_kill
     event = "on_kill",
     --icon = "icons_placeholder",
     buff_func = function (unit, buff, params)
-        --local death_ext = ScriptUnit.extension(unit, "death_system")
-        --local death_has_started = death_ext and death_ext.death_has_started
-        --local killing_blow = params.death and death_ext and not death_has_started
         local killing_blow = params[1]
-        
-
-        --local attacker_unit = biggest_hit[DamageDataIndex.ATTACKER]
-        --local damage_amount = biggest_hit[DamageDataIndex.DAMAGE_AMOUNT]
 
         local damage_amount          = killing_blow[1]
         local damage_type            = killing_blow[2]
-        local attacker_unit          = killing_blow[3] --  or victim_unit
+        local attacker_unit          = killing_blow[3]
         local hit_zone_name          = killing_blow[4]
         local hit_position_table     = killing_blow[5]
         local damage_direction_table = killing_blow[6]
@@ -135,35 +63,13 @@ mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_on_elite_special_kill
             local local_player = Managers.player:local_player()
             local player_unit = local_player.player_unit
             local network_manager = Managers.state.network
-            --local unit_id, is_level_unit = network_manager:game_object_or_level_id(unit)
-
-            --if DamageUtils.is_player_unit(attacker_unit) and damage_amount > 0 then
-                --if (not killing_blow) and attacker_unit == player_unit then
-                    --assists[unit_id] = 1
-                --if killing_blow and (attacker_unit == player_unit) then -- or assists[unit_id]
-                    local victim_unit = rwaon_damaging_unit_data
-                    local unit_type = mod.unit_category(victim_unit)
-                    --00mod:echo(unit_type)
-                    --mod:echo(damage_source)
-
-                    if (unit_type == "special" or unit_type == "elite") and (damage_source == "bw_skullstaff_beam" or damage_source == "bw_skullstaff_spear" or damage_source == "bw_skullstaff_geiser" or damage_source == "bw_skullstaff_fireball" or damage_source == "bw_skullstaff_flamethrower") then
-                        local buff_extension = ScriptUnit.extension(player_unit, "buff_system")
-                        buff_extension:add_buff("rwaon_sienna_scholar_on_elite_special_killed_buff", buff_params)
-                    end
-                    --opacities[unit_type] = 255
-                    --sizes[unit_type] = 0
-                    --colors[unit_type] = {255, 25, 25}
-                    
-                    --if assists[unit_id] then
-                    --    if attacker_unit ~= player_unit then
-                    --        colors[unit_type] = {7, 150, 210}
-                    --    end
-                    --    assists[unit_id] = nil  -- Remove from table
-                        -- TODO clear assists periodically as units can die from other causes
-                        -- TODO show assists from non-player causes (e.g. gunner fire, barrel explosions...)
-                    --end
-                --end
-            --end
+            local victim_unit = rwaon_damaging_unit_data
+            local unit_type = mod:unit_category(victim_unit)
+            
+            if (unit_type == "special" or unit_type == "elite") then
+                local buff_extension = ScriptUnit.extension(player_unit, "buff_system")
+                buff_extension:add_buff("rwaon_sienna_scholar_on_elite_special_killed_buff", buff_params)
+            end
         end)
     end,
 })
@@ -173,17 +79,17 @@ mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_on_elite_special_kill
     duration = 10,
     max_stacks = 5,
     refresh_durations = true,
-    multiplier = 0.05,  
+    multiplier = 0.03,  
     icon = "sienna_scholar_increased_attack_speed",
     stat_buff = StatBuffIndex.INCREASED_WEAPON_DAMAGE_MELEE,
 })
 
 ------------------------------------------------------------------------------
-mod:add_talent("bw_scholar", 2, 1, "rwaon_sienna_scholar_armour_dot", {
+--[[mod:add_talent("bw_scholar", 2, 1, "rwaon_sienna_scholar_armour_dot", {
     description_values = {},
     icon = "sienna_scholar_passive_reduced_block_cost_from_overcharge",
     buffer = "server",
-})
+})]]
 
 mod:add_talent("bw_scholar", 2, 3, "rwaon_sienna_scholar_double_dot_duration", {
     description_values = {},
@@ -197,6 +103,7 @@ mod:dofile("scripts/mods/rwaon_talents/talents/bright_wizard_talent_extras/burni
 
 mod:add_talent("bw_scholar", 3, 1, "rwaon_sienna_scholar_passive_increased_crit_damage_from_overcharge", {
     icon = "sienna_scholar_increased_ranged_charge_speed_on_low_health",
+    buffer = "server",
     description_values = {
         { value = 0.1, value_type = "percent", }, -- Multiplier
         { value = 6 }, -- Chunk size
@@ -388,6 +295,30 @@ local embodiment_of_aqshy_buff = {
 
 TalentBuffTemplates.bright_wizard.rwaon_sienna_scholar_embodiment_of_aqshy_buff = embodiment_of_aqshy_buff
 BuffTemplates.rwaon_sienna_scholar_embodiment_of_aqshy_buff = embodiment_of_aqshy_buff
+
+mod:add_talent("bw_scholar", 5, 2, "rwaon_sienna_scholar_activated_ability_heal", {
+    name = "sienna_scholar_activated_ability_heal",
+	num_ranks = 1,
+	icon = "sienna_scholar_activated_ability_heal",
+	description_values = {
+        {
+            value_type = "percent",
+            value = 0.5
+        },
+        {
+			value = 40
+		}
+	},
+    buffs = {
+        "rwaon_sienna_scholar_activated_ability_anitcooldown",
+    },
+})
+
+mod:add_talent_buff("wood_elf", "rwaon_sienna_scholar_activated_ability_anitcooldown", {
+	multiplier = 0.5,
+	stat_buff = StatBuffIndex.ACTIVATED_COOLDOWN,
+})
+
 
 mod:add_talent("bw_scholar", 5, 3, "rwaon_sienna_scholar_activated_ability_damage", {
     name = "sienna_scholar_activated_ability_cooldown",

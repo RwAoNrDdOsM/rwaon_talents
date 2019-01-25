@@ -1,6 +1,6 @@
 local mod = get_mod("rwaon_talents")
 
--- Hagban Bow
+-- Hagbane Bow
 
 ------------------------------------------------------------------------------
 -- Dot Changes

@@ -2,6 +2,27 @@ local mod = get_mod("rwaon_talents")
 
 ------------------------------------------------------------------------------
 
+mod:add_talent("we_maidenguard", 1, 1, "rwaon_kerillian_maidenguard_max_stamina", {
+	name = "kerillian_maidenguard_max_stamina",
+	num_ranks = 1,
+	icon = "kerillian_maidenguard_max_stamina",
+	description_values = {
+		{
+			value = 4
+		}
+	},
+	requirements = {},
+	buffs = {
+		"rwaon_kerillian_maidenguard_max_stamina"
+	},
+	buff_data = {}
+})
+
+mod:add_talent_buff("wood_elf", "rwaon_kerillian_maidenguard_max_stamina", {
+	bonus = 4,
+	stat_buff = StatBuffIndex.MAX_FATIGUE,
+})
+
 mod:add_talent("we_maidenguard", 1, 3, "rwaon_kerillian_maidenguard_defence", {
 	description_values = {
 		{
@@ -25,19 +46,24 @@ mod:add_talent_buff("wood_elf", "rwaon_kerillian_maidenguard_defence", {
 
 ------------------------------------------------------------------------------
 
-mod:add_talent("we_maidenguard", 2, 1, "kerillian_maidenguard_max_ammo", {
-	description = "kerillian_maidenguard_max_ammo_desc",
+mod:add_talent("we_maidenguard", 2, 1, "rwaon_kerillian_maidenguard_max_ammo", {
+	description = "rwaon_kerillian_maidenguard_max_ammo_desc",
 	name = "kerillian_maidenguard_max_ammo",
 	icon = "kerillian_maidenguard_max_ammo",
 	description_values = {
 		{
 			value_type = "percent",
-			value = 0.4,
+			value = 0.5,
 		}
 	},
 	buffs = {
-		"kerillian_maidenguard_max_ammo"
+		"rwaon_kerillian_maidenguard_max_ammo"
 	},
+})
+
+mod:add_talent_buff("wood_elf", "rwaon_kerillian_maidenguard_max_ammo", {
+	multiplier = 0.5,
+	stat_buff = StatBuffIndex.TOTAL_AMMO,
 })
 
 
@@ -53,6 +79,7 @@ mod:add_talent("we_maidenguard", 2, 3, "rwaon_kerillian_maidenguard_increased_at
 			"rwaon_kerillian_maidenguard_increased_attack_speed",
 	},
 	buff_data = {},
+	icon = "kerillian_maidenguard_activated_ability_cooldown",	
 })
 
 mod:add_talent_buff("wood_elf", "rwaon_kerillian_maidenguard_increased_attack_speed", {
@@ -72,16 +99,17 @@ mod:add_talent("we_maidenguard", 5, 1, "rwaon_kerillian_maidenguard_ability_doub
 			value = 5
 		},
 	},
+	icon = "kerillian_maidenguard_activated_ability_invis_duration",
 	buffer = "server",
 	buffs = {
-		"rwaon_kerillian_maidenguard_ability_anitcooldown"
+		--"rwaon_kerillian_maidenguard_ability_anitcooldown"
 	},
 })
 
 mod:add_talent_buff("wood_elf", "rwaon_kerillian_maidenguard_ability_double_dash", {
 	duration = 5,
     max_stacks = 1,
-	icon = "icons_placeholder",
+	icon = "kerillian_maidenguard_activated_ability_invis_duration",
 	dormant = true,
 	remove_buff_func = "rwaon_kerillian_maidenguard_start_ability_cooldown",
 })
@@ -112,6 +140,7 @@ mod:add_talent("we_maidenguard", 5, 3, "rwaon_kerillian_maidenguard_ability_stag
 	buffs = {
 		"rwaon_kerillian_maidenguard_ability_anitcooldown"
 	},
+	icon = "kerillian_maidenguard_improved_stamina_regen",
 })
 
 mod:add_talent_buff("wood_elf", "rwaon_kerillian_maidenguard_ability_anitcooldown", {

@@ -15,8 +15,8 @@ for _, staff_fireball_geiser in ipairs{
     --add_weapon_data(action_two, "default", "max_radius", 4.2) --3.5
 end
 
---[[ Firepatch
-ExplosionTemplates.conflag = {
+-- Firepatch
+--[[ExplosionTemplates.conflag = {
 	aoe = {
 		dot_template_name = "burning_geiser_dot", -- burning_1W_dot
 		radius = 4.8, -- 4
@@ -25,12 +25,12 @@ ExplosionTemplates.conflag = {
 		attack_template = "wizard_staff_geiser",
 		sound_event_name = "player_combat_weapon_fire_grenade_explosion",
 		damage_interval = 1,
-		duration = 2,
+		duration = 5, -- 2
 		area_damage_template = "explosion_template_aoe",
 		nav_mesh_effect = {
-			particle_radius = 2.4, -- 2
+			particle_radius = 2,
 			particle_name = "fx/wpnfx_fire_grenade_impact_remains",
-			particle_spacing = 1.1 -- 0.9
+			particle_spacing = 0.9
 		}
 	}
 }]]
@@ -103,7 +103,7 @@ DamageProfileTemplates.burning_geiser_dot.default_target.armor_modifier = {
 	}
 }
 DamageProfileTemplates.burning_geiser_dot.default_target.power_distribution = {
-	attack = 0.075, --0.05
+	attack = 0.05, --0.05
 	impact = 0.05
 }
 

@@ -145,13 +145,13 @@ mod:hook_origin(ActionCareerBWScholar, "client_owner_start_action", function (se
 		end
 	end	
 
-	if talent_extension:has_talent("sienna_scholar_activated_ability_heal", "bright_wizard", true) then
+	if talent_extension:has_talent("rwaon_sienna_scholar_activated_ability_heal", "bright_wizard", true) then
 		local network_manager = Managers.state.network
 		local network_transmit = network_manager.network_transmit
 		local unit_id = network_manager:unit_game_object_id(owner_unit)
 		local heal_type_id = NetworkLookup.heal_types.career_skill
 
-		network_transmit:send_rpc_server("rpc_request_heal", unit_id, 50, heal_type_id)
+		network_transmit:send_rpc_server("rpc_request_heal", unit_id, 40, heal_type_id) --50 3rd
 	end
 
 	if talent_extension:has_talent("rwaon_sienna_scholar_activated_ability_damage", "bright_wizard", true) then

@@ -42,12 +42,22 @@ return {
         en = "Aura that increases stamina regeneration speed by 50%",
     },
 
+    --Handmaiden 1.1
+    rwaon_kerillian_maidenguard_max_stamina_desc = {
+        en = "Grants two extra stamina shields.",
+    },
+
     --Handmaiden 1.3
     rwaon_kerillian_maidenguard_defence = {
         en = "Defiance",
     },
     rwaon_kerillian_maidenguard_defence_desc = {
-        en = "Reduce damage taken by %g%%",
+        en = "Reduce damage taken by %g%%.",
+    },
+
+    --Handmaiden 2.1
+    rwaon_kerillian_maidenguard_max_ammo_desc = {
+        en = "Increases ammunition amount by %g%%.",
     },
 
     --Handmaiden 2.3
@@ -63,7 +73,7 @@ return {
         en = "Handmainden’s Grace",
     },
     rwaon_kerillian_maidenguard_ability_double_dash_desc = {
-        en = "You can now Dash a second time within 5 seconds but cooldown of Dash is increased by %g%%.",
+        en = "You can now Dash a second time within 5 seconds.", --but cooldown of Dash is increased by %g%%
     },
     
     --Handmaiden 5.2
@@ -95,7 +105,7 @@ return {
     },
 
     rwaon_sienna_scholar_on_elite_special_killed_desc = {
-        en = "When you kill a elite or special with your ranged weapon, you gain %g%% increased weapon power, for 10 seconds, up to 5 stacks.",
+        en = "When you kill a elite or special, you gain %g%% increased weapon power, for 10 seconds, up to 5 stacks.",
     },
 
     -- Pyromancer 2.1
@@ -128,6 +138,11 @@ return {
     },
     rwaon_sienna_scholar_embodiment_of_aqshy_desc = {
         en = "The Burning Head now grants 10 seconds of %g%% increase movement/attack speed and a overcharge reduction of 1 for every hit.",
+    },
+
+    -- Pyromancer 5.2
+    rwaon_sienna_scholar_activated_ability_heal_desc = {
+        en = "The Burning Head grants 40 temporary health when used, but cooldown of The Burning Head is increased by %g%%."
     },
 
     -- Pyromancer 5.3

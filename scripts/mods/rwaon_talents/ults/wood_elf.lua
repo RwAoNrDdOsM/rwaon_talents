@@ -30,7 +30,7 @@ mod:hook_origin(CareerAbilityWEMaidenGuard, "_run_ability", function(self)
 	end]]
 
 	local unit_object_id = network_manager:unit_game_object_id(owner_unit)
-	local buff_template_name_id = buff_name
+	local buff_template_name_id = NetworkLookup.buff_templates[buff_name]
 
 	if is_server then
 		local buff_extension = self._buff_extension

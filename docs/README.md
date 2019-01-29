@@ -2,12 +2,18 @@
 
 This mod's purpose is to rework Warhammer: Vermintide 2 to enhance it's gameplay.
 
-This is the Change Notes for the second Private Beta Release.
+This is the Change Notes for the 2.1 Private Beta Release.
 
 # Change Notes
 
 ## Ultimates
 
+#### Ironbreaker
++ You can now select what units to taunt by aiming at a desired class (infantry, elites, specials or bosses). (If you select nothing it taunts infantry, elites and specials)
++ Ult stagger range increased by 100%
+
+  + *This is to give IB a more versitile Ultimate, more changes are coming in the future for his Ult.*
+  
 #### Handmaiden
 + 50% increase distance of dash 
 + You are now able to rotate in dash.
@@ -18,6 +24,13 @@ This is the Change Notes for the second Private Beta Release.
 
 ## Passives
 
+#### All Careers
+
++ Removed all undocumented passive that reduced ultimate cooldown when you hit an enemy.
++ Removed all undocumented passive that reduced ultimate cooldown when you take damage.
+
+  + *These changes were made to make the gameplay less forgiving of mistakes. This is also a foresight of things to come and the new found focus of V2.*
+
 #### Handmaiden
 
 + Renewal
@@ -27,6 +40,11 @@ This is the Change Notes for the second Private Beta Release.
    + *This change was done to be less restrictive with positioning for the aura to apply to teammates. The decreased effectiveness is to simultaneously disallow the handmaiden aura to completely negate the stamina changes from the Big Balance Beta, while also allowing one to gain this effectiveness back via talent choice.*
 
 ## Talents
+
+#### Ironbreaker
++ OI! WAZZOK! (Tier 5, Slot 1) - Gain uninterruptible attacks while Impenetrable is active
+
+   + *As the taunting of bosses are now enabled through the Ult Rework, we had to rework this talent. Uninterruptible attacks seem to fit the nature of Ironbreaker, and makes the class lean more into an offensive role.*
 
 #### Pyromancer
 + Focusing Lens (Tier 1, Slot 1) - Reduced range spread by 40% (increased from 25%)

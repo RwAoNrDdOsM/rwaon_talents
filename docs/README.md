@@ -26,8 +26,8 @@ This is the Change Notes for the 2.1 Private Beta Release.
 
 #### All Careers
 
-+ Removed all undocumented passive that reduced ultimate cooldown when you hit an enemy.
-+ Removed all undocumented passive that reduced ultimate cooldown when you take damage.
++ Removed all undocumented passives that reduced ultimate cooldown when you hit an enemy.
++ Removed all undocumented passives that reduced ultimate cooldown when you take damage.
 
   + *These changes were made to make the gameplay less forgiving of mistakes. This is also a foresight of things to come and the new found focus of V2.*
 

@@ -1,7 +1,5 @@
 local mod = get_mod("rwaon_talents")
-
 ------------------------------------------------------------------------------
-
 
 mod:add_talent("bw_scholar", 1, 1, "rwaon_sienna_scholar_reduced_spread", {
     num_ranks = 1,
@@ -16,6 +14,7 @@ mod:add_talent("bw_scholar", 1, 1, "rwaon_sienna_scholar_reduced_spread", {
         "rwaon_sienna_scholar_reduced_spread"
     },
 })
+
 mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_reduced_spread", {
     multiplier = -0.4, -- MODIFIED
     stat_buff = StatBuffIndex.REDUCED_SPREAD,
@@ -28,7 +27,13 @@ mod:add_talent("bw_scholar", 1, 2, "rwaon_sienna_scholar_on_elite_special_killed
         {
             value_type = "percent",
             value = 0.03
-        }
+        },
+        { 
+            value = 10 
+        },
+        { 
+            value = 5 
+        },
     },
     buffs = {
         "rwaon_sienna_scholar_on_elite_special_killed"
@@ -97,7 +102,7 @@ mod:add_talent("bw_scholar", 2, 3, "rwaon_sienna_scholar_double_dot_duration", {
     buffer = "server",
 })
 
-mod:dofile("scripts/mods/rwaon_talents/talents/bright_wizard_talent_extras/burning_dots")
+mod:dofile("rwaon_talents/scripts/managers/talents/talent_settings_sienna_extra/burning_dots")
 
 ------------------------------------------------------------------------------
 
@@ -105,9 +110,16 @@ mod:add_talent("bw_scholar", 3, 1, "rwaon_sienna_scholar_passive_increased_crit_
     icon = "sienna_scholar_increased_ranged_charge_speed_on_low_health",
     buffer = "server",
     description_values = {
-        { value = 0.1, value_type = "percent", }, -- Multiplier
-        { value = 6 }, -- Chunk size
-        { value = 5 }, -- Max stacks
+        { 
+            value = 0.1, 
+            value_type = "percent", 
+        },
+        { 
+            value = 6 
+        },
+        { 
+            value = 5 
+        },
     },
 	buffs = {
         "rwaon_sienna_scholar_passive_increased_crit_damage_from_overcharge",
@@ -217,6 +229,7 @@ mod:add_talent_buff("bright_wizard", "sienna_scholar_regrowth", {
 
 mod:add_talent("bw_scholar", 5, 1, "rwaon_sienna_scholar_embodiment_of_aqshy", {
     description_values = {
+        { value = 10 },
         { value = 0.15, value_type = "percent", }, -- Multiplier
         { value = 1 }, -- Overcharge reduction
     },
@@ -302,12 +315,12 @@ mod:add_talent("bw_scholar", 5, 2, "rwaon_sienna_scholar_activated_ability_heal"
 	icon = "sienna_scholar_activated_ability_heal",
 	description_values = {
         {
+			value = 40
+		},
+        {
             value_type = "percent",
             value = 0.5
         },
-        {
-			value = 40
-		}
 	},
     buffs = {
         "rwaon_sienna_scholar_activated_ability_anitcooldown",
@@ -326,6 +339,9 @@ mod:add_talent("bw_scholar", 5, 3, "rwaon_sienna_scholar_activated_ability_damag
     buffer = "both",
     icon = "sienna_scholar_activated_ability_cooldown",
     description_values = {
+        {
+            value = 10
+        },
         {
             value_type = "percent",
             value = 0.2

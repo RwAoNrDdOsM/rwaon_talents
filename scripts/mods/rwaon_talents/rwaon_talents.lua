@@ -1,18 +1,13 @@
 local mod = get_mod("rwaon_talents")
 
-local version = "Vermintide Mod Reworks - Alpha 03/01/19"
-function mod:version(self)
-	mod:echo(version)
-end
-
-mod:command("version", mod:localize("version_command_description"), function() mod.version() end)
-
 local function merge(dst, src)
     for k, v in pairs(src) do
         dst[k] = v
     end
     return dst
 end
+
+NewDamageProfileTemplates = {}
 
 function mod:add_talent(career_name, tier, index, new_talent_name, new_talent_data)
     local career_settings = CareerSettings[career_name]
@@ -37,8 +32,8 @@ function mod:add_talent(career_name, tier, index, new_talent_name, new_talent_da
     TalentIDLookup[new_talent_name] = new_talent_index
 end
 
-function mod:add_talent_buff(hero_name, buff_name, buff_data)
-    --local new_buff_index = #NetworkLookup.buff_templates[buff_name] + 1
+function mod:add_talent_buff(hero_name, buff_name, buff_data)   
+    local new_index = #NetworkLookup.buff_templates + 1
     
     local talent_buff = {
         buffs = {
@@ -47,16 +42,28 @@ function mod:add_talent_buff(hero_name, buff_name, buff_data)
     }
     TalentBuffTemplates[hero_name][buff_name] = talent_buff
     BuffTemplates[buff_name] = talent_buff
-    --NetworkLookup.buff_templates[buff_name] = new_buff_index
+    NewNetworkLookup.buff_templates = buff_name
+    table.append(NetworkLookup.buff_templates, NewNetworkLookup.buff_templates)
 end
 
 function mod:add_buff(buff_name, buff_data)
+    local new_index = #NetworkLookup.buff_templates + 1
+    
     local new_buff = {
         buffs = {
             merge({ name = buff_name }, buff_data),
         },
     }
     BuffTemplates[buff_name] = new_buff
+    NewNetworkLookup.buff_templates = buff_name
+    table.append(NetworkLookup.buff_templates, NewNetworkLookup.buff_templates)
+end
+
+function mod:add_buff_extra(buff_name, buff_data)
+    local new_index = #NetworkLookup.buff_templates + 1
+    BuffTemplates[buff_name] = buff_data
+    NewNetworkLookup.buff_templates = buff_name
+    table.append(NetworkLookup.buff_templates, NewNetworkLookup.buff_templates)
 end
 
 function mod:add_buff_function(name, func)
@@ -146,51 +153,87 @@ function mod:unit_category(unit)
     end
 end
 
--- Talents
-mod:dofile("scripts/mods/rwaon_talents/talents/bright_wizard")
-mod:dofile("scripts/mods/rwaon_talents/talents/wood_elf")
---mod:dofile("scripts/mods/rwaon_talents/talents/empire_soldier")
---mod:dofile("scripts/mods/rwaon_talents/talents/witch_hunter")
---mod:dofile("scripts/mods/rwaon_talents/talents/dwarf_ranger")
+--[[ProcFunctions.heal_permanent_proc = function (player, buff, params)
+	if not Managers.state.network.is_server then
+        return
+    end
 
--- Ultimates
-mod:dofile("scripts/mods/rwaon_talents/ults/bright_wizard")
-mod:dofile("scripts/mods/rwaon_talents/ults/wood_elf")
---mod:dofile("scripts/mods/rwaon_talents/ults/empire_soldier")
---mod:dofile("scripts/mods/rwaon_talents/ults/witch_hunter")
---mod:dofile("scripts/mods/rwaon_talents/ults/dwarf_ranger")
+    local player_unit = player.player_unit
+    local heal_amount = buff.bonus
+    local hit_unit = params[1]
+    local attack_type = params[2]
+    local hit_zone_name = params[3]
+    local target_number = params[4]
+    local buff_type = params[5]
+    local critical_hit = params[6]
+    local breed = AiUtils.unit_breed(hit_unit)
+    local attack_wanted = buff.attack_wanted
+    mod:echo(attack_type)
+    mod:echo(buff_type)
 
--- Passives
---mod:dofile("scripts/mods/rwaon_talents/passives/bright_wizard")
---mod:dofile("scripts/mods/rwaon_talents/passives/wood_elf")
---mod:dofile("scripts/mods/rwaon_talents/passives/empire_soldier")
---mod:dofile("scripts/mods/rwaon_talents/passives/witch_hunter")
---mod:dofile("scripts/mods/rwaon_talents/passives/dwarf_ranger")
+    if Unit.alive(player_unit) and breed and (attack_type == attack_wanted) then
+        DamageUtils.heal_network(player_unit, player_unit, heal_amount, "heal_from_proc")
+        mod:echo("Healed by" .. tostring(heal_amount))
+    end
+end]]
+
+-- Characters
+mod:dofile("scripts/mods/rwaon_talents/characters/bright_wizard")
+mod:dofile("scripts/mods/rwaon_talents/characters/wood_elf")
+mod:dofile("scripts/mods/rwaon_talents/characters/empire_soldier")
+mod:dofile("scripts/mods/rwaon_talents/characters/witch_hunter")
+mod:dofile("scripts/mods/rwaon_talents/characters/dwarf_ranger")
 
 -- Weapons
---mod:dofile("scripts/mods/rwaon_talents/weapons/1h_falchions")
---mod:dofile("scripts/mods/rwaon_talents/weapons/1h_axes")
-mod:dofile("scripts/mods/rwaon_talents/weapons/2h_axes_wood_elf")
-mod:dofile("scripts/mods/rwaon_talents/weapons/shortbows_hagbane")
-mod:dofile("scripts/mods/rwaon_talents/weapons/sienna_scholar_career_skill")
---mod:dofile("scripts/mods/rwaon_talents/weapons/staff_blast_beam")
---mod:dofile("scripts/mods/rwaon_talents/weapons/staff_spark_spear")
-mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_fireball")
-mod:dofile("scripts/mods/rwaon_talents/weapons/staff_fireball_geiser")
---mod:dofile("scripts/mods/rwaon_talents/weapons/staff_flamethrower")
+mod:dofile("scripts/settings/equipment/weapons")
 
 -- Traits
---mod:dofile("scripts/mods/rwaon_talents/traits/barrage")
+mod:dofile("scripts/settings/equipment/weapon_traits")
+
+-- Code to get Traits working
+for name, data in pairs(WeaponTraits.traits) do
+	data.name = name
+end
+table.merge_recursive(BuffTemplates, WeaponTraits.buff_templates)
 
 --Misc
 mod:dofile("scripts/mods/rwaon_talents/misc/buff_type_fix")
 mod:dofile("scripts/mods/rwaon_talents/misc/regrowth_fix")
+mod:dofile("scripts/mods/rwaon_talents/misc/explode_fix")
+--mod:dofile("scripts/mods/rwaon_talents/misc/dropdowns")
+--mod:dofile("scripts/mods/rwaon_talents/misc/cooldown")
+
+-- DamageProfielTemplates NetworkLookup
+for key, _ in pairs(NewDamageProfileTemplates) do
+    i = #NetworkLookup.damage_profiles + 1
+    NetworkLookup.damage_profiles[i] = key
+    NetworkLookup.damage_profiles[key] = i
+end
+
+table.merge_recursive(DamageProfileTemplates, NewDamageProfileTemplates)
+
+-- New Procs
+--[[NewStatBuffs = {
+    
+}
+
+table.merge_recursive(StatBuffs, NewStatBuffs)
+
+for i = 1, #StatBuffs, 1 do
+	StatBuffIndex[StatBuffs[i]]--[[ = i
+end
+
+NewStatBuffApplicationMethods = {
+    
+}
+
+table.append(StatBuffApplicationMethods, NewStatBuffApplicationMethods)]]
 
 
 --[[ DEBUG DEBUG DEBUG ]]--
 
 -- Set all characters to max level.
-mod:hook(BackendInterfaceHeroAttributesPlayFab, "get", function (func, self, hero_name, attribute_name)
+--[[mod:hook(BackendInterfaceHeroAttributesPlayFab, "get", function (func, self, hero_name, attribute_name)
     if attribute_name == "experience" then
         return 99999999999
     end
@@ -201,9 +244,62 @@ end)
 mod:hook(Development, "parameter", function(func, key, ...)
     if key == "unlock_all_careers" then return true end
     return func(key, ...)
-end)
+end)]]
 
 -- Do NOT unlock achievements.
 mod:hook(Achievement, "unlock", function(func, ...)
     return
+end)
+
+mod.update = function(dt)
+    --mod:update_physics(dt)
+end
+
+mod:hook_origin(BuffExtension, "_add_stat_buff", function (self, sub_buff_template, buff)
+	if FROZEN[self._unit] then
+		return
+	end
+
+	local bonus = buff.bonus or 0
+	local multiplier = buff.multiplier or 0
+	local proc_chance = buff.proc_chance or 1
+	local stat_buffs = self._stat_buffs
+	local stat_buff_index = sub_buff_template.stat_buff
+	local stat_buff = stat_buffs[stat_buff_index]
+	local application_method = StatBuffApplicationMethods[stat_buff_index]
+	local index = nil
+
+	if application_method == "proc" then
+		index = self.individual_stat_buff_index
+		stat_buff[index] = {
+			bonus = bonus,
+			multiplier = multiplier,
+			proc_chance = proc_chance,
+			parent_id = buff.parent_id
+		}
+		self.individual_stat_buff_index = index + 1
+	else
+		index = 1
+
+		if not stat_buff[index] then
+			stat_buff[index] = {
+				bonus = bonus,
+				multiplier = multiplier,
+				proc_chance = proc_chance
+			}
+		elseif application_method == "stacking_bonus" then
+			local current_bonus = stat_buff[index].bonus
+			stat_buff[index].bonus = current_bonus + bonus
+		elseif application_method == "stacking_multiplier" then
+			local current_multiplier = stat_buff[index].multiplier
+			stat_buff[index].multiplier = current_multiplier + multiplier
+		elseif application_method == "stacking_bonus_and_multiplier" then
+			local current_bonus = stat_buff[index].bonus
+			local current_multiplier = stat_buff[index].multiplier
+			stat_buff[index].bonus = current_bonus + bonus
+			stat_buff[index].multiplier = current_multiplier + multiplier
+		end
+	end
+
+	return index
 end)

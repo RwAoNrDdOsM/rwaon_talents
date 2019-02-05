@@ -2,7 +2,7 @@ local mod = get_mod("rwaon_talents")
 
 ------------------------------------------------------------------------------
 
-mod:add_talent("dr_ironbreaker", 2, 3, "rwaon_bardin_ironbreaker_movespeed_on_charged_attacks", {
+--[[mod:add_talent("dr_ironbreaker", 2, 3, "rwaon_bardin_ironbreaker_movespeed_on_charged_attacks", {
     num_ranks = 1,
     description_values = {
         {
@@ -75,7 +75,55 @@ mod:add_talent_buff("dwarf_ranger", "rwaon_bardin_ironbreaker_movespeed_on_charg
 	},
 	buff_after_delay = true,
 	delayed_buff_name = "rwaon_bardin_ironbreaker_movespeed_on_charged_attacks_cooldown",
+})]]
+------------------------------------------------------------------------------
+
+--[[mod:add_talent("dr_ironbreaker", 3, 1, "melee_weapon_heal_proc_light", {
+	description_values = {
+		{
+            value_type = "percent",
+            value = 0.1
+        }
+	},
+	buffs = {
+		"melee_weapon_heal_proc_light"
+	},
 })
+
+mod:add_talent_buff("dwarf_ranger", "melee_weapon_heal_proc_light", {
+	name = "regrowth",
+	event_buff = true,
+	event = "on_hit",
+	perk = "ninja_healing",
+	bonus = 5,
+	stat_buff = ProcFunctions.heal_permanent_proc,
+	attack_wanted = "charged",
+	proc_chance = 0.1,
+})
+
+mod:add_talent("dr_ironbreaker", 4, 1, "ranged_weapon_heal_proc", {
+	description_values = {
+		{
+            value_type = "percent",
+            value = 0.12
+        }
+	},
+	buffs = {
+		"ranged_weapon_heal_proc"
+	},
+})
+
+mod:add_talent_buff("dwarf_ranger", "ranged_weapon_heal_proc", {
+	name = "regrowth",
+	event_buff = true,
+	event = "on_hit",
+	perk = "ninja_healing",
+	bonus = 5,
+	stat_buff = ProcFunctions.heal_permanent_proc,
+	attack_wanted = "RANGED",
+	proc_chance = 0.12,
+})]]
+
 ------------------------------------------------------------------------------
 
 mod:add_talent("dr_ironbreaker", 5, 3, "rwaon_bardin_ironbreaker_uninterruptible_attacks", {

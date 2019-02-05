@@ -1,5 +1,5 @@
-
 local mod = get_mod("rwaon_talents")
+
 -- Conflagoration Staff
 ------------------------------------------------------------------------------
 
@@ -81,10 +81,10 @@ mod:add_buff("burning_geiser_dot", {
     update_func = "apply_dot_damage"
 })
 
-DamageProfileTemplates.burning_geiser_dot = table.clone(DamageProfileTemplates.default)
-DamageProfileTemplates.burning_geiser_dot.no_stagger = true
-DamageProfileTemplates.burning_geiser_dot.default_target.damage_type = "burninating"
-DamageProfileTemplates.burning_geiser_dot.default_target.armor_modifier = {
+NewDamageProfileTemplates.burning_geiser_dot = table.clone(DamageProfileTemplates.default)
+NewDamageProfileTemplates.burning_geiser_dot.no_stagger = true
+NewDamageProfileTemplates.burning_geiser_dot.default_target.damage_type = "burninating"
+NewDamageProfileTemplates.burning_geiser_dot.default_target.armor_modifier = {
 	attack = {
 		1,
 		0.75,
@@ -102,7 +102,7 @@ DamageProfileTemplates.burning_geiser_dot.default_target.armor_modifier = {
 		0
 	}
 }
-DamageProfileTemplates.burning_geiser_dot.default_target.power_distribution = {
+NewDamageProfileTemplates.burning_geiser_dot.default_target.power_distribution = {
 	attack = 0.05, --0.05
 	impact = 0.05
 }

@@ -92,10 +92,6 @@ mod:add_talent_buff("wood_elf", "rwaon_kerillian_maidenguard_increased_attack_sp
 mod:add_talent("we_maidenguard", 5, 1, "rwaon_kerillian_maidenguard_ability_double_dash", {
 	description_values = {
 		{
-			value_type = "percent",
-			value = 0.25,
-		},
-		{
 			value = 5
 		},
 	},

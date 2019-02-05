@@ -6,15 +6,25 @@ return {
     is_togglable = false,
     is_mutator = false, 
     mutator_settings = {},
-    --[[options = {
-		  widgets = {
-			  {
-                setting_id = "flamestorm_weapon_switch",
-                type = "checkbox",
-                title = mod:localize("flamestorm_weapon_switch_option_name"),
-                tooltip = mod:localize("flamestorm_weapon_switch_option_tooltip"),
+    options = {
+        widgets = {
+            {
+                setting_id    = "modify_concoction",
+                type          = "checkbox",
                 default_value = false,
-			  },
-		  },
-	  }, ]]
+                sub_widgets   = {
+                    {
+                        setting_id    = "potions",
+                        type          = "dropdown",
+                        default_value = "potions_one",
+                        options = {
+                          {text = "potions_one_localization_id",   value = "potions_one", show_widgets = {}},
+                          {text = "potions_two_localization_id",   value = "potions_two", show_widgets = {}},
+                          {text = "potions_three_localization_id", value = "potions_three", show_widgets = {}},
+                        },
+                    }
+                }
+            },
+        }
+    }
 }

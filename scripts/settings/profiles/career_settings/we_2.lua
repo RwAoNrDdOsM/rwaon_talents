@@ -1,7 +1,5 @@
 local mod = get_mod("rwaon_talents")
 
-------------------------------------------------------------------------------
-
 mod:add_talent_buff("wood_elf", "kerillian_maidenguard_passive_stamina_regen_aura", {
     range = 10,
     buff_to_add = "kerillian_maidenguard_passive_stamina_regen_buff",
@@ -25,8 +23,8 @@ PassiveAbilitySettings.rwaon_we_2 = {
 		"kerillian_maidenguard_passive_stamina_regen_aura",
 		"kerillian_maidenguard_passive_increased_stamina",
 		"kerillian_maidenguard_passive_uninterruptible_revive",
-		"kerillian_maidenguard_ability_cooldown_on_hit",
-		"kerillian_maidenguard_ability_cooldown_on_damage_taken"
+		--"kerillian_maidenguard_ability_cooldown_on_hit",
+		--"kerillian_maidenguard_ability_cooldown_on_damage_taken"
 	},
 	perks = {
 		{
@@ -41,3 +39,15 @@ PassiveAbilitySettings.rwaon_we_2 = {
 }
 
 CareerSettings.we_maidenguard.passive_ability = PassiveAbilitySettings.rwaon_we_2
+
+------------------------------------------------------------------------------
+
+ActivatedAbilitySettings.rwaon_we_2 = {
+	description = "career_active_desc_we_2",
+	display_name = "career_active_name_we_2",
+	cooldown = 40,
+	icon = "kerillian_maidenguard_activated_ability",
+	ability_class = CareerAbilityWEMaidenGuard
+}
+
+CareerSettings.we_maidenguard.activated_ability = ActivatedAbilitySettings.rwaon_we_2

@@ -16,6 +16,15 @@ return {
     },
 
 ------------------------------------------------------------------------------
+    --Bloodlust Ranged
+    ranged_weapon_heal_proc = {
+        en = "Bloodlust"
+    },
+    ranged_weapon_heal_proc_desc = {
+        en = "When hitting an enemy, there is a %g%% chance to recover 5 points of health. "
+    },
+
+------------------------------------------------------------------------------
     --Ironbreaker 2.3
     rwaon_bardin_ironbreaker_movespeed_on_charged_attacks = {
         en = "Miner’s Rhythm"
@@ -73,7 +82,7 @@ return {
         en = "Handmainden’s Grace",
     },
     rwaon_kerillian_maidenguard_ability_double_dash_desc = {
-        en = "You can now Dash a second time within 5 seconds.", --but cooldown of Dash is increased by %g%%
+        en = "You can now Dash a second time within %i seconds.", --but cooldown of Dash is increased by %g%%
     },
     
     --Handmaiden 5.2
@@ -105,7 +114,7 @@ return {
     },
 
     rwaon_sienna_scholar_on_elite_special_killed_desc = {
-        en = "When you kill a elite or special, you gain %g%% increased weapon power, for 10 seconds, up to 5 stacks.",
+        en = "When you kill a elite or special, you gain %g%% increased weapon power, for %i seconds, up to %i stacks.",
     },
 
     -- Pyromancer 2.1
@@ -129,7 +138,7 @@ return {
         en = "Martial Studies",
     },
     rwaon_sienna_scholar_passive_increased_crit_damage_from_overcharge_desc = {
-        en = "Critical Mass also increases headshot power boost by %g%% per %i overcharge and stacks up to 5 times.",
+        en = "Critical Mass also increases headshot power boost by %g%% per %i overcharge and stacks up to %i times.",
     },
 
     -- Pyromancer 5.1
@@ -137,23 +146,72 @@ return {
         en = "Embodiment of Aqshy",
     },
     rwaon_sienna_scholar_embodiment_of_aqshy_desc = {
-        en = "The Burning Head now grants 10 seconds of %g%% increase movement/attack speed and a overcharge reduction of 1 for every hit.",
+        en = "The Burning Head now grants %i seconds of %g%% increase movement/attack speed and a overcharge reduction of %i for every hit.",
     },
 
     -- Pyromancer 5.2
     rwaon_sienna_scholar_activated_ability_heal_desc = {
-        en = "The Burning Head grants 40 temporary health when used, but cooldown of The Burning Head is increased by %g%%."
+        en = "The Burning Head grants %i temporary health when used, but cooldown of The Burning Head is increased by %g%%."
     },
 
     -- Pyromancer 5.3
     rwaon_sienna_scholar_activated_ability_damage_desc = {
-        en = "The Burning Head now grants 10 seconds of %g%% increased power.",
+        en = "The Burning Head now grants %i seconds of %g%% increased power.",
     },
 ------------------------------------------------------------------------------
 
     --Barrage Trait
-    new_description_traits_ranged_consecutive_hits_increase_power = {
-        en = "Consecutive attacks against an enemy boosts attack power by 5%, stacking 5 times for 2 seconds."
+    description_traits_ranged_consecutive_hits_increase_power = {
+        en = "Consecutive attacks against an enemy boosts attack power by %g%%, stacking %i times for %i seconds."
+    },
+    -- Swift Slaying Trait
+    description_traits_melee_attack_speed_on_crit = {
+        en = "When hitting an enemy there is a %g%% chance to increase your attack speed by %g%% and movement speed by %g%% for %i seconds."
+    },
+    -- Inspirational Shot Trait
+    description_traits_ranged_restore_stamina_headshot = {
+        en = "Headshots restore %i health to you and your allies."
+    },
+    -- Opportunist
+    traits_melee_counter_push_power = {
+        en = "Heroic Killing Blow"
+    },
+    description_traits_melee_counter_push_power = {
+        en = "When hitting an enemy of any size with a charged attack there is a %g%% chance to instantly slay it."
+    },
+    -- Off Balance
+    description_traits_melee_increase_damage_on_block = {
+        en = "Blocking an attack increases the amount of damage the attacker takes by %g%% for %i seconds. Also increases push strength by %g%% against an attacking enemy."
+    },
+    -- Heroic Intervention
+    description_traits_melee_shield_on_assist = {
+        en = "Assisting an ally under attack grant %i seconds of %g%% damage reduction for both players."
+    },
+
+------------------------------------------------------------------------------
+    -- Options
+
+    -- Concoction
+    modify_concoction = {
+        en = "Modified Concotion"
+    },
+    modify_concoction_description = {
+        en = "Always applies two specific potion effects for 8 seconds."
+    },
+    potions = {
+        en = "Concotion Potions"
+    },
+    potions_description = {
+        en = "Choose which two potion effects are always going to be granted, regardless on potion type. This might change in the future."
+    },
+    potions_one_localization_id = {
+        en = "Speed & Concentration"
+    },
+    potions_two_localization_id = {
+        en = "Speed & Strength"
+    },
+    potions_three_localization_id = {
+        en = "Strength & Concentration"
     },
 }
 

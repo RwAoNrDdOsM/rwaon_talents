@@ -32,10 +32,10 @@ local mod = get_mod("rwaon_talents")
 ------------------------------------------------------------------------------
 
 -- Huntsman
-mod:dofile("scripts/settings/profiles/career_settings/es_1")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/es_1")
 
 -- Footknight
-mod:dofile("scripts/settings/profiles/career_settings/es_2")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/es_2")
 
 -- Mercenary
-mod:dofile("scripts/settings/profiles/career_settings/es_3")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/es_3")

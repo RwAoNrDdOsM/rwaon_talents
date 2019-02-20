@@ -8,6 +8,10 @@ local function merge(dst, src)
 end
 
 NewDamageProfileTemplates = {}
+NewNetworkLookup = {}
+NewNetworkLookup.buff_templates = {
+    "n/a",
+}
 
 function mod:add_talent(career_name, tier, index, new_talent_name, new_talent_data)
     local career_settings = CareerSettings[career_name]
@@ -33,8 +37,6 @@ function mod:add_talent(career_name, tier, index, new_talent_name, new_talent_da
 end
 
 function mod:add_talent_buff(hero_name, buff_name, buff_data)   
-    local new_index = #NetworkLookup.buff_templates + 1
-    
     local talent_buff = {
         buffs = {
             merge({ name = buff_name }, buff_data),
@@ -42,28 +44,28 @@ function mod:add_talent_buff(hero_name, buff_name, buff_data)
     }
     TalentBuffTemplates[hero_name][buff_name] = talent_buff
     BuffTemplates[buff_name] = talent_buff
-    NewNetworkLookup.buff_templates = buff_name
-    table.append(NetworkLookup.buff_templates, NewNetworkLookup.buff_templates)
+    local index = #NetworkLookup.buff_templates + 1
+    NetworkLookup.buff_templates[index] = buff_name
+    NetworkLookup.buff_templates[buff_name] = index
 end
 
-function mod:add_buff(buff_name, buff_data)
-    local new_index = #NetworkLookup.buff_templates + 1
-    
+function mod:add_buff(buff_name, buff_data) 
     local new_buff = {
         buffs = {
             merge({ name = buff_name }, buff_data),
         },
     }
     BuffTemplates[buff_name] = new_buff
-    NewNetworkLookup.buff_templates = buff_name
-    table.append(NetworkLookup.buff_templates, NewNetworkLookup.buff_templates)
+    local index = #NetworkLookup.buff_templates + 1
+    NetworkLookup.buff_templates[index] = buff_name
+    NetworkLookup.buff_templates[buff_name] = index
 end
 
 function mod:add_buff_extra(buff_name, buff_data)
-    local new_index = #NetworkLookup.buff_templates + 1
     BuffTemplates[buff_name] = buff_data
-    NewNetworkLookup.buff_templates = buff_name
-    table.append(NetworkLookup.buff_templates, NewNetworkLookup.buff_templates)
+    local index = #NetworkLookup.buff_templates + 1
+    NetworkLookup.buff_templates[index] = buff_name
+    NetworkLookup.buff_templates[buff_name] = index
 end
 
 function mod:add_buff_function(name, func)
@@ -185,10 +187,10 @@ mod:dofile("scripts/mods/rwaon_talents/characters/witch_hunter")
 mod:dofile("scripts/mods/rwaon_talents/characters/dwarf_ranger")
 
 -- Weapons
-mod:dofile("scripts/settings/equipment/weapons")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/weapons")
 
 -- Traits
-mod:dofile("scripts/settings/equipment/weapon_traits")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/weapon_traits")
 
 -- Code to get Traits working
 for name, data in pairs(WeaponTraits.traits) do

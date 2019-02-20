@@ -74,7 +74,7 @@ return {
         en = "Vaul’s Blessing",
     },
     rwaon_kerillian_maidenguard_increased_attack_speed_desc = {
-        en = "Increases attack speed by %g%%.",
+        en = "You gain %g%% increased attack speed.", --When above %g%% health, you gain increased attack speed by %g%%.
     },
 
     --Handmaiden 5.1
@@ -141,12 +141,17 @@ return {
         en = "Critical Mass also increases headshot power boost by %g%% per %i overcharge and stacks up to %i times.",
     },
 
+    -- Pyromancer 3.3
+    rwaon_sienna_scholar_passive_increased_attack_speed_from_overcharge_desc = {
+        en = "Critical Mass also increases attack speed by %g%% per %i overcharge and stacks up to %i times. But you also get a %g%% attack speed reduction, and removes slowdowns from overcharge."
+    },
+
     -- Pyromancer 5.1
     rwaon_sienna_scholar_embodiment_of_aqshy = {
         en = "Embodiment of Aqshy",
     },
     rwaon_sienna_scholar_embodiment_of_aqshy_desc = {
-        en = "The Burning Head now grants %i seconds of %g%% increase movement/attack speed and a overcharge reduction of %i for every hit.",
+        en = "The Burning Head now grants an overcharge reduction of %i for every hit, for the next %i seconds.",
     },
 
     -- Pyromancer 5.2
@@ -155,8 +160,11 @@ return {
     },
 
     -- Pyromancer 5.3
-    rwaon_sienna_scholar_activated_ability_damage_desc = {
-        en = "The Burning Head now grants %i seconds of %g%% increased power.",
+    rwaon_sienna_scholar_increased_speed = {
+        en = "Fiery Blood"
+    },
+    rwaon_sienna_scholar_increased_speed_desc = {
+        en = "The Burning Head now grants %i seconds of %g%% increase movement and attack speed.",
     },
 ------------------------------------------------------------------------------
 
@@ -214,5 +222,3 @@ return {
         en = "Strength & Concentration"
     },
 }
-
-    

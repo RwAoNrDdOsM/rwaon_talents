@@ -22,8 +22,8 @@ return {
                           {text = "potions_two_localization_id",   value = "potions_two", show_widgets = {}},
                           {text = "potions_three_localization_id", value = "potions_three", show_widgets = {}},
                         },
-                    }
-                }
+                    },
+                },
             },
         }
     }

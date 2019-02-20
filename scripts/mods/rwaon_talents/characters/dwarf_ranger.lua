@@ -10,9 +10,7 @@ local mod = get_mod("rwaon_talents")
 ------------------------------------------------------------------------------
 
 -- Ironbreaker
-mod:dofile("scripts/unit_extensions/default_player_unit/careers/career_ability_dr_ironbreaker")
-mod:dofile("scripts/unit_extensions/default_player_unit/target_override_extension")
-
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/careers/career_ability_dr_ironbreaker")
 
 ------------------------------------------------------------------------------
 --      ████████╗ █████╗ ██╗     ███████╗███╗   ██╗████████╗███████╗
@@ -24,7 +22,7 @@ mod:dofile("scripts/unit_extensions/default_player_unit/target_override_extensio
 ------------------------------------------------------------------------------
 
 -- Ironbreaker
-mod:dofile("scripts/managers/talents/talent_settings_bardin_ironbreaker")
+mod:dofile("scripts/mods/rwaon_talents/scripts/managers/talents/talent_settings_bardin_ironbreaker")
 
 ------------------------------------------------------------------------------
 --      ██████╗  █████╗ ███████╗███████╗██╗██╗   ██╗███████╗███████╗
@@ -36,10 +34,10 @@ mod:dofile("scripts/managers/talents/talent_settings_bardin_ironbreaker")
 ------------------------------------------------------------------------------
 
 -- Ironbreaker
-mod:dofile("scripts/settings/profiles/career_settings/dr_1")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/dr_1")
 
 -- Slayer
-mod:dofile("scripts/settings/profiles/career_settings/dr_2")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/dr_2")
 
 -- Dwarf Ranger
-mod:dofile("scripts/settings/profiles/career_settings/dr_3")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/dr_3")

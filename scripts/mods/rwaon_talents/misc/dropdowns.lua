@@ -5,10 +5,10 @@ DropdownUnits.units = {}
 DropdownUnits.units.bounding_unit = {}
 DropdownUnits.positions = {}
 DropdownUnits.positions.bounding_unit = {}
---[[unit_unique_id_counter = 1
+unit_unique_id_counter = 1
 rwaon_enable_physics = {}
 
-mod.enable_physics = function(self, unit)
+--[[mod.enable_physics = function(self, unit)
 	rwaon_enable_physics_time = 0
     
     local world = Managers.world:world("level_world")
@@ -133,4 +133,3 @@ mod.DropdownUnits = function(self)
         end
     end
 end
-

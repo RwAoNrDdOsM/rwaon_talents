@@ -32,10 +32,10 @@ local mod = get_mod("rwaon_talents")
 ------------------------------------------------------------------------------
 
 -- Zealot
-mod:dofile("scripts/settings/profiles/career_settings/wh_1")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/wh_1")
 
 -- Bountyhunter
-mod:dofile("scripts/settings/profiles/career_settings/wh_2")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/wh_2")
 
 -- Witchhunter
-mod:dofile("scripts/settings/profiles/career_settings/wh_3")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/wh_3")

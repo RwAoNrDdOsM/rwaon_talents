@@ -1,5 +1,7 @@
 local mod = get_mod("rwaon_talents")
 
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/charge/player_unit_overcharge_extension")
+
 ------------------------------------------------------------------------------
 --  ██╗   ██╗██╗  ████████╗██╗███╗   ███╗ █████╗ ████████╗███████╗███████╗
 --  ██║   ██║██║  ╚══██╔══╝██║████╗ ████║██╔══██╗╚══██╔══╝██╔════╝██╔════╝
@@ -10,10 +12,10 @@ local mod = get_mod("rwaon_talents")
 ------------------------------------------------------------------------------
 
 -- Battle Wizard
-mod:dofile("scripts/unit_extensions/default_player_unit/careers/career_ability_bw_adept")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/careers/career_ability_bw_adept")
 
 -- Pyromancer
-mod:dofile("scripts/unit_extensions/weapons/actions/action_career_bw_scholar")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/weapons/actions/action_career_bw_scholar")
 
 ------------------------------------------------------------------------------
 --      ████████╗ █████╗ ██╗     ███████╗███╗   ██╗████████╗███████╗
@@ -25,7 +27,7 @@ mod:dofile("scripts/unit_extensions/weapons/actions/action_career_bw_scholar")
 ------------------------------------------------------------------------------
 
 -- Pyromancer
-mod:dofile("scripts/managers/talents/talent_settings_sienna_scholar")
+mod:dofile("scripts/mods/rwaon_talents/scripts/managers/talents/talent_settings_sienna_scholar")
 
 ------------------------------------------------------------------------------
 --      ██████╗  █████╗ ███████╗███████╗██╗██╗   ██╗███████╗███████╗
@@ -37,10 +39,10 @@ mod:dofile("scripts/managers/talents/talent_settings_sienna_scholar")
 ------------------------------------------------------------------------------
 
 -- Battle Wizard
-mod:dofile("scripts/settings/profiles/career_settings/bw_1")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/bw_1")
 
 -- Pyromancer
-mod:dofile("scripts/settings/profiles/career_settings/bw_2")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/bw_2")
 
 -- Unchained
-mod:dofile("scripts/settings/profiles/career_settings/bw_3")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/bw_3")

@@ -10,8 +10,8 @@ local mod = get_mod("rwaon_talents")
 ------------------------------------------------------------------------------
 
 -- Handmaiden
-mod:dofile("scripts/unit_extensions/default_player_unit/careers/career_ability_we_maiden_guard")
-mod:dofile("scripts/unit_extensions/default_player_unit/states/player_character_state_lunging")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/careers/career_ability_we_maiden_guard")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/states/player_character_state_lunging")
 
 
 ------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ mod:dofile("scripts/unit_extensions/default_player_unit/states/player_character_
 ------------------------------------------------------------------------------
 
 -- Handmaiden
-mod:dofile("scripts/managers/talents/talent_settings_kerillian_maidenguard")
+mod:dofile("scripts/mods/rwaon_talents/scripts/managers/talents/talent_settings_kerillian_maidenguard")
 
 ------------------------------------------------------------------------------
 --      ██████╗  █████╗ ███████╗███████╗██╗██╗   ██╗███████╗███████╗
@@ -36,10 +36,10 @@ mod:dofile("scripts/managers/talents/talent_settings_kerillian_maidenguard")
 ------------------------------------------------------------------------------
 
 -- Shade
-mod:dofile("scripts/settings/profiles/career_settings/we_1")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/we_1")
 
 -- Handmaiden
-mod:dofile("scripts/settings/profiles/career_settings/we_2")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/we_2")
 
 -- Waystalker
-mod:dofile("scripts/settings/profiles/career_settings/we_3")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/profiles/career_settings/we_3")

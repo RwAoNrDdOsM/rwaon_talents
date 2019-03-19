@@ -44,7 +44,7 @@ WeaponTraits.buff_templates.traits_melee_attack_speed_on_crit_proc = {
             refresh_durations = true,
             max_stacks = 1,
             duration = 5,
-            stat_buff = StatBuffIndex.ATTACK_SPEED
+            stat_buff = "attack_speed"
         },
     }
 }

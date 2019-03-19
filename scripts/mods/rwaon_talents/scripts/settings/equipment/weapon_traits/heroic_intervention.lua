@@ -1,8 +1,9 @@
 local mod = get_mod("rwaon_talents")
 
+WeaponTraits.traits.melee_shield_on_assist.name = "melee_shield_on_assist"
 WeaponTraits.traits.melee_shield_on_assist.description_values = {
     {
-        value = 10
+        value = 5
     },
     {
         value_type = "percent",
@@ -62,6 +63,6 @@ mod:add_buff("traits_melee_shield_on_assist_buff", {
     icon = "icons_placeholder",
     --icon = "melee_shield_on_assist",
 	multiplier = -0.5,
-	stat_buff = StatBuffIndex.DAMAGE_TAKEN,
-    duration = 10,
+	stat_buff = "damage_taken",
+    duration = 5,
 })

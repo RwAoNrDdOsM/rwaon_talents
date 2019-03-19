@@ -1,6 +1,7 @@
 local mod = get_mod("rwaon_talents")
 
 WeaponTraits.traits.melee_increase_damage_on_block = {
+    name = "melee_increase_damage_on_block",
     display_name = "traits_melee_increase_damage_on_block",
     buffer = "server",
     advanced_description = "description_traits_melee_increase_damage_on_block",
@@ -31,7 +32,7 @@ WeaponTraits.buff_templates.traits_melee_increase_damage_on_block = {
         },
         {
             dormant = true,
-            stat_buff = StatBuffIndex.COUNTER_PUSH_POWER,
+            stat_buff = "counter_push_power",
             multiplier = 1, --0.5
         }
     }

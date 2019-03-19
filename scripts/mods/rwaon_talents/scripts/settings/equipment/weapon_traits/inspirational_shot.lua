@@ -1,5 +1,6 @@
 
 WeaponTraits.traits.ranged_restore_stamina_headshot = {
+    name = "ranged_restore_stamina_headshot",
     display_name = "traits_ranged_restore_stamina_headshot",
     buffer = "both",
     advanced_description = "description_traits_ranged_restore_stamina_headshot",

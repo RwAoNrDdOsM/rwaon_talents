@@ -11,9 +11,6 @@ mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_un
 --   ╚═════╝ ╚══════╝╚═╝   ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚══════╝
 ------------------------------------------------------------------------------
 
--- Battle Wizard
-mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/careers/career_ability_bw_adept")
-
 -- Pyromancer
 mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/weapons/actions/action_career_bw_scholar")
 

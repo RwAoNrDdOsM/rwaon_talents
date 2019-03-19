@@ -1,4 +1,5 @@
 WeaponTraits.traits.ranged_consecutive_hits_increase_power = {
+    name = "ranged_consecutive_hits_increase_power",
     display_name = "traits_ranged_consecutive_hits_increase_power",
     buffer = "both",
     advanced_description = "description_traits_ranged_consecutive_hits_increase_power",
@@ -26,7 +27,7 @@ WeaponTraits.buff_templates.consecutive_shot_buff = {
             max_stacks = 5,
             icon = "ranged_consecutive_hits_increase_power",
             refresh_durations = true,
-            stat_buff = StatBuffIndex.POWER_LEVEL
+            stat_buff = "power_level",
         }
     }
 }

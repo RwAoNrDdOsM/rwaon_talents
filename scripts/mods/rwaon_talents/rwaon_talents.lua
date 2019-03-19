@@ -8,10 +8,6 @@ local function merge(dst, src)
 end
 
 NewDamageProfileTemplates = {}
-NewNetworkLookup = {}
-NewNetworkLookup.buff_templates = {
-    "n/a",
-}
 
 function mod:add_talent(career_name, tier, index, new_talent_name, new_talent_data)
     local career_settings = CareerSettings[career_name]
@@ -199,8 +195,6 @@ end
 table.merge_recursive(BuffTemplates, WeaponTraits.buff_templates)
 
 --Misc
-mod:dofile("scripts/mods/rwaon_talents/misc/buff_type_fix")
-mod:dofile("scripts/mods/rwaon_talents/misc/regrowth_fix")
 mod:dofile("scripts/mods/rwaon_talents/misc/explode_fix")
 --mod:dofile("scripts/mods/rwaon_talents/misc/dropdowns")
 --mod:dofile("scripts/mods/rwaon_talents/misc/cooldown")
@@ -213,24 +207,6 @@ for key, _ in pairs(NewDamageProfileTemplates) do
 end
 
 table.merge_recursive(DamageProfileTemplates, NewDamageProfileTemplates)
-
--- New Procs
---[[NewStatBuffs = {
-    
-}
-
-table.merge_recursive(StatBuffs, NewStatBuffs)
-
-for i = 1, #StatBuffs, 1 do
-	StatBuffIndex[StatBuffs[i]]--[[ = i
-end
-
-NewStatBuffApplicationMethods = {
-    
-}
-
-table.append(StatBuffApplicationMethods, NewStatBuffApplicationMethods)]]
-
 
 --[[ DEBUG DEBUG DEBUG ]]--
 
@@ -256,52 +232,3 @@ end)
 mod.update = function(dt)
     --mod:update_physics(dt)
 end
-
-mod:hook_origin(BuffExtension, "_add_stat_buff", function (self, sub_buff_template, buff)
-	if FROZEN[self._unit] then
-		return
-	end
-
-	local bonus = buff.bonus or 0
-	local multiplier = buff.multiplier or 0
-	local proc_chance = buff.proc_chance or 1
-	local stat_buffs = self._stat_buffs
-	local stat_buff_index = sub_buff_template.stat_buff
-	local stat_buff = stat_buffs[stat_buff_index]
-	local application_method = StatBuffApplicationMethods[stat_buff_index]
-	local index = nil
-
-	if application_method == "proc" then
-		index = self.individual_stat_buff_index
-		stat_buff[index] = {
-			bonus = bonus,
-			multiplier = multiplier,
-			proc_chance = proc_chance,
-			parent_id = buff.parent_id
-		}
-		self.individual_stat_buff_index = index + 1
-	else
-		index = 1
-
-		if not stat_buff[index] then
-			stat_buff[index] = {
-				bonus = bonus,
-				multiplier = multiplier,
-				proc_chance = proc_chance
-			}
-		elseif application_method == "stacking_bonus" then
-			local current_bonus = stat_buff[index].bonus
-			stat_buff[index].bonus = current_bonus + bonus
-		elseif application_method == "stacking_multiplier" then
-			local current_multiplier = stat_buff[index].multiplier
-			stat_buff[index].multiplier = current_multiplier + multiplier
-		elseif application_method == "stacking_bonus_and_multiplier" then
-			local current_bonus = stat_buff[index].bonus
-			local current_multiplier = stat_buff[index].multiplier
-			stat_buff[index].bonus = current_bonus + bonus
-			stat_buff[index].multiplier = current_multiplier + multiplier
-		end
-	end
-
-	return index
-end)

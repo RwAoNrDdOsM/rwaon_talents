@@ -1,6 +1,7 @@
 local mod = get_mod("rwaon_talents")
 
 WeaponTraits.traits.melee_counter_push_power = {
+    name = "melee_counter_push_power",
     display_name = "traits_melee_counter_push_power",
     buffer = "both",
     advanced_description = "description_traits_melee_counter_push_power",
@@ -40,21 +41,6 @@ WeaponTraits.buff_templates.traits_melee_counter_push_power = {
                     for i = 1, calls, 1 do
                         mod:buff_attack_hit(player_unit, hit_unit, "heroic_killing_blow_proc")
                     end 
-                    
-                    local breed_data = Unit.get_data(hit_unit, "breed")
-
-                    if breed_data then 
-                        local breed_name = breed_data.name
-
-                        if breed_name == "chaos_troll" then
-                            --local health_extension = ScriptUnit.extension(hit_unit, "health_system")
-                            --local state = health_extension.state
-
-                            --if not state == "down" then
-                                mod:buff_attack_hit(player_unit, hit_unit, "poison_direct")
-                            --end
-                        end
-                    end
                 end
 
             end,
@@ -85,6 +71,20 @@ NewDamageProfileTemplates.heroic_killing_blow_proc = {
 	}
 }
 
+mod:add_buff("heroic_killing_blow_proc_dot", {
+    name = "heroic killing blow dot",
+    start_flow_event = "poisoned",
+    end_flow_event = "poisoned_end",
+    death_flow_event = "poisoned_death",
+    remove_buff_func = "remove_dot_damage",
+    apply_buff_func = "start_dot_damage",
+    time_between_dot_damages = 0.1,
+    damage_profile = "heroic_killing_blow_proc", --poison_direct
+    update_func = "apply_dot_damage",
+    reapply_buff_func = "reapply_dot_damage"
+    damage_profile = "burning_dot",
+})
+
 mod.buff_attack_hit = function (self, unit, hit_unit, damage_profile_name)
     local network_manager = Managers.state.network
     local inventory_extension = ScriptUnit.extension(unit, "inventory_system")
@@ -107,5 +107,21 @@ mod.buff_attack_hit = function (self, unit, hit_unit, damage_profile_name)
 
     local weapon_system = Managers.state.entity:system("weapon_system")
     weapon_system:send_rpc_attack_hit(damage_source_id, attacker_unit_id, hit_unit_id, hit_zone_id, hit_position, attack_direction, damage_profile_id, "power_level", power_level, "blocking", false, "shield_break_procced", false, "boost_curve_multiplier", boost_curve_multiplier, "can_damage", true, "can_stagger", true)
+    
+    local breed_data = Unit.get_data(hit_unit, "breed")
 
+    if breed_data then 
+        local breed_name = breed_data.name
+
+        if breed_name == "chaos_troll" then
+            local buff_system = Managers.state.entity:system("buff_system")
+			buff_system:add_buff(hit_unit, "heroic_killing_blow_proc_dot", unit)
+            --local health_extension = ScriptUnit.extension(hit_unit, "health_system")
+            --local state = health_extension.state
+
+            --if not state == "down" then
+                --mod:buff_attack_hit(player_unit, hit_unit, "poison_direct")
+            --end
+        end
+    end
 end

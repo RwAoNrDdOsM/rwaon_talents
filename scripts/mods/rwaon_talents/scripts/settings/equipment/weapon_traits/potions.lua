@@ -40,7 +40,7 @@ mod:add_buff_extra("speed_boost_potion_half", {
 			refresh_durations = true,
 			max_stacks = 1,
 			duration = 8,
-			stat_buff = StatBuffIndex.ATTACK_SPEED
+			stat_buff = "attack_speed"
 		}
 	}
 })
@@ -56,7 +56,7 @@ mod:add_buff_extra("cooldown_reduction_potion_half", {
 			max_stacks = 1,
 			icon = "potion_buff_03",
 			refresh_durations = true,
-			stat_buff = StatBuffIndex.COOLDOWN_REGEN
+			stat_buff = "cooldown_regen"
 		}
 	}
 })

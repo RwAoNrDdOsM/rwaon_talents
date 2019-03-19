@@ -17,7 +17,7 @@ mod:add_talent("bw_scholar", 1, 1, "rwaon_sienna_scholar_reduced_spread", {
 
 mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_reduced_spread", {
     multiplier = -0.4, -- MODIFIED
-    stat_buff = StatBuffIndex.REDUCED_SPREAD,
+    stat_buff = "reduced_spread",
 })
 
 mod:add_talent("bw_scholar", 1, 2, "rwaon_sienna_scholar_on_elite_special_killed", {
@@ -86,7 +86,7 @@ mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_on_elite_special_kill
     refresh_durations = true,
     multiplier = 0.03,  
     icon = "sienna_scholar_increased_attack_speed",
-    stat_buff = StatBuffIndex.INCREASED_WEAPON_DAMAGE_MELEE,
+    stat_buff = "increased_weapon_damage_melee",
 })
 
 ------------------------------------------------------------------------------
@@ -162,7 +162,7 @@ mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_passive_increased_cri
     chunk_size = 6,
     min_multiplier = 0.1,
     max_multiplier = 0.5,
-    stat_buff = StatBuffIndex.HEADSHOT_MULTIPLIER,
+    stat_buff = "headshot_multiplier",
     update_func = "update_multiplier_based_on_overcharge_chunks"
 })
 
@@ -206,14 +206,14 @@ mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_passive_increased_att
     max_stacks = 5,
     multiplier = 0.05,  -- Multiplier (MODIFIED!)
     icon = "sienna_scholar_passive_increased_attack_speed_from_overcharge",
-    stat_buff = StatBuffIndex.ATTACK_SPEED,
+    stat_buff = "attack_speed",
 })
 
 mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_passive_increased_attack_speed_debuff", {
     max_stacks = 1,
     multiplier = -0.1,
     --icon = "sienna_scholar_passive_increased_attack_speed_from_overcharge",
-    stat_buff = StatBuffIndex.ATTACK_SPEED,
+    stat_buff = "attack_speed",
 })
 ------------------------------------------------------------------------------
 
@@ -317,7 +317,7 @@ mod:add_talent("bw_scholar", 5, 2, "rwaon_sienna_scholar_activated_ability_heal"
 
 mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_activated_ability_anitcooldown", {
 	multiplier = 0.3,
-	stat_buff = StatBuffIndex.ACTIVATED_COOLDOWN,
+	stat_buff = "activated_cooldown",
 })
 
 
@@ -365,7 +365,7 @@ mod:add_buff_extra("rwaon_sienna_scholar_increased_speed", {
             refresh_durations = true,
             --max_stacks = 1,
             duration = 10,
-            stat_buff = StatBuffIndex.ATTACK_SPEED
+            stat_buff = "attack_speed"
         },
     }
 })

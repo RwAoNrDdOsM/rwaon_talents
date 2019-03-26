@@ -282,7 +282,7 @@ mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_embodiment_of_aqshy_o
         local buff_type = params[5]
         local is_critical = params[6]  
 
-        if attack_type == "projectile" and buff_type == "n/a" then
+        if attack_type == "projectile" and buff_type == "ULTIMATE" then
             return
         end
 

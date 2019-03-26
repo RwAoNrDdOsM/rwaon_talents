@@ -166,7 +166,7 @@ mod:hook_origin(ActionPotion, "finish", function (self, reason)
 
 	if self.ammo_extension then
 		local ammo_usage = current_action.ammo_usage
-		local _, procced = buff_extension:apply_buffs_to_value(0, StatBuffIndex.NOT_CONSUME_POTION)
+		local _, procced = buff_extension:apply_buffs_to_value(0, "not_consume_potion")
 
 		if not procced then
 			self.ammo_extension:use_ammo(ammo_usage)

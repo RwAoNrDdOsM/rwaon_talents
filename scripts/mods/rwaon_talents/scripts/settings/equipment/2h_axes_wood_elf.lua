@@ -65,11 +65,11 @@ DamageProfileTemplates.medium_slashing_smiter_flat = {
 	shield_break = true
 }
 
-for _, h_axes_wood_elf in ipairs{
+for _, axes_wood_elf in ipairs{
     "two_handed_axes_template_2",
     "two_handed_axes_template_2_t3_un",
 } do
-    local weapon_template = Weapons[h_axes_wood_elf]
+    local weapon_template = Weapons[axes_wood_elf]
     local action_one = weapon_template.actions.action_one
     local action_two = weapon_template.actions.action_two
     -- l1

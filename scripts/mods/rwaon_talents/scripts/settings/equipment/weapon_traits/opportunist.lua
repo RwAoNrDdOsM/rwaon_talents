@@ -82,7 +82,6 @@ mod:add_buff("heroic_killing_blow_proc_dot", {
     damage_profile = "heroic_killing_blow_proc", --poison_direct
     update_func = "apply_dot_damage",
     reapply_buff_func = "reapply_dot_damage"
-    damage_profile = "burning_dot",
 })
 
 mod.buff_attack_hit = function (self, unit, hit_unit, damage_profile_name)

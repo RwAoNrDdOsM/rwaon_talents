@@ -1,4 +1,4 @@
---[[local mod = get_mod("rwaon_talents")
+local mod = get_mod("rwaon_talents")
 -- Flamestorm Staff
 ------------------------------------------------------------------------------
 
@@ -269,7 +269,7 @@ end
 
 ------------------------------------------------------------------------------
 
---[[
+
 local function add_weapon_data(action_no, action_from, value, new_data)
     action_no[action_from][value] = new_data
 end
@@ -281,6 +281,6 @@ for _, staff_flamethrower in ipairs{
     --local from_action_one = weapon_template.actions.action_one
     --local from_action_two = weapon_template.actions.action_two
     
-end]]
+end
 
-------------------------------------------------------------------------------]]
+------------------------------------------------------------------------------

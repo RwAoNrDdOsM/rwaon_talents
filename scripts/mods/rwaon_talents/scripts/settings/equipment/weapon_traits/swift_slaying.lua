@@ -28,7 +28,6 @@ WeaponTraits.buff_templates.traits_melee_attack_speed_on_crit_proc = {
             apply_buff_func = "apply_movement_buff",
             multiplier = 1.4, -- 1.5
             name = "traits_melee_attack_speed_on_crit_proc",
-            icon = "melee_attack_speed_on_crit",
             refresh_durations = true,
             remove_buff_func = "remove_movement_buff",
             max_stacks = 1,
@@ -39,12 +38,13 @@ WeaponTraits.buff_templates.traits_melee_attack_speed_on_crit_proc = {
             }
         },
         {
-            multiplier = 0.2, -- 0.5
-            name = "traits_melee_attack_speed_on_crit_proc",
-            refresh_durations = true,
-            max_stacks = 1,
             duration = 5,
-            stat_buff = "attack_speed"
+		    multiplier = 0.2,
+            name = "traits_melee_attack_speed_on_crit_proc",
+            max_stacks = 1,
+			icon = "melee_attack_speed_on_crit",
+			stat_buff = "attack_speed",
+			refresh_durations = true
         },
     }
 }

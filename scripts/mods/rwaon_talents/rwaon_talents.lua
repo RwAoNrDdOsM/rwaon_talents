@@ -28,7 +28,6 @@ function mod:add_talent(career_name, tier, index, new_talent_name, new_talent_da
     }, new_talent_data)
 
     TalentTrees[hero_name][talent_tree_index][tier][index] = new_talent_name
-
     TalentIDLookup[new_talent_name] = new_talent_index
 end
 
@@ -183,6 +182,10 @@ mod:dofile("scripts/mods/rwaon_talents/characters/witch_hunter")
 mod:dofile("scripts/mods/rwaon_talents/characters/dwarf_ranger")
 
 -- Weapons
+RangedBuffTypes = {
+    RANGED = true,
+    ULTIMATE = true,
+}
 mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/weapons")
 
 -- Traits

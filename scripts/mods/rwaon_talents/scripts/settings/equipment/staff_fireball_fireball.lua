@@ -100,7 +100,7 @@ mod:hook_origin(PlayerUnitOverchargeExtension, "add_charge", function (self, ove
 		overcharge_amount = 0.6 * overcharge_amount + 0.4 * overcharge_amount * charge_level -- 0.4 + 0.6
 	end
 
-	overcharge_amount = self.buff_extension:apply_buffs_to_value(overcharge_amount, StatBuffIndex.REDUCED_OVERCHARGE)
+	overcharge_amount = self.buff_extension:apply_buffs_to_value(overcharge_amount, "reduced_overcharge")
 
 	if current_overcharge_value <= max_value * 0.97 and max_value < current_overcharge_value + overcharge_amount then
 		self:hud_sound(self.overcharge_warning_critical_sound_event or "staff_overcharge_warning_critical", self.first_person_extension)

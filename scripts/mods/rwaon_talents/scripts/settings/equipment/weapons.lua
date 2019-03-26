@@ -1,8 +1,9 @@
 local mod = get_mod("rwaon_talents")
 
---mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/1h_axes_shield")
---mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/1h_hammers_shield")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/1h_axes_shield")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/1h_hammers_shield")
 mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/2h_axes_wood_elf")
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/kerillian_waywatcher_career_skill")
 mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/shortbows_hagbane")
 mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/sienna_scholar_career_skill")
 --mod:dofile("scripts/mods/rwaon_talents/scripts/settings/equipment/staff_blast_beam")

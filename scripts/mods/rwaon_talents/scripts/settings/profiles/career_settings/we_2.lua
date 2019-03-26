@@ -9,7 +9,7 @@ mod:add_talent_buff("wood_elf", "kerillian_maidenguard_passive_stamina_regen_aur
 mod:add_talent_buff("wood_elf", "kerillian_maidenguard_passive_stamina_regen_buff", {
     max_stacks = 1,
 	icon = "kerillian_maidenguard_passive",
-    stat_buff = StatBuffIndex.FATIGUE_REGEN,
+    stat_buff = "fatigue_regen",
     multiplier = 0.5,
 })
 

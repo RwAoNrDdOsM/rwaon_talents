@@ -62,18 +62,18 @@ mod:add_talent_buff("bright_wizard", "rwaon_sienna_scholar_on_elite_special_kill
         local damage_source          = killing_blow[7]
         local hit_ragdoll_actor      = killing_blow[8]
         local unknown_thing          = killing_blow[9]
-        
+        local ai_unit = params[3]
 
         mod:pcall(function()
             local local_player = Managers.player:local_player()
             local player_unit = local_player.player_unit
             local network_manager = Managers.state.network
-            local victim_unit = rwaon_damaging_unit_data
-            local unit_type = mod:unit_category(victim_unit)
+            --local victim_unit = rwaon_damaging_unit_data
+            local unit_type = mod:unit_category(ai_unit)
             
-            if (unit_type == "special" or unit_type == "elite") then
+            if unit_type == "special" or unit_type == "elite" then
                 local buff_extension = ScriptUnit.extension(player_unit, "buff_system")
-                buff_extension:add_buff("rwaon_sienna_scholar_on_elite_special_killed_buff", buff_params)
+                buff_extension:add_buff("rwaon_sienna_scholar_on_elite_special_killed_buff")
             end
         end)
     end,

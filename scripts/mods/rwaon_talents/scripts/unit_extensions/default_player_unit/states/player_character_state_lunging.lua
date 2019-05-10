@@ -46,7 +46,7 @@ mod:hook_origin(PlayerCharacterStateLunging, "_update_damage", function (self, u
 					local behind_target = hit_angle >= 0.55
 
 					if behind_target then
-						backstab_multiplier, procced = buff_extension:apply_buffs_to_value(backstab_multiplier, StatBuffIndex.BACKSTAB_MULTIPLIER)
+						backstab_multiplier, procced = buff_extension:apply_buffs_to_value(backstab_multiplier, "backstab_multiplier")
 					end
 				end
 

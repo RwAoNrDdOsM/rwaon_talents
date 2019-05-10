@@ -1,11 +1,35 @@
 local mod = get_mod("rwaon_talents")
 
+local function is_local(unit)
+	local player = Managers.player:owner(unit)
+
+	return player and not player.remote
+end
 local function merge(dst, src)
     for k, v in pairs(src) do
         dst[k] = v
     end
     return dst
 end
+
+-- Disable inputs while mods are reloading
+mod:hook_safe(ModManager, "_reload_mods", function (self)
+    Managers.input:device_block_service("gamepad", 1, "ingame_menu")
+	Managers.input:device_block_service("keyboard", 1, "ingame_menu")
+	Managers.input:device_block_service("mouse", 1, "ingame_menu")
+    self.reload_done = false
+end)
+mod:hook_safe(ModManager, "init", function(self, ...)
+    self.reload_done = true
+end)
+mod:hook_safe(ModManager, "update", function (self, dt)
+    if self._state == "done" and not self.reload_done then
+        Managers.input:device_unblock_service("gamepad", 1, "ingame_menu")
+        Managers.input:device_unblock_service("keyboard", 1, "ingame_menu")
+        Managers.input:device_unblock_service("mouse", 1, "ingame_menu")
+        self.reload_done = true
+    end
+end)
 
 NewDamageProfileTemplates = {}
 
@@ -21,6 +45,7 @@ function mod:add_talent(career_name, tier, index, new_talent_name, new_talent_da
         description = new_talent_name .. "_desc",
         icon = "icons_placeholder",
         num_ranks = 1,
+        buffer = "both",
         requirements = {},
         description_values = {},
         buffs = {},
@@ -39,6 +64,13 @@ function mod:add_talent_buff(hero_name, buff_name, buff_data)
     }
     TalentBuffTemplates[hero_name][buff_name] = talent_buff
     BuffTemplates[buff_name] = talent_buff
+    local index = #NetworkLookup.buff_templates + 1
+    NetworkLookup.buff_templates[index] = buff_name
+    NetworkLookup.buff_templates[buff_name] = index
+end
+function mod:add_talent_buff_extra(hero_name, buff_name, buff_data)   
+    TalentBuffTemplates[hero_name][buff_name] = buff_data
+    BuffTemplates[buff_name] = buff_data
     local index = #NetworkLookup.buff_templates + 1
     NetworkLookup.buff_templates[index] = buff_name
     NetworkLookup.buff_templates[buff_name] = index
@@ -67,13 +99,26 @@ function mod:add_buff_function(name, func)
     BuffFunctionTemplates.functions[name] = func
 end
 
-function add_weapon_value(action_no, action_from, value, new_data)
+function change_weapon_value(action_no, action_from, value, new_data)
     action_no[action_from][value] = new_data
+end
+function _change_weapon_value(_value, value, new_data)
+    _value[value] = new_data
 end
 
 function change_chain_actions(action_no, action_from, row, new_data)
 	local value = "allowed_chain_actions"
 	action_no[action_from][value][row] = new_data
+end
+
+function change_buff_data(action_no, action_from, row, new_data)
+	local value = "buff_data"
+	action_no[action_from][value][row] = new_data
+end
+
+function add_buff_data(action_no, action_from, new_data)
+	local value = "buff_data"
+	action_no[action_from][value] = new_data
 end
 
 -- Replace Localize
@@ -174,6 +219,9 @@ end
     end
 end]]
 
+--Buff Function Templates
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/buffs/buff_funtion_templates")
+
 -- Characters
 mod:dofile("scripts/mods/rwaon_talents/characters/bright_wizard")
 mod:dofile("scripts/mods/rwaon_talents/characters/wood_elf")
@@ -208,6 +256,8 @@ for key, _ in pairs(NewDamageProfileTemplates) do
     NetworkLookup.damage_profiles[i] = key
     NetworkLookup.damage_profiles[key] = i
 end
+
+StatBuffApplicationMethods.increased_max_targets = "stacking_multiplier" -- stacking_bonus
 
 table.merge_recursive(DamageProfileTemplates, NewDamageProfileTemplates)
 

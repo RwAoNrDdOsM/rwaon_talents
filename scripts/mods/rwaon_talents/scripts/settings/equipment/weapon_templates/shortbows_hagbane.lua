@@ -3,9 +3,44 @@ local mod = get_mod("rwaon_talents")
 -- Hagbane Bow
 
 ------------------------------------------------------------------------------
+for _, weapon in ipairs{
+    "shortbow_hagbane_template_1",
+} do
+    local weapon_template = Weapons[weapon]
+    local action_one = weapon_template.actions.action_one
+    local action_two = weapon_template.actions.action_two
+    change_chain_actions(action_one, "default", 1, {
+        sub_action = "default",
+        start_time = 0.2, -- 0
+        action = "action_wield",
+        input = "action_wield"
+    })
+    change_chain_actions(action_one, "shoot_charged", 2, {
+        sub_action = "default",
+        start_time = 0.5, -- 0.66
+        action = "action_wield",
+        input = "action_wield"
+    })
+    change_chain_actions(action_two, "default", 1, {
+        sub_action = "shoot_charged",
+        start_time = 0.4, -- 0.3
+        action = "action_one",
+        input = "action_one_mouse",
+        end_time = math.huge
+    })
+    change_chain_actions(action_two, "default", 4,{
+        sub_action = "default",
+        start_time = 0.4, -- 0.3
+        action = "weapon_reload",
+        input = "weapon_reload"
+    })
+    weapon_template.dodge_count = 5 --6
+end
+
+
 -- Dot Changes
 
-BuffTemplates.arrow_poison_dot = {
+--[[BuffTemplates.arrow_poison_dot = {
     buffs = {
         {
             duration = 12, -- 3
@@ -38,4 +73,4 @@ BuffTemplates.aoe_poison_dot = {
             reapply_buff_func = "reapply_dot_damage"
         }
     }
-}
+}]]

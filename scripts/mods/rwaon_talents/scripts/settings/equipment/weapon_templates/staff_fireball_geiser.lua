@@ -11,7 +11,7 @@ for _, staff_fireball_geiser in ipairs{
     local weapon_template = Weapons[staff_fireball_geiser]
     local action_one = weapon_template.actions.action_one
     local action_two = weapon_template.actions.action_two
-    add_weapon_value(action_two, "default", "max_radius", 4.2) --3.5
+    change_weapon_value(action_two, "default", "max_radius", 4.2) --3.5
     --add_weapon_data(action_two, "default", "max_radius", 4.2) --3.5
 end
 
@@ -132,7 +132,7 @@ DotTypeLookup = {
 	chaos_zombie_explosion = "poison_dot"
 }
 
-DamageProfileTemplates.geiser = {
+NewDamageProfileTemplates.geiser = {
 	dot_template_name = "burning_geiser_dot",
 	charge_value = "aoe",
 	attack_template = "wizard_staff_geiser",

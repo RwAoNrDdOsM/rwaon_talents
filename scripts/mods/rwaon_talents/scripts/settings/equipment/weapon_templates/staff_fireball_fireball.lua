@@ -7,7 +7,7 @@ local mod = get_mod("rwaon_talents")
 
 
 -- Increased Damage
-DamageProfileTemplates.staff_fireball_charged = {
+NewDamageProfileTemplates.staff_fireball_charged = {
 	charge_value = "projectile",
 	critical_strike = {
 		attack_armor_power_modifer = {
@@ -146,7 +146,7 @@ ExplosionTemplates.fireball_charged_t3.explosion.dot_template_name = "burning_1W
 ExplosionTemplates.fireball_charged_t3.explosion.dot_template_name_glance = "burning_1W_dot"
 
 -- Increase Explosion Damage
-DamageProfileTemplates.fireball_charged_explosion = {
+NewDamageProfileTemplates.fireball_charged_explosion = {
 	charge_value = "aoe",
 	armor_modifier = {
 		attack = {
@@ -186,10 +186,10 @@ DamageProfileTemplates.fireball_charged_explosion = {
 	}
 }
 
-DamageProfileTemplates.fireball_charged_explosion_glance = table.clone(DamageProfileTemplates.fireball_charged_explosion)
-DamageProfileTemplates.fireball_charged_explosion_glance.default_target.attack_template = "drakegun_glance"
-DamageProfileTemplates.fireball_charged_explosion_glance.default_target.damage_type = "drakegun_glance"
-DamageProfileTemplates.fireball_charged_explosion_glance.default_target.dot_template_name = "burning_1W_dot"
+NewDamageProfileTemplates.fireball_charged_explosion_glance = table.clone(NewDamageProfileTemplates.fireball_charged_explosion)
+NewDamageProfileTemplates.fireball_charged_explosion_glance.default_target.attack_template = "drakegun_glance"
+NewDamageProfileTemplates.fireball_charged_explosion_glance.default_target.damage_type = "drakegun_glance"
+NewDamageProfileTemplates.fireball_charged_explosion_glance.default_target.dot_template_name = "burning_1W_dot"
     
 for _, staff_fireball_fireball in ipairs{
     "staff_fireball_fireball_template_1",

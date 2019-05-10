@@ -4,7 +4,7 @@ local mod = get_mod("rwaon_talents")
 
 ------------------------------------------------------------------------------
 
-DamageProfileTemplates.medium_slashing_smiter_flat = {
+NewDamageProfileTemplates.medium_slashing_smiter_flat = {
     armor_modifier = {
         attack = {
             1.25,
@@ -65,23 +65,23 @@ DamageProfileTemplates.medium_slashing_smiter_flat = {
 	shield_break = true
 }
 
-for _, axes_wood_elf in ipairs{
+for _, _weapon_template in ipairs{
     "two_handed_axes_template_2",
-    "two_handed_axes_template_2_t3_un",
+    --"two_handed_axes_template_2_t3_un",
 } do
-    local weapon_template = Weapons[axes_wood_elf]
+    local weapon_template = Weapons[_weapon_template]
     local action_one = weapon_template.actions.action_one
     local action_two = weapon_template.actions.action_two
     -- l1
-    add_weapon_value(action_one, "light_attack_left_upward", "hit_mass_count", false)
-    add_weapon_value(action_one, "light_attack_left_upward", "damage_profile", "medium_slashing_smiter_flat")
+    change_weapon_value(action_one, "light_attack_left_upward", "hit_mass_count", nil)
+    change_weapon_value(action_one, "light_attack_left_upward", "damage_profile", "medium_slashing_smiter_flat")
     -- l2
-    add_weapon_value(action_one, "light_attack_right_upward", "hit_mass_count", false)
-    add_weapon_value(action_one, "light_attack_right_upward", "damage_profile", "medium_slashing_smiter_flat")
+    change_weapon_value(action_one, "light_attack_right_upward", "hit_mass_count", nil)
+    change_weapon_value(action_one, "light_attack_right_upward", "damage_profile", "medium_slashing_smiter_flat")
     -- l3
-    add_weapon_value(action_one, "light_attack_left", "hit_mass_count", false)
-    add_weapon_value(action_one, "light_attack_left", "damage_profile", "medium_slashing_smiter_flat")
+    change_weapon_value(action_one, "light_attack_left", "hit_mass_count", nil)
+    change_weapon_value(action_one, "light_attack_left", "damage_profile", "medium_slashing_smiter_flat")
     -- push attack
-    add_weapon_value(action_one, "light_attack_bopp", "hit_mass_count", false)
-    add_weapon_value(action_one, "light_attack_bopp", "damage_profile", "medium_slashing_smiter_flat")
+    change_weapon_value(action_one, "light_attack_bopp", "hit_mass_count", nil)
+    change_weapon_value(action_one, "light_attack_bopp", "damage_profile", "medium_slashing_smiter_flat")
 end

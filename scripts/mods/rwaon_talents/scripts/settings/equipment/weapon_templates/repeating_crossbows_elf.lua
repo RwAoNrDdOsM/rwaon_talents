@@ -5,8 +5,7 @@ local mod = get_mod("rwaon_talents")
 -- Letting all careers using this weapon
 ItemMasterList.we_crossbow_repeater.can_wield = {
     "we_shade",
-    "we_maidenguard",
-    "we_waywatcher"
+    "we_maidenguard"
 }
 
 for _, weapon in ipairs{

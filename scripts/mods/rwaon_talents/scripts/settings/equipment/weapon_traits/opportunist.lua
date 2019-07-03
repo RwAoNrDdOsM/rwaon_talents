@@ -32,17 +32,34 @@ WeaponTraits.buff_templates.traits_melee_counter_push_power = {
                 
                 local breed_data = Unit.get_data(hit_unit, "breed")
 
-                if Unit.alive(player_unit) and attack_type == "heavy_attack" and not breed_data ~= nil then
-                    local health_extension = ScriptUnit.extension(hit_unit, "health_system")
-			        local health = health_extension:current_health()
-                    local calls = math.ceil(health / 255)
-                    mod:echo(tostring(health))
+                if attack_type == "heavy_attack" and not breed_data ~= nil then
+                    local ScriptUnit_extension = ScriptUnit.extension
+                    local conflict_director = Managers.state.conflict
+                    local statistics_db = Managers.player:statistics_db()
+                    local network_manager = Managers.state.network
+                    local network_transmit = network_manager.network_transmit
+                    local killing_blow = FrameTable.alloc_table()
+                    killing_blow[DamageDataIndex.DAMAGE_AMOUNT] = NetworkConstants.damage.max
+                    killing_blow[DamageDataIndex.DAMAGE_TYPE] = "forced"
+                    killing_blow[DamageDataIndex.HIT_ZONE] = "full"
+                    killing_blow[DamageDataIndex.DIRECTION] = Vector3.down()
+                    killing_blow[DamageDataIndex.DAMAGE_SOURCE_NAME] = "suicide"
+                    killing_blow[DamageDataIndex.HIT_RAGDOLL_ACTOR_NAME] = "n/a"
+                    killing_blow[DamageDataIndex.DAMAGING_UNIT] = player_unit or "n/a"
+                    killing_blow[DamageDataIndex.HIT_REACT_TYPE] = "light"
+                    killing_blow[DamageDataIndex.CRITICAL_HIT] = false
+                    local ai_extension = ScriptUnit_extension(hit_unit, "ai_system")
+                    local blackboard = ai_extension._blackboard
+                    killing_blow[DamageDataIndex.ATTACKER] = player_unit
+                    killing_blow[DamageDataIndex.POSITION] = Unit.world_position(hit_unit, 0)
 
-                    for i = 1, calls, 1 do
-                        mod:buff_attack_hit(player_unit, hit_unit, "heroic_killing_blow_proc")
-                    end 
+                    StatisticsUtil.register_kill(hit_unit, killing_blow, statistics_db, true)
+
+                    local unit_game_object_id = network_manager:unit_game_object_id(hit_unit)
+
+                    network_transmit:send_rpc_clients("rpc_register_kill", unit_game_object_id)
+                    conflict_director:destroy_unit(hit_unit, blackboard, "heroic_killing_blow")
                 end
-
             end,
             proc_chance = 0.03 --0.03
         }

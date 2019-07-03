@@ -21,19 +21,6 @@ for _, weapon in ipairs{
         action = "action_wield",
         input = "action_wield"
     })
-    change_chain_actions(action_two, "default", 1, {
-        sub_action = "shoot_charged",
-        start_time = 0.4, -- 0.3
-        action = "action_one",
-        input = "action_one_mouse",
-        end_time = math.huge
-    })
-    change_chain_actions(action_two, "default", 4,{
-        sub_action = "default",
-        start_time = 0.4, -- 0.3
-        action = "weapon_reload",
-        input = "weapon_reload"
-    })
     weapon_template.dodge_count = 5 --6
 end
 

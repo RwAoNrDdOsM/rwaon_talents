@@ -1,5 +1,74 @@
 local mod = get_mod("rwaon_talents")
 
+local buff_tweak_data = {
+    kerillian_waywatcher_passive = {
+        heal_amount = 2,
+        headshot_bonus = 1.5,
+        range = 10,
+    },
+    kerillian_waywatcher_passive_buff = {
+        duration = 15,
+        max_stacks = 15,
+    },
+    --
+    kerillian_waywatcher_increased_crit_power_on_enemy_proximity_cooldown = {
+        duration = 20,
+    },
+    kerillian_waywatcher_increased_crit_power_on_enemy_proximity = {
+        num_enemies = 3,
+        range = 3,
+    },
+    kerillian_waywatcher_increased_crit_power_on_enemy_proximity_buff = {
+        multiplier = 1.5,
+    },
+    --
+    kerillian_waywatcher_poison_on_damage_taken = {
+        proc_chance = 0.05,
+    },
+    kerillian_waywatcher_poison_on_damage_taken_buff = {
+        duration = 3,
+    },
+    kerillian_waywatcher_block_on_melee_buff = {
+        duration = 4,
+        multiplier = 0.3,
+    },
+    --
+    kerillian_waywatcher_attack_speed_on_ranged_buff = {
+        duration = 7,
+        multiplier = 0.05,
+        max_stacks = 5,
+    },
+    kerillian_waywatcher_move_speed_on_ranged_buff = {
+        multiplier = 1.15,
+        duration = 5,
+    },
+    kerillian_waywatcher_headshot_multiplier_on_melee_headshot_buff = {
+        multiplier = 0.1,
+        duration = 5,
+        max_stacks = 5,
+    },
+    --
+
+    --
+    kerillian_waywatcher_on_recent_ranged_buff = {
+        duration = 15,
+    },
+    kerillian_waywatcher_on_recent_ranged = {
+        heal_amount = 2,
+    },
+    kerillian_waywatcher_on_killed_special = {
+        heal_amount = 2,
+        headshot_bonus = 2,
+    },
+    kerillian_waywatcher_on_ranged_extra_shot = {
+        min_proc_chance = 0.05,
+        max_proc_chance = 0.15,
+        proc_chance = 0,
+        duration = 2,
+        max_stacks = 3,
+    },
+}
+
 local function is_local(unit)
 	local player = Managers.player:owner(unit)
 
@@ -10,7 +79,18 @@ mod:add_talent("we_waywatcher", 1, 1, "kerillian_waywatcher_crit_power_on_enemy_
 	name = "kerillian_waywatcher_crit_power_on_enemy_proximity",
 	num_ranks = 1,
 	icon = "kerillian_waywatcher_increased_crit_hit_damage_on_high_health",
-	description_values = {},
+	description_values = {
+        {
+            value = buff_tweak_data.kerillian_waywatcher_increased_crit_power_on_enemy_proximity.num_enemies
+        },
+        {
+            value_type = "baked_percent",
+            value = buff_tweak_data.kerillian_waywatcher_increased_crit_power_on_enemy_proximity_buff.multiplier
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_increased_crit_power_on_enemy_proximity_cooldown.duration
+        }
+    },
 	requirements = {},
 	buffs = {
         "kerillian_waywatcher_increased_crit_power_on_enemy_proximity_cooldown",
@@ -19,7 +99,7 @@ mod:add_talent("we_waywatcher", 1, 1, "kerillian_waywatcher_crit_power_on_enemy_
 	buff_data = {}
 })
 mod:add_talent_buff("wood_elf", "kerillian_waywatcher_increased_crit_power_on_enemy_proximity_cooldown", {
-    duration = 30,
+    duration = buff_tweak_data.kerillian_waywatcher_increased_crit_power_on_enemy_proximity_cooldown.duration,
     buff_after_delay = true,
     max_stacks = 1,
     refresh_durations = true,
@@ -28,17 +108,17 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_increased_crit_power_on_en
     delayed_buff_name = "kerillian_waywatcher_increased_crit_power_on_enemy_proximity"
 })
 mod:add_talent_buff("wood_elf", "kerillian_waywatcher_increased_crit_power_on_enemy_proximity", {
-    num_enemies = 3,
-    range = 3,
     max_stacks = 1,
     buff_to_add = "kerillian_waywatcher_increased_crit_power_on_enemy_proximity_buff",
     update_func = "activate_buff_based_on_enemy_proximity",
+    num_enemies = buff_tweak_data.kerillian_waywatcher_increased_crit_power_on_enemy_proximity.num_enemies,
+    range = buff_tweak_data.kerillian_waywatcher_increased_crit_power_on_enemy_proximity.range,
 })  
 mod:add_talent_buff("wood_elf", "kerillian_waywatcher_increased_crit_power_on_enemy_proximity_buff", {
-    multiplier = 1.5,
     max_stacks = 1,
     stat_buff = "increased_max_targets",
     icon = "kerillian_waywatcher_increased_crit_hit_damage_on_high_health",
+    multiplier = buff_tweak_data.kerillian_waywatcher_increased_crit_power_on_enemy_proximity_buff.multiplier,
 })  
 mod:add_talent_buff("wood_elf", "kerillian_waywatcher_remove_crit_power_on_enemy_proximity", {
     max_stacks = 1,
@@ -76,7 +156,15 @@ mod:add_talent("we_waywatcher", 1, 2, "kerillian_waywatcher_poison_on_damage_tak
 	name = "kerillian_waywatcher_poison_on_damage_taken",
 	num_ranks = 1,
 	icon = "kerillian_waywatcher_conqueror",
-	description_values = {},
+	description_values = {
+        {
+            value_type = "percent",
+            value = buff_tweak_data.kerillian_waywatcher_poison_on_damage_taken.proc_chance
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_poison_on_damage_taken_buff.duration
+        }
+    },
 	requirements = {},
 	buffs = {
 		"kerillian_waywatcher_poison_on_damage_taken"
@@ -110,6 +198,13 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_poison_on_damage_taken", {
                 
             if health_extension:is_alive() then
                 mod:echo("This talent needs more research to work")
+                --[[local damage_profile = 
+                local target_index = 
+                local power_level = 
+                local hit_zone_name = "full"
+                local damage_source
+
+                DamageUtils.apply_dot(damage_profile, target_index, power_level, attacker_unit, player_unit, hit_zone_name, damage_source, nil, false)
                 --[[local buff_extension = ScriptUnit.extension(attacker_unit, "buff_system")
                 local template = buff.template
                 local buff_to_add = template.buff_to_add
@@ -128,31 +223,35 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_poison_on_damage_taken", {
             end
         end
     end,
-    proc_chance = 0.05,
+    proc_chance = buff_tweak_data.kerillian_waywatcher_poison_on_damage_taken.proc_chance,
 })
-mod:add_talent_buff_extra("wood_elf", "kerillian_waywatcher_poison_on_damage_taken_buff", {
-    buffs = {    
-        {
-            duration = 3,
-            name = "buff poison dot",
-            start_flow_event = "poisoned",
-            end_flow_event = "poisoned_end",
-            death_flow_event = "poisoned_death",
-            remove_buff_func = "remove_dot_damage",
-            apply_buff_func = "start_dot_damage",
-            time_between_dot_damages = 1,
-            damage_profile = "poison_direct",
-            update_func = "apply_dot_damage",
-            reapply_buff_func = "reapply_dot_damage"
-        }
-    },
+mod:add_talent_buff("wood_elf", "kerillian_waywatcher_poison_on_damage_taken_buff", {
+        duration = buff_tweak_data.kerillian_waywatcher_poison_on_damage_taken_buff.duration,
+        name = "buff poison dot",
+        start_flow_event = "poisoned",
+        end_flow_event = "poisoned_end",
+        death_flow_event = "poisoned_death",
+        remove_buff_func = "remove_dot_damage",
+        apply_buff_func = "start_dot_damage",
+        time_between_dot_damages = 1,
+        damage_profile = "poison_direct",
+        update_func = "apply_dot_damage",
+        reapply_buff_func = "reapply_dot_damage"
 })
 
 mod:add_talent("we_waywatcher", 1, 3, "kerillian_waywatcher_block_on_melee", {
 	name = "kerillian_waywatcher_block_on_melee",
 	num_ranks = 1,
 	icon = "kerillian_waywatcher_stamina_regen",
-	description_values = {},
+	description_values = {
+        {
+            value_type = "percent",
+            value = buff_tweak_data.kerillian_waywatcher_block_on_melee_buff.multiplier
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_block_on_melee_buff.duration
+        }
+    },
 	requirements = {},
 	buffs = {
 		"kerillian_waywatcher_block_on_melee"
@@ -164,7 +263,7 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_block_on_melee", {
     event_buff = true,
     event = "on_hit",
     dormant = true,
-    buff_to_add = "kerillian_waywatcher_block_on_melee_buff",
+    buffs_to_add = {"kerillian_waywatcher_block_on_melee_buff1", "kerillian_waywatcher_block_on_melee_buff2"},
     buff_func = function (player, buff, params)
 		local player_unit = player.player_unit
 
@@ -181,39 +280,48 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_block_on_melee", {
         
         local buff_extension = ScriptUnit.extension(player_unit, "buff_system")
 		local template = buff.template
-        local buff_to_add = template.buff_to_add
+        local buffs_to_add = template.buffs_to_add
         if buff_type == "MELEE_1H" or buff_type == "MELEE_2H" and Unit.alive(player_unit) and hit_zone_name == "head" or hit_zone_name == "neck" or hit_zone_name == "weakspot" then
-            buff_extension:add_buff(buff_to_add)
+            for i=1, #buffs_to_add do
+                local buff_to_add = buffs_to_add[i]
+                buff_extension:add_buff(buff_to_add)
+            end
         end
     end,
 })
-mod:add_talent_buff_extra("wood_elf", "kerillian_waywatcher_block_on_melee_buff", {
-    buffs = {    
-        {
-            max_stacks = 1,
-            duration = 4,
-            multiplier = 0.3,
-            icon = "kerillian_waywatcher_stamina_regen",
-            stat_buff = "fatigue_regen",
-            refresh_durations = true,
-        },
-        {
-            max_stacks = 1,
-            duration = 4,
-            multiplier = 0.3,
-            icon = "kerillian_waywatcher_stamina_regen",
-            stat_buff = "block_cost",
-            refresh_durations = true,
-        },
-    },
+mod:add_talent_buff("wood_elf", "kerillian_waywatcher_block_on_melee_buff1", {
+    max_stacks = 1,
+    icon = "kerillian_waywatcher_stamina_regen",
+    stat_buff = "fatigue_regen",
+    refresh_durations = true,
+    multiplier = buff_tweak_data.kerillian_waywatcher_block_on_melee_buff.multiplier,
+    duration = buff_tweak_data.kerillian_waywatcher_block_on_melee_buff.duration,
 })
 
+mod:add_talent_buff("wood_elf", "kerillian_waywatcher_block_on_melee_buff2", {
+    max_stacks = 1,
+    stat_buff = "block_cost",
+    refresh_durations = true,
+    multiplier = buff_tweak_data.kerillian_waywatcher_block_on_melee_buff.multiplier,
+    duration = buff_tweak_data.kerillian_waywatcher_block_on_melee_buff.duration,
+})
 ------------------------------------------------------------------------------
 mod:add_talent("we_waywatcher", 2, 1, "kerillian_waywatcher_attack_speed_on_ranged", {
 	name = "kerillian_waywatcher_attack_speed_on_ranged",
     num_ranks = 1,
 	icon = "kerillian_waywatcher_attack_speed",
-	description_values = {},
+	description_values = {
+        {
+            value_type = "percent",
+            value = buff_tweak_data.kerillian_waywatcher_attack_speed_on_ranged_buff.multiplier
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_attack_speed_on_ranged_buff.max_stacks
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_attack_speed_on_ranged_buff.duration
+        }
+    },
 	requirements = {},
 	buffs = {
 		"kerillian_waywatcher_attack_speed_on_ranged"
@@ -249,12 +357,12 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_attack_speed_on_ranged", {
 	end,
 })
 mod:add_talent_buff("wood_elf", "kerillian_waywatcher_attack_speed_on_ranged_buff", {
-    duration = 7,
-    multiplier = 0.05,
-    max_stacks = 5,
     icon = "kerillian_waywatcher_attack_speed",
     stat_buff = "attack_speed",
-    refresh_durations = true
+    refresh_durations = true,
+    multiplier = buff_tweak_data.kerillian_waywatcher_attack_speed_on_ranged_buff.multiplier,
+    max_stacks = buff_tweak_data.kerillian_waywatcher_attack_speed_on_ranged_buff.max_stacks,
+    duration = buff_tweak_data.kerillian_waywatcher_attack_speed_on_ranged_buff.duration,
 })
 
 mod:add_talent("we_waywatcher", 2, 2, "kerillian_waywatcher_move_speed_on_ranged", {
@@ -262,6 +370,13 @@ mod:add_talent("we_waywatcher", 2, 2, "kerillian_waywatcher_move_speed_on_ranged
     num_ranks = 1,
 	icon = "kerillian_waywatcher_activated_ability_cooldown",
 	description_values = {
+        {
+            value_type = "baked_percent",
+            value = buff_tweak_data.kerillian_waywatcher_move_speed_on_ranged_buff.multiplier
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_move_speed_on_ranged_buff.duration
+        },
 	},
 	requirements = {},
 	buffs = {
@@ -294,14 +409,11 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_move_speed_on_ranged", {
         local buff_to_add = template.buff_to_add
         if buff_type == "RANGED" and hit_zone_name == "head" or hit_zone_name == "neck" or hit_zone_name == "weakspot" and Unit.alive(player_unit) then
             buff_extension:add_buff(buff_to_add)
-            mod:echo("added movement buff")
+            --mod:echo("added movement buff")
         end
-        mod:echo(buff_type)
-        mod:echo(hit_zone_name)
     end,
 })
 mod:add_talent_buff("wood_elf", "kerillian_waywatcher_move_speed_on_ranged_buff", {
-    duration = 5,
     max_stacks = 1,
     icon = "kerillian_waywatcher_activated_ability_cooldown",
     refresh_durations = true,
@@ -311,14 +423,26 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_move_speed_on_ranged_buff"
 	path_to_movement_setting_to_modify = {
 		"move_speed"
     },
-    multiplier = 1.15,
+    multiplier = buff_tweak_data.kerillian_waywatcher_move_speed_on_ranged_buff.multiplier,
+    duration = buff_tweak_data.kerillian_waywatcher_move_speed_on_ranged_buff.duration,
 })
 
 mod:add_talent("we_waywatcher", 2, 3, "kerillian_waywatcher_headshot_multiplier_on_melee_headshot", {
 	name = "kerillian_waywatcher_headshot_multiplier_on_melee_headshot",
     num_ranks = 1,
 	icon = "kerillian_waywatcher_crit_chance",
-	description_values = {},
+	description_values = {
+        {
+            value_type = "percent",
+            value = buff_tweak_data.kerillian_waywatcher_headshot_multiplier_on_melee_headshot_buff.multiplier
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_headshot_multiplier_on_melee_headshot_buff.max_stacks
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_headshot_multiplier_on_melee_headshot_buff.duration
+        },
+    },
 	requirements = {},
 	buffs = {
 		"kerillian_waywatcher_headshot_multiplier_on_melee_headshot"
@@ -354,12 +478,12 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_headshot_multiplier_on_mel
 	end,
 })
 mod:add_talent_buff("wood_elf", "kerillian_waywatcher_headshot_multiplier_on_melee_headshot_buff", {
-    duration = 5,
-    multiplier = 0.1,
-    max_stacks = 5,
     icon = "kerillian_waywatcher_crit_chance",
     stat_buff = "headshot_multiplier",
-    refresh_durations = true
+    refresh_durations = true,
+    multiplier = buff_tweak_data.kerillian_waywatcher_headshot_multiplier_on_melee_headshot_buff.multiplier,
+    max_stacks = buff_tweak_data.kerillian_waywatcher_headshot_multiplier_on_melee_headshot_buff.max_stacks,
+    duration = buff_tweak_data.kerillian_waywatcher_headshot_multiplier_on_melee_headshot_buff.duration,
 })
 
 ------------------------------------------------------------------------------
@@ -398,7 +522,14 @@ mod:add_talent("we_waywatcher", 4, 1, "kerillian_waywatcher_on_recent_ranged", {
 	name = "kerillian_waywatcher_on_recent_ranged",
 	num_ranks = 1,
 	icon = "kerillian_waywatcher_bloodlust",
-	description_values = {},
+	description_values = {
+        {
+            value = buff_tweak_data.kerillian_waywatcher_on_recent_ranged_buff.duration
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_on_recent_ranged.heal_amount
+        }
+    },
 	requirements = {},
 	buffs = {
 		"kerillian_waywatcher_on_recent_ranged"
@@ -410,7 +541,6 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_on_recent_ranged", {
     event_buff = true,
     event = "on_kill",
     dormant = true,
-    heal_amount = 2,
     buff_to_add = "kerillian_waywatcher_on_recent_ranged_buff",
     buff_func = function (player, buff, params)
 		local player_unit = player.player_unit
@@ -457,7 +587,6 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_on_recent_ranged", {
     end,
 })
 mod:add_talent_buff("wood_elf", "kerillian_waywatcher_on_recent_ranged_buff", {
-    duration = 5,
     max_stacks = 1,
     icon = "kerillian_waywatcher_bloodlust",
     max_stacks = 1,
@@ -468,10 +597,18 @@ mod:add_talent("we_waywatcher", 4, 2, "kerillian_waywatcher_on_killed_special", 
 	name = "kerillian_waywatcher_on_killed_special",
     num_ranks = 1,
 	icon = "kerillian_waywatcher_regrowth",
-	description_values = {},
+	description_values = {
+        {
+            value = buff_tweak_data.kerillian_waywatcher_on_killed_special.heal_amount
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_on_killed_special.headshot_bonus
+        },
+    },
 	requirements = {},
 	buffs = {
-		"kerillian_waywatcher_on_killed_special"
+        "kerillian_waywatcher_on_killed_special",
+        "kerillian_waywatcher_on_killed_elite",
 	},
 	buff_data = {}
 })
@@ -479,8 +616,8 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_on_killed_special", {
     max_stacks = 1,
     event_buff = true,
     event = "on_special_killed",
-    heal_amount = 2,
-    headshot_bonus = 2,
+    heal_amount = buff_tweak_data.kerillian_waywatcher_on_killed_special.heal_amount,
+    headshot_bonus = buff_tweak_data.kerillian_waywatcher_on_killed_special.headshot_bonus,
     buff_func = function (player, buff, params)
 		local player_unit = player.player_unit
 
@@ -489,32 +626,81 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_on_killed_special", {
         end
         
         local killing_blow = params[1]
-        local damage_amount          = killing_blow[1]
-        local damage_type            = killing_blow[2]
-        local attacker_unit          = killing_blow[3]
-        local hit_zone_name          = killing_blow[4]
-        local hit_position_table     = killing_blow[5]
-        local damage_direction_table = killing_blow[6]
-        local damage_source          = killing_blow[7]
-        local hit_ragdoll_actor      = killing_blow[8]
-        local unknown_thing          = killing_blow[9]
+        local damage_amount = killing_blow[DamageDataIndex.DAMAGE_AMOUNT]
+		local damage_type = killing_blow[DamageDataIndex.DAMAGE_TYPE]
+		local hit_zone_name = killing_blow[DamageDataIndex.HIT_ZONE]
+		local direction = killing_blow[DamageDataIndex.DIRECTION]
+		local damage_source = killing_blow[DamageDataIndex.DAMAGE_SOURCE_NAME]
+		local hit_ragdoll = killing_blow[DamageDataIndex.HIT_RAGDOLL_ACTOR_NAME]
+		local damaging_unit = killing_blow[DamageDataIndex.DAMAGING_UNIT]
+		local react_type = killing_blow[DamageDataIndex.HIT_REACT_TYPE]
+        local critical = killing_blow[DamageDataIndex.CRITICAL_HIT]
+        local attacker_unit = killing_blow[DamageDataIndex.ATTACKER]
+        local position = killing_blow[DamageDataIndex.POSITION]
+        local breed_data        = params[2]
+        local ai_unit           = params[3]
         
         local template = buff.template
         local heal_amount = template.heal_amount
         local headshot_bonus = template.headshot_bonus
-        
         if hit_zone_name == "head" or hit_zone_name == "neck" or hit_zone_name == "weakspot" then
             heal_amount = heal_amount + headshot_bonus
+            DamageUtils.heal_network(player_unit, player_unit, heal_amount, "career_passive")
+        else
+            DamageUtils.heal_network(player_unit, player_unit, heal_amount, "career_passive")
         end
-        DamageUtils.heal_network(player_unit, player_unit, heal_amount, "career_passive")
     end,
 })
+mod:add_talent_buff("wood_elf", "kerillian_waywatcher_on_killed_elite", {
+    max_stacks = 1,
+    event_buff = true,
+    event = "on_killed",
+    heal_amount = buff_tweak_data.kerillian_waywatcher_on_killed_special.heal_amount,
+    headshot_bonus = buff_tweak_data.kerillian_waywatcher_on_killed_special.headshot_bonus,
+    buff_func = function (player, buff, params)
+		local player_unit = player.player_unit
+
+		if not is_local(player_unit) then
+			return
+        end
+        
+        local killing_blow    = params[1]
+        local attack_type     = killing_blow[1]
+        local hit_zone_name   = killing_blow[2]
+        local target_number   = killing_blow[3]
+        local buff_type       = killing_blow[4]
+        local is_critical     = killing_blow[5]
+        
+        local template = buff.template
+        local heal_amount = template.heal_amount
+        local headshot_bonus = template.headshot_bonus
+        local unit_type = mod:unit_category(hit_unit)
+        
+        if unit_type == "elite" then
+            if hit_zone_name == "head" or hit_zone_name == "neck" or hit_zone_name == "weakspot" then
+                heal_amount = heal_amount + headshot_bonus
+            end
+            DamageUtils.heal_network(player_unit, player_unit, heal_amount, "career_passive")
+        end
+    end,
+})
+
 
 mod:add_talent("we_waywatcher", 4, 3, "kerillian_waywatcher_on_ranged_extra_shot", {
 	name = "kerillian_waywatcher_on_ranged_extra_shot",
     num_ranks = 1,
 	icon = "kerillian_waywatcher_headshot_multiplier",
-	description_values = {},
+	description_values = {
+        {
+            value = buff_tweak_data.kerillian_waywatcher_on_ranged_extra_shot.max_stacks
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_on_ranged_extra_shot.min_proc_chance
+        },
+        {
+            value = buff_tweak_data.kerillian_waywatcher_on_ranged_extra_shot.duration
+        },
+    },
 	requirements = {},
 	buffs = {
 		"kerillian_waywatcher_on_ranged_extra_shot"
@@ -551,15 +737,10 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_on_ranged_extra_shot", {
     end,
 })
 mod:add_talent_buff("wood_elf", "kerillian_waywatcher_move_speed_on_ranged_buff", {
-    max_stacks = 3,
     refresh_durations = true,
     stat_buff = "extra_shot",
-    duration = 2,
     icon = "kerillian_waywatcher_headshot_multiplier",
     chunks_buff = "kerillian_waywatcher_move_speed_on_ranged_buff",
-    min_proc_chance = 0.05,
-    max_proc_chance = 0.15,
-    proc_chance = 0,
     update_func = "update_proc_chance_based_on_stacks",
 })
 ------------------------------------------------------------------------------
@@ -573,9 +754,9 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_move_speed_on_ranged_buff"
 mod:add_talent_buff("wood_elf", "kerillian_waywatcher_passive", {
     event_buff = true,
     event = "on_hit",
-    heal_amount = 1.5,
-    headshot_bonus = 1,
-    range = 10,
+    heal_amount = buff_tweak_data.kerillian_waywatcher_passive.heal_amount,
+    headshot_bonus = buff_tweak_data.kerillian_waywatcher_passive.headshot_bonus,
+    range = buff_tweak_data.kerillian_waywatcher_passive.range,
     buff_to_add = "kerillian_waywatcher_passive_buff",
     buff_func = function (player, buff, params)
         local player_unit = player.player_unit
@@ -642,7 +823,7 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_passive", {
                         heal_amount = heal_amount + (headshot_bonus * (num_buff_stacks - 4))
                         --mod:echo("headshot heal amount increase")
                     end
-                    mod:echo(heal_amount)
+                    --mod:echo(heal_amount)
                     local player_position = POSITION_LOOKUP[player_unit]
 					local player_and_bot_units = PLAYER_AND_BOT_UNITS
 
@@ -684,10 +865,10 @@ mod:add_talent_buff("wood_elf", "kerillian_waywatcher_passive", {
                 end
             end
 		end
-	end
+	end,
 })
 mod:add_talent_buff("wood_elf", "kerillian_waywatcher_passive_buff", {
-    max_stacks = 15,
     icon = "kerillian_waywatcher_passive",
-    duration = 15,
+    duration = buff_tweak_data.kerillian_waywatcher_passive_buff.duration,
+    max_stacks = buff_tweak_data.kerillian_waywatcher_passive_buff.max_stacks,
 })

@@ -24,9 +24,10 @@ WeaponTraits.buff_templates.traits_ranged_restore_stamina_headshot = {
                 local player_unit = player.player_unit
                 local attack_type = params[2]
                 local hit_zone_name = params[3]
-                local heal_amount = buff.heal_amount
+                local template = buff.template
+                local heal_amount = template.heal_amount
                 
-                if Managers.state.network.is_server then
+                if Managers.state.network.is_server and not is_in_inn() then
                     local health_extension = ScriptUnit.extension(unit, "health_system")
                     local status_extension = ScriptUnit.extension(unit, "status_system")
                     
@@ -39,7 +40,7 @@ WeaponTraits.buff_templates.traits_ranged_restore_stamina_headshot = {
                                 local status_extension = ScriptUnit.extension(player_and_bot_units[i], "status_system")
 
                                 if  not status_extension:is_knocked_down() and not status_extension:is_assisted_respawning() and health_extension:is_alive() then
-                                    DamageUtils.heal_network(player_and_bot_units[i], unit, heal_amount, "career_passive")
+                                    DamageUtils.heal_network(player_and_bot_units[i], player_unit, heal_amount, "career_passive")
                                 end
                             end
                         end

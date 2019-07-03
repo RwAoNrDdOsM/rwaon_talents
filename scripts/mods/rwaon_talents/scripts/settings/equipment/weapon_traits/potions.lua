@@ -149,6 +149,33 @@ mod:hook_origin(ActionPotion, "finish", function (self, reason)
 					"damage_boost_potion_half",
 					"cooldown_reduction_potion_half",
 				}
+			elseif potions == "speed" then
+				if buff_template == "speed_boost_potion" then
+					additional_potion_buffs = {"speed_boost_potion"}
+				else
+					additional_potion_buffs = {
+						tostring(buff_template) .. "_half",
+						"speed_boost_potion_half",
+					}
+				end
+			elseif potions == "strength" then
+				if buff_template == "damage_boost_potion" then
+					additional_potion_buffs = {"damage_boost_potion"}
+				else
+					additional_potion_buffs = {
+						tostring(buff_template) .. "_half",
+						"damage_boost_potion_half",
+					}
+				end
+			elseif potions == "conc" then
+				if buff_template == "cooldown_reduction_potion" then
+					additional_potion_buffs = {"cooldown_reduction_potion"}
+				else
+					additional_potion_buffs = {
+						tostring(buff_template) .. "_half",
+						"cooldown_reduction_potion_half",
+					}
+				end
 			end
 		end
 

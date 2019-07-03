@@ -8,12 +8,6 @@ for _, weapon in ipairs{
     local weapon_template = Weapons[weapon]
     local action_one = weapon_template.actions.action_one
     local action_two = weapon_template.actions.action_two
-    change_buff_data(action_one, "default", 1, {
-        start_time = 0,
-        external_multiplier = 0.9, -- 1
-        end_time = 0.3,
-        buff_name = "planted_charging_decrease_movement"
-    })
     change_weapon_value(action_one, "default", "speed", 5500) -- 8000
     change_weapon_value(action_one, "shoot_charged", "speed", 10000) -- 11000
     change_weapon_value(action_one, "shoot_charged", "scale_total_time_on_mastercrafted", true)

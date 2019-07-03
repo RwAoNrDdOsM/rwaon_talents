@@ -1,5 +1,162 @@
 local mod = get_mod("rwaon_talents")
 
+mod:hook_origin(PlayerCharacterStateLunging, "update", function (self, unit, input, dt, context, t)
+	local csm = self.csm
+	local movement_settings_table = PlayerUnitMovementSettings.get_movement_settings_table(unit)
+	local input_extension = self.input_extension
+	local status_extension = self.status_extension
+	local whereabouts_extension = ScriptUnit.extension(unit, "whereabouts_system")
+	local first_person_extension = self.first_person_extension
+	local damage_start_time = self.damage_start_time
+
+	if CharacterStateHelper.is_colliding_down(unit) then
+		if self._falling then
+			self._falling = false
+
+			whereabouts_extension:set_landed()
+		end
+
+		whereabouts_extension:set_is_onground()
+	elseif not self._falling then
+		self._falling = true
+
+		whereabouts_extension:set_fell(self.name)
+	end
+
+	local lunge_data = self._lunge_data
+	local lunge_events = lunge_data.lunge_events
+
+	if lunge_events then
+		local first_event_data = lunge_events[1]
+		local start_time = self._start_time
+
+		while first_event_data do
+			if first_event_data.t < t - start_time then
+				local event_function = first_event_data.event_function
+
+				event_function(self)
+				table.remove(lunge_events, 1)
+
+				first_event_data = lunge_events[1]
+			else
+				break
+			end
+		end
+	end
+
+	if CharacterStateHelper.do_common_state_transitions(status_extension, csm) then
+		return
+	end
+
+	if CharacterStateHelper.is_using_transport(status_extension) then
+		csm:change_state("using_transport")
+
+		return
+	end
+
+	local world = self.world
+
+	if CharacterStateHelper.is_ledge_hanging(world, unit, self.temp_params) then
+		self._stop = true
+
+		csm:change_state("ledge_hanging", self.temp_params)
+
+		return
+	end
+
+	if CharacterStateHelper.is_overcharge_exploding(status_extension) then
+		csm:change_state("overcharge_exploding")
+
+		return
+	end
+
+	if CharacterStateHelper.is_pushed(status_extension) then
+		status_extension:set_pushed(false)
+
+		local params = movement_settings_table.stun_settings.pushed
+		local hit_react_type = status_extension:hit_react_type()
+		params.hit_react_type = hit_react_type .. "_push"
+
+		csm:change_state("stunned", params)
+
+		return
+	end
+
+	if CharacterStateHelper.is_block_broken(status_extension) then
+		status_extension:set_block_broken(false)
+
+		local params = movement_settings_table.stun_settings.parry_broken
+		local hit_react_type = status_extension:hit_react_type() 
+		params.hit_react_type = hit_react_type
+
+		csm:change_state("stunned", params)
+
+		return
+	end
+
+	if not self._stop then
+		local damage_data = lunge_data.damage
+
+		if damage_data and damage_start_time <= t then
+			self._stop = self:_update_damage(unit, dt, t, damage_data)
+		end
+
+		local input_service = Managers.input:get_service("Player")
+
+		if input_service:get("action_two", true) then
+			local position = POSITION_LOOKUP[unit]
+			local forward_direction = Quaternion.forward(first_person_extension:current_rotation())
+
+			self:_do_blast(position, forward_direction)
+
+			self._stop = true
+		end
+
+		local move_state = self:_update_movement(unit, dt, t, lunge_data)
+
+		if move_state == "ledge_hang" then
+			self._stop = true
+
+			csm:change_state("ledge_hanging", self.temp_params)
+
+			return
+		end
+
+		if move_state == "stop" and not self._stop then
+			local position = POSITION_LOOKUP[unit]
+			local forward_direction = Quaternion.forward(first_person_extension:current_rotation())
+
+			self:_do_blast(position, forward_direction)
+
+			self._stop = true
+		end
+	end
+
+	if self._stop then
+		if not self.csm.state_next and self._falling then
+			csm:change_state("falling", self.temp_params)
+
+			self.temp_params.hit = false
+
+			first_person_extension:change_state("falling")
+
+			return
+		else
+			csm:change_state("walking", self.temp_params)
+
+			self.temp_params.hit = false
+
+			first_person_extension:change_state("walking")
+
+			return
+		end
+	end
+
+	CharacterStateHelper.look(input_extension, self.player.viewport_name, first_person_extension, status_extension, self.inventory_extension, 0.5)
+	CharacterStateHelper.update_weapon_actions(t, unit, input_extension, self.inventory_extension, self.health_extension)
+	self._last_position:store(POSITION_LOOKUP[unit])
+end)
+
 mod:hook_origin(PlayerCharacterStateLunging, "_update_damage", function (self, unit, dt, t, damage_data)
 	local padding = damage_data.depth_padding
 	local half_width = 0.5 * damage_data.width

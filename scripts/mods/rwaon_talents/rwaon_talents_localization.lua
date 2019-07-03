@@ -21,53 +21,53 @@ return {
         en = "Ariel's Blessing",
     },
     career_passive_desc_we_3a_2 = {
-        en = "Every melee hit increases Ariel's Blessing' stack. A ranged hit gains 1.5 health for every stack above 4 for you and surrounding teammates. A ranged headshot gains 1 bonus health.",
+        en = "Every melee hit increases Ariel's Blessing' stack. A ranged hit gains 2 health for every stack above 4 for you and surrounding teammates. A ranged headshot gains 1.5 bonus health.",
     },
     -- Waystalker 1.1
     kerillian_waywatcher_crit_power_on_enemy_proximity = {
         en = "Enemy Proximity",
     },
     kerillian_waywatcher_crit_power_on_enemy_proximity_desc = {
-        en = "While there are at least 3 enemies around you grants 50%% increased cleave. If you take damage, it is on a 30 second cooldown",
+        en = "While there are at least %i enemies around you grants %g%% increased cleave. If you take damage, there is a %i second cooldown.",
     },
     -- Waystalker 1.2
     kerillian_waywatcher_poison_on_damage_taken = {
-        en = "Posion Enemies",
+        en = "Poison Enemies",
     },
     kerillian_waywatcher_poison_on_damage_taken_desc = {
-        en = "There is a 5%% chance when a enemy hits Kerillian, they are poisoned for 3 seconds.",
+        en = "There is a %g%% chance when a enemy hits Kerillian, they are poisoned for %i seconds.",
     },
     -- Waystalker 1.3
     kerillian_waywatcher_block_on_melee = {
         en = "BCR and Stam Regen",
     },
     kerillian_waywatcher_block_on_melee_desc = {
-        en = "Melee headshot kills grant 30%% BCR and stamina regen for 4 seconds",
+        en = "Melee headshot kills grant %g%% BCR and stamina regeneration for %i seconds.",
     },
     -- Waystalker 2.1
     kerillian_waywatcher_attack_speed_on_ranged = {
         en = "Attack Speed on Ranged Headshot",
     },
     kerillian_waywatcher_attack_speed_on_ranged_desc = {
-        en = "5%% Attack speed per stack on ranged headshot. 5 stack max with duration of 7 seconds",
+        en = "%g%% Attack speed per stack on ranged headshot. %i stacks max with duration of %i seconds.",
     },
     -- Waystalker 2.2
     kerillian_waywatcher_move_speed_on_ranged = {
         en = "Movespeed on Ranged Headshot",
     },
     kerillian_waywatcher_move_speed_on_ranged_desc = {
-        en = "15%% movement speed on ranged headshot. Duration for 5 seconds.",
+        en = "%g%% movement speed on ranged headshot. Duration for %i seconds.",
     },
     -- Waystalker 2.3
     kerillian_waywatcher_headshot_multiplier_on_melee_headshot = {
         en = "Headshot Damage Modifier on Melee Headshot",
     },
     kerillian_waywatcher_headshot_multiplier_on_melee_headshot_desc = {
-        en = "10%% Headshot Damage Modifier per stack on melee headshot. 5 stack max with duration of 5 seconds",
+        en = "%g%% Headshot Damage Modifier per stack on melee headshot. %i stacks max with duration of %i seconds.",
     },
     -- Waystalker 3.1
     kerillian_waywatcher_improved_group_heal = {
-        en = "Teamates Rule!!",
+        en = "Teammates Rule!!",
     },
     kerillian_waywatcher_improved_group_heal_desc = {
         en = "Ariel's Blessing no longer affects Kerillian but increases the heal amount by 100%% on allies.",
@@ -84,28 +84,28 @@ return {
         en = "Increased Range",
     },
     kerillian_waywatcher_passive_increased_range_desc = {
-        en = "Ariel's blessing' range is increased by 250%%",
+        en = "Ariel's blessing' range is increased by 250%%.",
     },
     -- Waystalker 4.1
     kerillian_waywatcher_on_recent_ranged = {
         en = "2 tHP on Kill",
     },
     kerillian_waywatcher_on_recent_ranged_desc = {
-        en = "If you have killed with ranged within 5 seconds melee kills grant 2 temp hp",
+        en = "If you have killed with ranged within %i seconds melee kills grant %i temp HP.",
     },
     -- Waystalker 4.2
     kerillian_waywatcher_on_killed_special = {
         en = "2 HP",
     },
     kerillian_waywatcher_on_killed_special_desc = {
-        en = "Killing a special grants 2 perma HP. A bonus 2HP if it is a headshot.",
+        en = "Killing a special or an elite grants %iHP. A bonus %iHP if it is a headshot.",
     },
     -- Waystalker 4.3
     kerillian_waywatcher_on_ranged_extra_shot = {
         en = "Hail of DOOM-ish",
     },
     kerillian_waywatcher_on_ranged_extra_shot_desc = {
-        en = "Each ranged hit increases the chance of firing 2 arrows instead of 1, stacking up to 3 times/buff lasts 2 seconds, each giving 5%% chance",
+        en = "Each ranged hit increases the chance of firing 2 arrows instead of 1. %i stacks max each giving %g%% chance, with a duration of %i seconds.",
     },
 ------------------------------------------------------------------------------
     --Bloodlust Ranged
@@ -312,5 +312,14 @@ return {
     },
     potions_three_localization_id = {
         en = "Strength & Concentration"
+    },
+    potions_four_localization_id = {
+        en = "Speed & Potion"
+    },
+    potions_five_localization_id = {
+        en = "Strength & Potion"
+    },
+    potions_six_localization_id = {
+        en = "Concentration & Potion"
     },
 }

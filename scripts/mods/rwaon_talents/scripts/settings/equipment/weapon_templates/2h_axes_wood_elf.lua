@@ -62,12 +62,11 @@ NewDamageProfileTemplates.medium_slashing_smiter_flat = {
 			}
 		}
 	},
-	shield_break = true
+	--shield_break = true
 }
 
 for _, _weapon_template in ipairs{
     "two_handed_axes_template_2",
-    --"two_handed_axes_template_2_t3_un",
 } do
     local weapon_template = Weapons[_weapon_template]
     local action_one = weapon_template.actions.action_one

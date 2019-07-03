@@ -11,25 +11,12 @@ local function merge(dst, src)
     end
     return dst
 end
-
--- Disable inputs while mods are reloading
-mod:hook_safe(ModManager, "_reload_mods", function (self)
-    Managers.input:device_block_service("gamepad", 1, "ingame_menu")
-	Managers.input:device_block_service("keyboard", 1, "ingame_menu")
-	Managers.input:device_block_service("mouse", 1, "ingame_menu")
-    self.reload_done = false
-end)
-mod:hook_safe(ModManager, "init", function(self, ...)
-    self.reload_done = true
-end)
-mod:hook_safe(ModManager, "update", function (self, dt)
-    if self._state == "done" and not self.reload_done then
-        Managers.input:device_unblock_service("gamepad", 1, "ingame_menu")
-        Managers.input:device_unblock_service("keyboard", 1, "ingame_menu")
-        Managers.input:device_unblock_service("mouse", 1, "ingame_menu")
-        self.reload_done = true
-    end
-end)
+function is_in_inn()
+    local level_transition_handler = Managers.state.game_mode.level_transition_handler
+	local level_key = level_transition_handler:get_current_level_keys()
+    local is_in_inn = level_key == "inn_level"
+    return is_in_inn
+end
 
 NewDamageProfileTemplates = {}
 
@@ -219,8 +206,24 @@ end
     end
 end]]
 
---Buff Function Templates
+-- Character States
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/states/player_character_state_dodging")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/states/player_character_state_falling")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/states/player_character_state_interacting")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/states/player_character_state_jumping")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/states/player_character_state_leaping")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/states/player_character_state_lunging")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/states/player_character_state_standing")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/states/player_character_state_walking")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/states/player_character_state_stunned")
+
+
+--Player Movement Setting
+mod:dofile("scripts/mods/rwaon_talents/scripts/settings/player_movement_settings")
+
+--Buff Stuff
 mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/buffs/buff_funtion_templates")
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/default_player_unit/buffs/buff_templates")
 
 -- Characters
 mod:dofile("scripts/mods/rwaon_talents/characters/bright_wizard")
@@ -228,6 +231,9 @@ mod:dofile("scripts/mods/rwaon_talents/characters/wood_elf")
 mod:dofile("scripts/mods/rwaon_talents/characters/empire_soldier")
 mod:dofile("scripts/mods/rwaon_talents/characters/witch_hunter")
 mod:dofile("scripts/mods/rwaon_talents/characters/dwarf_ranger")
+
+-- Death Reactions
+mod:dofile("scripts/mods/rwaon_talents/scripts/unit_extensions/generic/death_reactions")
 
 -- Weapons
 RangedBuffTypes = {
@@ -282,6 +288,10 @@ mod:hook(Achievement, "unlock", function(func, ...)
     return
 end)
 
+-- Callbacks
 mod.update = function(dt)
     --mod:update_physics(dt)
+end
+
+mod.on_setting_changed = function()
 end

@@ -1,3 +1,11 @@
+local mod = get_mod("rwaon_talents")
+local values = {
+    chance = 0.04,
+    movespeed = 1.4,
+    attackspeed = 0.2,
+    duration = 5,
+}
+
 WeaponTraits.traits.melee_attack_speed_on_crit = {
     display_name = "traits_melee_attack_speed_on_crit",
     advanced_description = "description_traits_melee_attack_speed_on_crit",
@@ -6,46 +14,46 @@ WeaponTraits.traits.melee_attack_speed_on_crit = {
     description_values = {
         {
             value_type = "percent",
-            value = 0.04
+            value = values.chance
         },
         {
             value_type = "percent",
-            value = 0.2
+            value = values.attackspeed
         },
         {
             value_type = "percent",
-            value = 0.4
+            value = values.movespeed - 1
         },
         {
-            value = 5
+            value = values.duration
         },
     }
 }
-
-WeaponTraits.buff_templates.traits_melee_attack_speed_on_crit_proc = {
+mod:add_buff_extra("traits_melee_attack_speed_on_crit_proc", {
     buffs = {
-        --[[{
-            apply_buff_func = "apply_movement_buff",
-            multiplier = 1.4, -- 1.5
-            refresh_durations = true,
-            remove_buff_func = "remove_movement_buff",
+        {
+            icon = "bardin_slayer_crit_chance",
+            name = "traits_melee_attack_speed_on_crit_proc_attackspeed",
+            stat_buff = "attack_speed",
+            multiplier = values.attackspeed,
             max_stacks = 1,
-            duration = 5,
-            dormant = false,
+            duration = values.duration,
+            refresh_durations = true
+        },
+        {
+            remove_buff_func = "remove_movement_buff",
+            name = "traits_melee_attack_speed_on_crit_proc_movespeed",
+            multiplier = values.movespeed,
+            max_stacks = 1,
+            duration = values.duration,
+            apply_buff_func = "apply_movement_buff",
+            refresh_durations = true,
             path_to_movement_setting_to_modify = {
                 "move_speed"
             }
-        },]]
-        {
-            duration = 5,
-		    multiplier = 0.2,
-            max_stacks = 1,
-			icon = "melee_attack_speed_on_crit",
-			stat_buff = "attack_speed",
-			refresh_durations = true,
         },
     }
-}
+})
 WeaponTraits.buff_templates.traits_melee_attack_speed_on_crit = {
 	buffs = {
 		{
@@ -53,7 +61,7 @@ WeaponTraits.buff_templates.traits_melee_attack_speed_on_crit = {
 			event_buff = true,
 			event = "on_hit",
             dormant = true,
-            proc_chance = 0.04,
+            proc_chance = values.chance,
 		    buff_func = ProcFunctions.add_buff,
 		}
 	}

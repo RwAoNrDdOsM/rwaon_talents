@@ -190,11 +190,26 @@ NewDamageProfileTemplates.fireball_charged_explosion_glance = table.clone(NewDam
 NewDamageProfileTemplates.fireball_charged_explosion_glance.default_target.attack_template = "drakegun_glance"
 NewDamageProfileTemplates.fireball_charged_explosion_glance.default_target.damage_type = "drakegun_glance"
 NewDamageProfileTemplates.fireball_charged_explosion_glance.default_target.dot_template_name = "burning_1W_dot"
-    
+	
+
 for _, staff_fireball_fireball in ipairs{
     "staff_fireball_fireball_template_1",
 } do
     local weapon_template = Weapons[staff_fireball_fireball]
     local action_one = weapon_template.actions.action_one
 	local action_two = weapon_template.actions.action_two
+	change_chain_actions(action_one, "default", 2, {
+		sub_action = "default",
+		start_time = 0.45, -- 0.75
+		action = "action_one",
+		release_required = "action_one_hold",
+		input = "action_one"
+	})
+	change_chain_actions(action_one, "default", 3, {
+		sub_action = "default",
+		start_time = 0.45, -- 0.6
+		action = "action_two",
+		input = "action_two_hold"
+	})
+	--change_weapon_value(action_one, "default", "total_time", 0.5) -- 1
 end
